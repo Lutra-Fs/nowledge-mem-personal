@@ -1,0 +1,8 @@
+{
+  "version": "0.1.0",
+  "marketplace": "nowledge-personal",
+  "local_name": "nowledge-mem-personal-local",
+  "cloud_name": "nowledge-mem-personal-cloud",
+  "display_name": "Nowledge Mem Personal",
+  "developer_name": "Community extension"
+}

@@ -1,0 +1,37 @@
+{
+  "apps": "./.app.json",
+  "author": {
+    "name": "Community extension"
+  },
+  "description": "Use Nowledge Mem with portable memory workflows and EVOLVES-first knowledge maintenance.",
+  "homepage": "https://mem.nowledge.co/docs/integrations/chatgpt-web",
+  "interface": {
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "category": "Productivity",
+    "defaultPrompt": [
+      "Search my Mem for the decision relevant to this task.",
+      "Read my current working context from Mem.",
+      "Save the durable takeaway from this conversation."
+    ],
+    "developerName": "Community extension",
+    "displayName": "Nowledge Mem Personal Remote",
+    "longDescription": "Use an existing remote Nowledge Mem App connection. This package does not capture transcripts.",
+    "shortDescription": "Memory workflows and knowledge maintenance",
+    "websiteURL": "https://mem.nowledge.co"
+  },
+  "keywords": [
+    "memory",
+    "knowledge",
+    "mcp",
+    "chatgpt",
+    "codex"
+  ],
+  "license": "MIT",
+  "name": "nowledge-mem-personal-cloud",
+  "repository": "https://github.com/nowledge-co/community/tree/main/nowledge-mem-openai-plugin",
+  "skills": "./skills/",
+  "version": "0.1.0"
+}

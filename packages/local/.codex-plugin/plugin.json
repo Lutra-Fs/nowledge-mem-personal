@@ -1,0 +1,28 @@
+{
+  "author": {
+    "name": "Community extension"
+  },
+  "description": "Use Nowledge Mem with portable memory workflows and EVOLVES-first knowledge maintenance.",
+  "hooks": "./hooks/hooks.json",
+  "interface": {
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "category": "Productivity",
+    "defaultPrompt": [
+      "What was I working on?",
+      "What do we know about this from before?",
+      "Save the key takeaways from this session."
+    ],
+    "developerName": "Community extension",
+    "displayName": "Nowledge Mem Personal Local",
+    "longDescription": "Use the local Codex connector and lifecycle hooks.",
+    "shortDescription": "Memory workflows and knowledge maintenance",
+    "websiteURL": "https://mem.nowledge.co"
+  },
+  "mcpServers": "./.mcp.json",
+  "name": "nowledge-mem-personal-local",
+  "skills": "./skills/",
+  "version": "0.1.0"
+}

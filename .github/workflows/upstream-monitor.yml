@@ -1,0 +1,49 @@
+name: Review upstream changes
+
+on:
+  # UTC, off the start of the hour. GitHub disables public scheduled workflows
+  # after 60 days without repository activity; re-enable it or run manually.
+  # https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule
+  schedule:
+    - cron: '23 5 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Validate the candidate without creating or editing a PR or issue
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: nowledge-upstream-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Validate and propose the upstream revision
+        env:
+          # This is the only credential. Build subprocesses do not receive it.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then
+            python3 scripts/monitor_upstream.py --dry-run --report dist/monitor-report.json
+          else
+            python3 scripts/monitor_upstream.py --publish --report dist/monitor-report.json
+          fi
+      # The monitor validates before publishing. A GITHUB_TOKEN-created PR may
+      # need a person's approval to run further PR checks. There is no auto-merge.

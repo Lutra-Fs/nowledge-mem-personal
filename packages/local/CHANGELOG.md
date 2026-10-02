@@ -1,0 +1,344 @@
+# Personal adapter changes
+
+## [0.1.0]
+
+Add the portable maintenance skill and personal package metadata. Keep the upstream MCP key and hook layout.
+
+# Changelog
+
+## [Unreleased]
+
+## [0.1.37] - 2026-09-22
+
+### Added
+
+- Share the portable `explore-graph` skill with generic npx and Agent Plugins
+  packages through self-contained ordinary copies and independent-install
+  parity tests.
+- Route bounded Normal, conceptual/historical Deep, and one-hop Progressive
+  retrieval, tracking seed, visited IDs, frontier, and hop limits.
+- Follow non-empty Memory retrieval with a focused graph of the exact result
+  IDs and an observable retrieval trace; prefer the inline MCP App when available.
+
+### Changed
+
+- Preserve API path prefixes in standalone graph URLs and require matching
+  browser identity and Space evidence before browser or link fallback.
+- Advertise graph exploration in the Codex integration registry.
+
+## [0.1.36] - 2026-09-15
+
+### Added
+
+- Continue an explicitly selected Mem Thread in a new Codex session. A synchronous, trusted prompt hook verifies its exact locator and injects bounded context before the agent starts.
+- Capture new native message occurrences into the same Thread, retaining per-session provenance and rejecting changed, deleted, or inaccessible targets.
+
+## [0.1.35] - 2026-09-15
+
+### Fixed
+
+- The Stop hook now treats an explicit Auto-Sync policy skip as a successful
+  no-op, so disabling automatic session capture does not fall back to a legacy
+  full-session save. Manual thread saves remain available.
+
+## [0.1.34] - 2026-09-10
+
+### Fixed
+
+- Stop hooks quietly skip capture when no transcript path is supplied and the
+  project directory is missing, relative, or a filesystem root. Valid project
+  capture and explicit transcript capture keep using the durable queue.
+
+## [0.1.33] - 2026-09-10
+
+### Fixed
+
+- Stop capture can use the installed host hook when Codex does not provide
+  `PLUGIN_ROOT`. Run `scripts/install_hooks.py` after updating to refresh this
+  fallback under `CODEX_HOME` (or `~/.codex`).
+- On macOS and Linux, the Stop hook chooses an available Python interpreter
+  before running capture, so a runtime failure is reported once with its actual
+  exit status. Missing hook files now include setup instructions.
+
+## [0.1.32] - 2026-08-20
+
+### Fixed
+
+- Stop hooks now durably enqueue capture in bounded time. The worker uses the
+  CLI's acknowledged JSONL byte checkpoint, while skill telemetry runs in a
+  detached child. Plugin and CLI upgrades must land together; no synchronous
+  full-session fallback runs inside Stop.
+- The packaged Codex Stop-hook launcher now runs its same-version packaged
+  runtime first and uses the host-level compatibility copy only when the
+  packaged runtime is unavailable, preventing plugin updates from selecting a
+  stale synchronous hook that can exceed Codex's 15-second timeout.
+
+## [0.1.31] - 2026-08-13
+
+### Fixed
+
+- Codex Stop capture now gives the synchronous save path a coherent timeout
+  budget: the packaged and installed hooks allow 120 seconds, while capture
+  work uses one 105-second monotonic deadline, 25-second per-call caps, and
+  deadline-aware retry sleeps. Transcript capture remains the priority; optional
+  skill outcome reporting only runs when budget remains.
+
+## [0.1.30] - 2026-08-08
+
+### Added
+
+- Thread-spawned Codex subagents now receive a bounded Nowledge Context Bundle
+  snapshot and targeted memory/thread retrieval guidance through the native
+  `SubagentStart` hook.
+
+### Improved
+
+- Subagent bootstrap context is capped at 4 KiB, fails open when Mem is
+  unavailable, preserves the configured Nowledge AI Identity, and explicitly
+  avoids distilling speculative intermediate findings.
+- Full subagent context is limited to the exact, case-sensitive
+  `NMEM_SUBAGENT_CONTEXT_TYPES` role allowlist. The default selects
+  `planner`, `code-reviewer`, `architect`, and `researcher`; `explorer` is a
+  no-op while other roles receive retrieval routing without a context read.
+
+## [0.1.29] - 2026-07-23
+
+### Fixed
+
+- Manual Codex handoff now uses a packaged CLI runner instead of assuming that
+  Codex Desktop inherited the login shell's PATH. The same resolver also keeps
+  SessionStart context and Stop capture working when Codex exposes only its
+  controlled runtime paths, while preserving native Windows and WSL launch
+  behavior across both current user-local installs and earlier `Program Files`
+  installs.
+
+## [0.1.28] - 2026-07-16
+
+### Fixed
+
+- Codex Stop capture once again launches the installed `nmem.cmd` directly on native Windows. This removes a redundant `cmd.exe /s /c` layer that could turn a correctly quoted path under `Program Files` into a literal command name and prevent the thread from being saved; WSL keeps its explicit Windows bridge.
+
+## [0.1.27] - 2026-07-14
+
+### Improved
+
+- Codex MCP requests now carry `NMEM_AGENT_ID`, `NMEM_HOST_AGENT_ID`, and `NMEM_SPACE` through Codex's native environment-backed HTTP headers. Named agents such as Raft workers can use their own context, attribution, and default Space without duplicating identity setup in Mem.
+- Hook setup now installs the managed local MCP override even when localhost needs no API key, because the plugin-bundled static endpoint cannot resolve per-agent environment values. Existing user-owned MCP blocks remain untouched.
+
+## [0.1.26] - 2026-07-14
+
+### Added
+
+- Codex now receives the Nowledge Context Bundle automatically through a native `SessionStart` hook, with Working Memory and the legacy local briefing file as bounded fallbacks.
+- A lightweight `UserPromptSubmit` hook keeps continuation, review, regression, release, connector, prior-decision, and exact-history work routed to Nowledge search even when Codex local Memory is enabled.
+
+### Improved
+
+- The setup script detects coexistence with Codex local Memory and explains the safe isolation setting without changing user-owned Codex preferences. Turning off **Allow memory generation from tool-assisted tasks** prevents MCP and web results from being copied into Codex's separate local memory store.
+- Skill descriptions and package guidance now state the stable boundary: Codex local Memory is a local convenience layer; Nowledge Mem owns cross-tool context, exact threads, current Working Memory, sourced decisions, and durable knowledge shared with other agents.
+- Hook setup now follows the host's real feature lifecycle: current Codex loads plugin hooks without the removed `plugin_hooks` flag, while older builds still receive that compatibility gate. Setup also explains Codex's separate hook trust confirmation instead of claiming that enabled hooks are already trusted.
+
+### Fixed
+
+- SessionStart and Stop now share one Windows/WSL launcher for native executables and `.cmd` shims, decode `nmem` output explicitly as UTF-8, and emit ASCII-safe hook JSON. SessionStart fallback attempts share a 10-second total budget, staying below Codex's 15-second hook timeout.
+- The host-level Stop fallback now copies its shared runtime helper alongside the hook, preventing import failures after plugin updates.
+- The Codex package now has an Ubuntu and Windows CI gate for its hook runtime, installer, manifest, and integration contract.
+
+## [0.1.25] - 2026-07-14
+
+### Fixed
+
+- Codex Stop capture now recognizes Raft-managed sessions by their structured `session_meta.originator`. Those long-lived execution traces are no longer imported as conversations full of inbox notices, while normal Codex sessions on the same computer continue to sync automatically.
+- Managed skill outcome reporting remains active for Raft-hosted Codex sessions even when transcript capture is delegated to Raft's conversation boundary.
+- Existing installations should rerun the plugin's `scripts/install_hooks.py` after updating so the host-level fallback hook receives the same boundary fix.
+
+## [0.1.24] - 2026-07-07
+
+### Fixed
+
+- Managed skill outcome extraction now handles `find_skills` matches that omit an explicit version by defaulting matching skill records to version `1`.
+- Codex managed-skills guidance now explicitly prioritizes `find_skills` before filesystem or memory searches when looking for skills.
+- Codex hook installation now treats `skill_outcome.py` as a required runtime file, so broken installs fail loudly instead of silently disabling managed skill outcome reporting.
+
+## [0.1.23] - 2026-07-06
+
+### Added
+
+- Codex Stop hook capture now scans the saved transcript for structured Nowledge Mem `find_skills` results and best-effort reports `completed` outcomes with `nmem skills outcome`. Reports are deduplicated per transcript/skill/version so repeated Stop hooks do not over-count the same skill use.
+
+## [0.1.22] - 2026-07-02
+
+### Fixed
+
+- Windows Stop hook capture now hides the child console window when running `nmem`, avoiding visible `cmd.exe` flashes while Codex saves the session.
+
+## [0.1.21] - 2026-07-02
+
+### Fixed
+
+- Codex marketplace setup now documents sparse checkout for `nowledge-co/community`, avoiding full-repository clone timeouts during install or update.
+
+## [0.1.20] - 2026-07-02
+
+### Fixed
+
+- Codex Stop hook capture now emits a minimal JSON hook response after saving the transcript, preventing current Codex builds from treating successful captures as invalid Stop hook output.
+
+## [0.1.19] - 2026-06-17
+
+### Fixed
+
+- Removed package metadata from `hooks/hooks.json` so current Codex builds can parse the bundled Stop hook config. This fixes startup warnings such as `unknown field description, expected hooks`.
+
+## [0.1.18] - 2026-06-15
+
+### Fixed
+
+- Packaged Codex Stop hooks no longer depend on shell expansion or Codex placeholder replacement for `PLUGIN_ROOT`. The hook command now reads `PLUGIN_ROOT` inside Python, covering Windows runs where Codex executes the generic `command` field through PowerShell.
+
+## [0.1.17] - 2026-06-15
+
+### Fixed
+
+- Packaged Codex Stop hooks now route through a small Python launcher instead of using Bash-only shell conditionals in the generic `command` field. This keeps automatic thread capture working on Windows builds that execute `command` instead of `commandWindows`.
+
+## [0.1.16] - 2026-06-15
+
+### Fixed
+
+- Windows packaged Codex Stop hooks now use `%PLUGIN_ROOT%` for the clean-install fallback path. This keeps automatic thread capture working when the old host-level fallback hook is absent and Codex runs hooks through `cmd.exe`.
+
+## [0.1.15] - 2026-06-14
+
+### Fixed
+
+- Packaged Codex Stop hooks now prefer the stable host-level hook at `~/.codex/hooks/nowledge-mem-stop-save.py` when it exists, then fall back to the packaged `${PLUGIN_ROOT}` script. This prevents an already-running Codex session from calling a removed plugin-cache path after the plugin is updated.
+
+## [0.1.14] - 2026-06-14
+
+### Fixed
+
+- Codex Stop hooks now use a Windows-specific launcher chain (`python`, then `py -3`, then `python3`) instead of assuming `python3` exists on Windows.
+- Codex Stop hook capture now invokes `nmem.CMD` directly on native Windows, avoiding `cmd.exe /s /c` quoting that could make paths with spaces fail.
+
+## [0.1.13] - 2026-05-15
+
+### Fixed
+
+- Codex setup now enables `plugin_hooks = true` in addition to `hooks = true`, matching current Codex's separate gate for lifecycle hooks shipped inside installed plugins.
+- Codex setup now explicitly keeps the Nowledge Mem packaged Stop hook enabled in Codex's `/hooks` state, covering users whose hook was left disabled after an upgrade or manual toggle.
+- Stop-hook capture now suppresses duplicate imports when Codex sees both the plugin-bundled hook and the host-level fallback hook for the same transcript state.
+- The plugin-bundled Stop hook now quotes its `${PLUGIN_ROOT}` script path, so plugin cache paths with spaces do not break automatic capture.
+- Setup guidance now explains that MCP is not required for automatic Codex thread capture; the Stop hook is the capture path, while MCP remains the stronger retrieval and memory-write path.
+
+## [0.1.12] - 2026-05-15
+
+### Fixed
+
+- Codex setup now also recognizes fully quoted TOML MCP table headers such as `["mcp_servers"."nowledge-mem"]` as user-owned config. This prevents setup from appending a duplicate managed table when users already have a valid quoted Codex MCP block.
+
+## [0.1.11] - 2026-05-15
+
+### Fixed
+
+- Codex setup now also checks `nmem config mcp show --host codex` and writes a managed authenticated MCP override when `nmem` has saved client credentials. This keeps Codex MCP aligned with the same URL/API key used by `nmem`, instead of relying only on the bundled unauthenticated local fallback.
+- Setup now enables Codex's current `hooks = true` feature flag while preserving an existing legacy `codex_hooks = true` entry when users already have one.
+- Troubleshooting now explains that `codex mcp login nowledge-mem` is not the right recovery path for Nowledge Mem; users should update `nmem`, install the desktop CLI config, and rerun the plugin setup or paste the generated MCP block.
+
+## [0.1.10] - 2026-05-02
+
+### Fixed
+
+- Stop hooks now use Codex's supported bounded hook contract. Current stable Codex skips async hooks, so the packaged hook and host-level installer no longer emit `async: true`.
+- Automatic capture now retries when the session file exists but `nmem` has not imported any messages yet, which covers the short transcript-flush window after a turn finishes.
+- Hook capture falls back to the legacy non-JSON `nmem t save` command when an older `nmem` build does not support the global `--json` flag.
+- Host-level hook setup should be rerun after this update so existing `~/.codex/hooks.json` entries are rewritten with the non-async hook contract.
+
+## [0.1.9] - 2026-05-02
+
+### Added
+
+- **Automatic Codex thread capture**: packaged a Stop hook that saves the real Codex transcript through `nmem t save --from codex` after each turn, with deduplication handled by Mem.
+- **Current Codex compatibility**: added `scripts/install_hooks.py` to install the same capture hook into `~/.codex/hooks.json` for stable Codex builds that do not yet load plugin-bundled hooks.
+
+### Fixed
+
+- Codex hook capture now shells out to `nmem` instead of importing `nmem_cli` internals, so local and remote Mem client configuration stays owned by the CLI.
+
+## [0.1.8] - 2026-04-27
+
+### Fixed
+
+- Declared the packaged `.mcp.json` in the Codex plugin manifest so bundled MCP is loaded by the host instead of existing only as a repo file.
+- Updated marketplace guidance to use the current `codex plugin marketplace upgrade` command.
+
+## [0.1.7] - 2026-04-27
+
+### Improved
+
+- **Remote MCP setup**: remote Codex users can now generate the exact `~/.codex/config.toml` MCP override with `nmem config mcp show --host codex`, using the same shared client credentials as direct `nmem` commands.
+- **Credential boundary clarity**: package guidance now says plainly that direct MCP clients do not read `~/.nowledge-mem/config.json` automatically; Codex needs a host-owned MCP block for remote Mem.
+
+## [0.1.6] - 2026-04-27
+
+### Improved
+
+- **Bundled local MCP**: the Codex plugin now ships a local Nowledge Mem MCP server definition, so a normal same-machine setup only needs the plugin enabled. Codex config still wins when users define their own `mcp_servers.nowledge-mem`, which keeps remote Mem and custom deployments explicit.
+- **Setup clarity**: install docs now separate the required plugin enablement from the optional MCP override used for remote Mem or custom local endpoints.
+
+## [0.1.5] - 2026-04-21
+
+### Improved
+
+- **Hybrid Codex setup**: the package now explicitly recommends `plugin + MCP` as the best modern Codex setup. The plugin package remains responsible for Working Memory guidance, `nmem` fallback, and real `save-thread`; MCP is now documented as the stronger retrieval and memory-write path when available.
+- **Copy-paste config**: added a bundled `codex.config.example.toml` with the combined plugin + MCP block for local and remote Mem setups.
+- **Package guidance**: `AGENTS.md` and the Codex skills now teach a hybrid operating model: prefer Nowledge Mem MCP tools for retrieval and memory writes when present, fall back to `nmem`, and keep `nmem t save --from codex` as the honest transcript-save path.
+
+## [0.1.4] - 2026-04-21
+
+### Improved
+
+- **Marketplace-first install path**: home-level setup now uses `codex plugin marketplace add nowledge-co/community` as the primary flow.
+- **Marketplace update path**: update guidance now leads with `codex plugin marketplace upgrade nowledge-community`, then falls back to adding the marketplace for first-time or legacy installs.
+- **Legacy Codex compatibility**: docs now include fallback commands for builds that still expose only `codex marketplace ...`.
+- **Config key clarity**: docs now distinguish `nowledge-mem@nowledge-community` (managed marketplace) from `nowledge-mem@local` (repo-pinned local source).
+- **Install expectation clarity**: docs now state the required `/plugins` install step before enabling `nowledge-mem@nowledge-community` in config.
+
+## [0.1.3] - 2026-04-11
+
+### Improved
+
+- **Codex guidance**: Working Memory now explicitly hands off to search on continuation-style tasks such as reviews, regressions, release prep, and integration debugging.
+- **Distillation policy**: Codex guidance now tells the agent to do an explicit end-of-task review for durable memories instead of treating distillation as a vague optional behavior.
+- **Remote setup**: docs now lead with `nmem config client ...` instead of manual JSON editing.
+
+### Fixed
+
+- **Install copy command**: Codex install/update instructions now preserve hidden files such as `.codex-plugin/plugin.json`.
+- **Docs honesty**: removed wording that implied Codex has lifecycle-hook automation comparable to hosts like Claude Code or OpenClaw.
+
+## [0.1.2] - 2026-04-06
+
+### Fixed
+
+- **YAML frontmatter**: quoted skill descriptions containing `: ` (colon-space) to prevent `serde_yaml` parse failures that silently dropped skills from the Codex UI.
+- **Skill rename**: `read-working-memory` renamed to `working-memory`.
+
+## [0.1.1] - 2026-04-05
+
+### Fixed
+
+- **Install path**: corrected to `~/.codex/plugins/cache/local/nowledge-mem/local/` to match Codex plugin store layout.
+- **Config**: added missing `[features] plugins = true` gate required by Codex to enable the plugin system.
+- **Repo-level install**: replaced incorrect `cp` to `.agents/plugins/` with proper `marketplace.json` approach.
+- **plugin.json**: removed fields Codex does not parse (`author`, `homepage`, `repository`, `license`, `keywords`); kept `version` for desktop app update detection.
+- **Troubleshooting**: added "plugin is not installed" entry for path-related failures.
+
+## [0.1.0] - 2026-03-31
+
+### Added
+
+- Five composable skills: `read-working-memory`, `search-memory`, `save-thread`, `distill-memory`, `status`.
+- Plugin manifest with marketplace metadata.
+- Project-level `AGENTS.md` for stronger memory behavior in repos.
+- Migration path from `nowledge-mem-codex-prompts`.

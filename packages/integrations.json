@@ -1,0 +1,3117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "_comment": "Canonical registry of all Nowledge Mem integrations. Single source of truth: other surfaces (website integrations.ts, check-integration skill, README tables, marketplace JSONs) should reference or be validated against this file. autonomy.bootstrap/recall/distill use: automatic | guided | manual. autonomy.threads uses: automatic-capture | explicit-save | handoff-only | import-only | none. connect.skillUrl is the universal install contract. Per-tool install.agentGuide prompts must point to that skill first; per-tool docs remain behavior and troubleshooting references.",
+  "connect": {
+    "appliesTo": [
+      "claude-code",
+      "grok",
+      "grok-bot",
+      "codex-cli",
+      "cursor",
+      "gemini-cli",
+      "google-antigravity",
+      "copilot-cli",
+      "openclaw",
+      "hermes",
+      "ekko",
+      "droid",
+      "alma",
+      "bub",
+      "pi",
+      "step-code",
+      "opencode",
+      "craft-agent",
+      "workbuddy",
+      "codebuddy",
+      "dimagent",
+      "kimi-code",
+      "kimi-work",
+      "zcode",
+      "deepseek-harness",
+      "mimo-code",
+      "omp",
+      "claude-desktop",
+      "proma",
+      "raft",
+      "lody",
+      "multica",
+      "cumora",
+      "paseo",
+      "openhands",
+      "langgraph",
+      "mirasim",
+      "cindy",
+      "amp",
+      "agent-plugins",
+      "mcp-direct",
+      "chatgpt-cloud",
+      "claude-cloud"
+    ],
+    "designDoc": "https://github.com/nowledge-co/mem/blob/main/docs/design/ONBOARDING_REVISIT_0_9_0.md",
+    "doesNotApplyTo": [
+      "cradle",
+      "arkloop",
+      "opticlm",
+      "browser-extension",
+      "raycast",
+      "antigravity-extractor",
+      "windsurf-extractor"
+    ],
+    "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for the AI tool I am using.",
+    "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为我当前使用的 AI 工具安装或更新 Nowledge Mem。",
+    "skillUrl": "https://mem.nowledge.co/SKILL.md"
+  },
+  "integrations": [
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the native connector",
+          "Keep nmem available on this machine",
+          "Restart Claude Code after install or update",
+          "Keep the SubagentStart hook enabled; full context defaults to the exact Plan,code-reviewer,architect,researcher allowlist and NMEM_SUBAGENT_CONTEXT_TYPES can replace it",
+          "Run nmem t sync --from claude-code --all-projects --apply only when you want to import older Claude Code sessions"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-claude-code-plugin",
+      "id": "claude-code",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Claude Code. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Claude Code 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "claude plugin marketplace add https://github.com/nowledge-co/community && claude plugin install nowledge-mem@nowledge-community",
+        "detectionHint": "Running as Claude Code agent; ~/.claude/ exists",
+        "docsUrl": "/docs/integrations/claude-code",
+        "updateCommand": "claude plugin marketplace add https://github.com/nowledge-co/community && claude plugin marketplace update nowledge-community && claude plugin update nowledge-mem@nowledge-community"
+      },
+      "name": "Claude Code",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-thread"
+      ],
+      "slashCommands": [
+        "/save",
+        "/search",
+        "/sum",
+        "/status"
+      ],
+      "threadSave": {
+        "command": "nmem t save --from claude-code",
+        "historicalCommand": "nmem t sync --from claude-code --all-projects",
+        "method": "cli-native",
+        "runtime": "claude-code"
+      },
+      "toolNaming": {
+        "convention": "cli-direct",
+        "note": "SessionStart injects the full Nowledge Context Bundle. SubagentStart uses the exact NMEM_SUBAGENT_CONTEXT_TYPES allowlist for bounded context, skips Explore by default, and gives other unlisted types retrieval routing without a context read. Declarative skills and slash commands invoke nmem CLI directly."
+      },
+      "transport": "cli",
+      "type": "plugin",
+      "version": "0.7.24"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Grok Build plugin from the community repository subdirectory",
+          "Keep nmem available on this machine",
+          "Restart Grok Build after install or update",
+          "Run nmem t sync --from grok --all-projects --apply only when you want to import older Grok Build sessions"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-claude-code-plugin",
+      "id": "grok",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Grok Build. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Grok Build 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "grok plugin install nowledge-co/community#nowledge-mem-claude-code-plugin --trust",
+        "detectionHint": "Running as Grok Build; ~/.grok/ exists",
+        "docsUrl": "/docs/integrations/grok",
+        "updateCommand": "grok plugin update nowledge-mem"
+      },
+      "name": "Grok Build",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-thread"
+      ],
+      "slashCommands": [
+        "/save",
+        "/search",
+        "/sum",
+        "/status"
+      ],
+      "threadSave": {
+        "command": "nmem t save --from grok",
+        "historicalCommand": "nmem t sync --from grok --all-projects",
+        "method": "cli-native",
+        "note": "Grok Build loads Claude-compatible plugin assets. The shared Nowledge Mem hook detects Grok Build's hook environment and routes Context Bundle reads and transcript capture as source_app=grok.",
+        "runtime": "grok"
+      },
+      "toolNaming": {
+        "convention": "cli-direct",
+        "note": "Grok Build loads the shared Claude-compatible plugin package; hook scripts detect Grok Build and call nmem with source_app=grok."
+      },
+      "transport": "cli",
+      "type": "plugin",
+      "version": "0.7.24"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Use a public HTTPS Mem MCP endpoint; a local 127.0.0.1 or localhost address is not reachable from Grok Bot",
+          "Access Anywhere Quick link works without a Plus or Max subscription; Nowledge Link is the stable managed-link option for Plus and Max",
+          "At grok.com/connectors, use OAuth for either a Cloud workspace or a public App workspace endpoint supplied by Access Anywhere",
+          "Use the Cloud endpoint for a Cloud workspace or an Access Anywhere endpoint for an App workspace",
+          "Read the Nowledge Mem Grok Bot guide before testing memory tools",
+          "Keep each Bot's role and identity explicit in Mem rather than inferring identity from source_app"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "none"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "cloud",
+      "directory": null,
+      "id": "grok-bot",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow its Grok connector path. First ask me to choose Nowledge Cloud or Mem App and a target Space. Then open https://grok.com/connectors and guide me to add the public Nowledge Mem /mcp endpoint as a Custom connector. For Cloud, use its Cloud endpoint. For App, use the endpoint supplied by Access Anywhere Quick link, Nowledge Link, or my public domain. Complete OAuth; do not ask for or paste a Mem API key. Do not run a local Grok Build plugin command or use localhost. After I confirm the connector is added, verify connected status, a Context Bundle or Working Memory check, bounded search, one scoped test write to my chosen Space, and exact-ID readback. Report the created test Memory ID and that complete-thread capture is not automatic unless Grok provides a documented export or hook payload.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按其中的 Grok connector 路径操作。先让我选择 Nowledge Cloud 或 Mem App，以及目标 Space。然后打开 https://grok.com/connectors，引导我把公开的 Nowledge Mem /mcp 地址添加为 Custom connector。Cloud 使用 Cloud endpoint；App 使用 Access Anywhere Quick link、Nowledge Link 或我的公开域名提供的 endpoint。完成 OAuth；不要索要或粘贴 Mem API key。不要运行本地 Grok Build plugin 命令，也不要使用 localhost。我确认连接器已添加后，验证 connected 状态、进行 Context Bundle 或 Working Memory 检查、一次有界搜索、向所选 Space 写入一条范围明确的测试记忆，并按精确 ID 回读。最后报告测试 Memory ID，并说明除非 Grok 提供有文档说明的导出或 hook payload，否则不会自动捕获完整会话。"
+        },
+        "detectionHint": "Grok Bot is a cloud-managed host and is not locally detectable by the desktop app",
+        "docsUrl": "/docs/integrations/grok-bot"
+      },
+      "name": "Grok Bot",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "none",
+        "note": "Grok Bot is a cloud-managed host. Its documented plugin and hook surfaces may be available through Grok Bot or team settings, and the shared Claude-compatible package can be enabled there when the host exposes it. The Bot-specific transcript export and hook payload needed for automatic full-thread capture are not yet a verified Nowledge contract. Use MCP for memory operations and supported import paths for conversations you can export."
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "Grok Bot uses the standard Nowledge Mem MCP tool surface. The exact tool names are supplied by the connected MCP server. A compatible package may add skills and lifecycle hooks when enabled by the host, but that optional path does not by itself grant access to the Bot's private transcript.",
+        "prefix": "memory_"
+      },
+      "transport": "mcp",
+      "type": "connector",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Use the public MCP endpoint ending in /mcp: Cloud endpoint for a Cloud workspace or Access Anywhere for an App workspace",
+          "Complete the host's OAuth connector approval when requested",
+          "Custom MCP Apps can expose both read and write tools when the ChatGPT plan, workspace policy, and approved OAuth scopes allow them",
+          "Directory publication is separate from private Developer mode setup and remains subject to OpenAI review",
+          "If the account cannot create a custom App, use browser capture until the public plugin is approved",
+          "Treat the universal public plugin as submitted and pending review until OpenAI approves the Plugins Directory listing",
+          "Use the browser extension or an official export when you need conversation capture",
+          "Keep ChatGPT's connector identity separate from any local ChatGPT export source"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "none"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "cloud",
+      "directory": "nowledge-mem-openai-plugin",
+      "id": "chatgpt-cloud",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the ChatGPT Cloud path. If custom Apps are available for this account, create one from ChatGPT Apps settings, add the public Nowledge Mem /mcp endpoint, and complete OAuth. Use the Cloud endpoint for a Cloud workspace or Access Anywhere for an App workspace. Verify a Context Bundle or Working Memory check, a memory search, and one scoped write when the approved scopes and workspace policy allow it. If the create action is unavailable, use browser capture until the submitted public plugin is approved. Never invent a plugin_asdk_app ID or claim MCP captures ChatGPT threads.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 ChatGPT 云端路径操作。如果这个账号可以使用自定义 App，就从 ChatGPT 的 Apps 设置创建一个，添加公开的 Nowledge Mem /mcp 地址并完成 OAuth；Cloud workspace 使用 Cloud endpoint，App workspace 使用 Access Anywhere。在已授权 scope 和 workspace 策略允许时，完成 Context Bundle 或 Working Memory 检查、一次记忆搜索和一次范围明确的写入。如果没有创建入口，先用浏览器扩展捕获内容，并等待已经提交审核的公开 plugin。不要伪造 plugin_asdk_app ID，也不要声称 MCP 会捕获 ChatGPT 会话。"
+        },
+        "detectionHint": "ChatGPT Web and desktop are cloud clients and are not locally detectable by the desktop app",
+        "docsUrl": "/docs/integrations/chatgpt-web",
+        "publicDirectoryStatus": "submitted-pending-review"
+      },
+      "name": "ChatGPT Web and Desktop",
+      "skills": [
+        "nowledge-mem"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "none",
+        "note": "Remote MCP gives ChatGPT access to Mem but not Mem access to ChatGPT transcripts. Use the browser extension or an official export for capture."
+      },
+      "toolNaming": {
+        "convention": "openai-plugin+mcp-backend",
+        "note": "The plugin contributes the reusable workflow; the registered Cloud MCP connection supplies tools. The dedicated Codex package remains the local hook and transcript-capture path."
+      },
+      "transport": "openai-plugin+mcp",
+      "type": "plugin",
+      "version": "0.1.0"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Remote custom connectors are available on Free, Pro, Max, Team, and Enterprise; Free accounts can add one custom connector",
+          "Open Claude's prefilled custom-connector link or add the public /mcp endpoint under Customize > Connectors, not claude_desktop_config.json",
+          "Use the Cloud endpoint for a Cloud workspace or Access Anywhere for an App workspace",
+          "Complete Claude's remote custom connector OAuth approval",
+          "Use an export or local Claude Code connector for transcript capture",
+          "Configure a durable AI Identity explicitly when several Claude agents share a workspace"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "none"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "cloud",
+      "directory": null,
+      "id": "claude-cloud",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the Claude Cloud path. Open the prefilled Connect to Claude link for the selected public Nowledge Mem /mcp endpoint, review the name and URL, then approve the requested workspace scopes. Use the Cloud endpoint for a Cloud workspace or Access Anywhere for an App workspace. Verify a Context Bundle or Working Memory check, a memory search, and one scoped write. Do not put this remote server in claude_desktop_config.json, use localhost, or claim automatic transcript capture.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 Claude 云端路径操作。打开所选公开 Nowledge Mem /mcp endpoint 对应的 Connect to Claude 预填链接，确认名称和 URL，再批准请求的 workspace scopes。Cloud workspace 使用 Cloud endpoint；App workspace 使用 Access Anywhere。通过 Context Bundle 或 Working Memory 检查、一次记忆搜索和一次有范围的写入进行验证。不要把这个远程 server 写进 claude_desktop_config.json，不要使用 localhost，也不要声称会自动捕获对话。"
+        },
+        "detectionHint": "Claude Cloud is a hosted client and is not locally detectable by the desktop app",
+        "docsUrl": "/docs/integrations/claude-cloud"
+      },
+      "name": "Claude Cloud",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "none",
+        "note": "Remote MCP does not expose Claude's private hosted transcripts. Use a supported export or the local Claude Code connector for capture."
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "The connected Cloud MCP server supplies the tool names; Claude Cloud has no local Nowledge hook in this connector."
+      },
+      "transport": "mcp",
+      "type": "connector",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the native connector",
+          "Keep nmem available on this machine",
+          "Restart Copilot CLI after install so hooks reload"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-copilot-cli-plugin",
+      "id": "copilot-cli",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Copilot CLI. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Copilot CLI 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "copilot plugin marketplace add nowledge-co/community && copilot plugin install nowledge-mem@nowledge-community",
+        "detectionHint": "Running as GitHub Copilot CLI agent; ~/.copilot/ exists",
+        "docsUrl": "/docs/integrations/copilot-cli",
+        "updateCommand": "copilot plugin marketplace add nowledge-co/community && copilot plugin marketplace update nowledge-community && copilot plugin update nowledge-mem"
+      },
+      "name": "Copilot CLI",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-thread"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "plugin-capture",
+        "note": "Python script reads Copilot CLI transcript events from Stop, PreCompact, and SessionEnd hooks, creates threads via nmem t import. No native nmem parser exists for copilot-cli.",
+        "runtime": "copilot-cli"
+      },
+      "toolNaming": {
+        "convention": "cli-direct",
+        "note": "Lifecycle hooks run automatically; skills teach Copilot to invoke nmem CLI directly when needed"
+      },
+      "transport": "cli",
+      "type": "plugin",
+      "version": "0.1.4"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Gemini extension",
+          "Keep the bundled MCP endpoint local, or use nmem config mcp show --host gemini-cli to override mcpServers.nowledge-mem for remote Mem",
+          "Keep nmem available on this machine",
+          "Start a fresh Gemini CLI session after install",
+          "Run nmem t sync --from gemini-cli --all-projects --apply only when you want to import older Gemini CLI sessions"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-gemini-cli",
+      "id": "gemini-cli",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Gemini CLI. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Gemini CLI 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "gemini extensions install https://github.com/nowledge-co/nowledge-mem-gemini-cli --auto-update",
+        "detectionHint": "Running as Gemini CLI agent; ~/.gemini/ exists",
+        "docsUrl": "/docs/integrations/gemini-cli",
+        "updateCommand": "gemini extensions update nowledge-mem-gemini-cli"
+      },
+      "name": "Gemini CLI",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-thread",
+        "save-handoff"
+      ],
+      "slashCommands": [
+        "/nowledge:read-working-memory",
+        "/nowledge:search-memory",
+        "/nowledge:distill-memory",
+        "/nowledge:save-thread",
+        "/nowledge:save-handoff",
+        "/nowledge:status"
+      ],
+      "threadSave": {
+        "command": "nmem t save --from gemini-cli",
+        "historicalCommand": "nmem t sync --from gemini-cli --all-projects",
+        "method": "cli-native",
+        "runtime": "gemini-cli"
+      },
+      "toolNaming": {
+        "convention": "hybrid-cli+mcp",
+        "note": "Bundled MCP gives Gemini direct retrieval and memory-write tools; TOML commands and lifecycle hooks still invoke nmem CLI for thread capture and fallback."
+      },
+      "transport": "cli+mcp",
+      "type": "extension",
+      "version": "0.1.9"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Google Antigravity plugin from nowledge-co/nowledge-mem-google-antigravity into ~/.gemini/config/plugins or the workspace .agents/plugins directory",
+          "Keep nmem available on the machine where Antigravity stores its brain/<conversationId> transcript.jsonl files",
+          "Restart Google Antigravity after install or update so rules, skills, MCP, and lifecycle hooks reload",
+          "Use nmem config mcp show --host google-antigravity for remote Mem or authenticated localhost",
+          "Run nmem t sync --from antigravity --apply only when you want to import older Antigravity sessions"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": null,
+      "externalRepo": "https://github.com/nowledge-co/nowledge-mem-google-antigravity",
+      "id": "google-antigravity",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Google Antigravity. Install the nowledge-co/nowledge-mem-google-antigravity plugin, restart Antigravity, verify with nmem status and the Context Bundle or Working Memory check, then run a short session and confirm nmem t list --source antigravity shows the captured thread.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Google Antigravity 安装或更新 Nowledge Mem。安装 nowledge-co/nowledge-mem-google-antigravity 插件，重启 Antigravity，用 nmem status 和 Context Bundle 或 Working Memory 检查验证，再跑一个短会话并确认 nmem t list --source antigravity 能看到捕获的 Thread。"
+        },
+        "command": "mkdir -p ~/.gemini/config/plugins && git clone --depth 1 https://github.com/nowledge-co/nowledge-mem-google-antigravity.git ~/.gemini/config/plugins/nowledge-mem",
+        "configRequired": "Install the plugin into a folder scanned by Google Antigravity, then restart Antigravity. The plugin bundles a local MCP config; for remote Mem, generate an Antigravity-shaped MCP block with nmem config mcp show --host google-antigravity and paste it into ~/.gemini/config/mcp_config.json or the MCP Store override.",
+        "detectionHint": "Running inside Google Antigravity 2.0; ~/.gemini/config/plugins exists, ~/.gemini/antigravity exists, or the user asks about Antigravity plugins, PreInvocation, Stop hooks, transcript.jsonl, or the abn donated plugin.",
+        "docsUrl": "/docs/integrations/google-antigravity",
+        "updateCommand": "git -C ~/.gemini/config/plugins/nowledge-mem pull --ff-only",
+        "windowsCommand": "$null = New-Item -ItemType Directory -Force \"$env:USERPROFILE\\.gemini\\config\\plugins\"; git clone --depth 1 https://github.com/nowledge-co/nowledge-mem-google-antigravity.git \"$env:USERPROFILE\\.gemini\\config\\plugins\\nowledge-mem\"",
+        "windowsUpdateCommand": "git -C \"$env:USERPROFILE\\.gemini\\config\\plugins\\nowledge-mem\" pull --ff-only"
+      },
+      "name": "Google Antigravity",
+      "skills": [
+        "nmem-memory-working",
+        "nmem-memory-search",
+        "nmem-memory-distill",
+        "nmem-thread-save",
+        "nmem-thread-handoff",
+        "nmem-status"
+      ],
+      "slashCommands": [
+        "/nmem-memory-working",
+        "/nmem-memory-search",
+        "/nmem-memory-distill",
+        "/nmem-thread-save",
+        "/nmem-thread-handoff",
+        "/nmem-status"
+      ],
+      "threadSave": {
+        "command": "nmem t sync --from antigravity --session-id <conversation-id> --apply",
+        "historicalCommand": "nmem t sync --from antigravity",
+        "method": "hook+cli-native",
+        "note": "The donated Google Antigravity plugin runs on Antigravity's native lifecycle hooks. PreInvocation injects Context Bundle or Working Memory, PostInvocation reports pending offline syncs, PreToolUse gates destructive memory actions, and Stop imports the local transcript.jsonl under the canonical source=antigravity. MCP remains the structured retrieval/write surface; nmem owns durable client config, remote auth, and historical backfill.",
+        "runtime": "antigravity"
+      },
+      "toolNaming": {
+        "convention": "antigravity-plugin+mcp+cli",
+        "note": "Google Antigravity loads rules, skills, bundled MCP, and lifecycle hooks from the plugin folder. MCP is for retrieval and structured memory writes. Hook transcript capture and historical import store threads under canonical source=antigravity so old Antigravity CLI, Google Antigravity, and decoded trajectory fallback history do not fork into separate sources."
+      },
+      "transport": "cli+mcp+hooks",
+      "type": "plugin",
+      "version": "0.1.3"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Codex package and enable plugins in ~/.codex/config.toml, which is shared by the Codex desktop app and Codex CLI",
+          "Run the bundled hook setup after install or update so Codex enables SessionStart context, selective bounded SubagentStart context, per-prompt memory routing, Stop capture, and a managed MCP override from nmem config when needed",
+          "Keep the SubagentStart hook enabled; full context defaults to the exact planner,code-reviewer,architect,researcher role allowlist and NMEM_SUBAGENT_CONTEXT_TYPES can replace it",
+          "Restart Codex and trust the new or changed Nowledge Mem hooks when prompted; enabled and trusted are separate Codex security states",
+          "If Codex local Memory is also enabled, turn off Allow memory generation from tool-assisted tasks so MCP and web results do not get copied into Codex's separate local memory store",
+          "Use the bundled local MCP server, or use nmem config mcp show --host codex to override mcp_servers.nowledge-mem for remote Mem or authenticated localhost",
+          "Keep nmem available on this machine",
+          "Run nmem t sync --from codex --all-projects --apply only when you want to import older Codex sessions",
+          "Merge the package AGENTS.md into the project for stronger follow-through"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-codex-plugin",
+      "id": "codex-cli",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Codex. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Codex 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "codex plugin marketplace add nowledge-co/community --sparse .agents --sparse nowledge-mem-codex-plugin && codex plugin add nowledge-mem@nowledge-community",
+        "configRequired": "After marketplace add or update, install or update nowledge-mem@nowledge-community with codex plugin add nowledge-mem@nowledge-community or from Codex /plugins, then set [features] plugins = true, hooks = true, and [plugins.\"nowledge-mem@nowledge-community\"] enabled = true in ~/.codex/config.toml. Run the installed scripts/install_hooks.py once after the package itself is installed; it adds the legacy plugin_hooks gate only when codex features list says the host still requires it, enables SessionStart context, selective bounded SubagentStart context, per-prompt memory routing, and Stop capture, and writes a managed MCP override when nmem has saved credentials. SubagentStart reads Codex role names from the exact, case-sensitive NMEM_SUBAGENT_CONTEXT_TYPES allowlist; explorer is a no-op by default while default and worker receive routing only. Restart Codex and trust the Nowledge Mem hooks when prompted. If Codex local Memory is enabled too, turn off Allow memory generation from tool-assisted tasks. Add your own [mcp_servers.nowledge-mem] only for a deliberate custom endpoint.",
+        "detectionHint": "Running inside Codex desktop or Codex CLI; ~/.codex/ exists",
+        "docsUrl": "/docs/integrations/codex-cli",
+        "updateCommand": "(codex plugin marketplace remove nowledge-community || codex marketplace remove nowledge-community || true) && codex plugin marketplace add nowledge-co/community --sparse .agents --sparse nowledge-mem-codex-plugin && codex plugin add nowledge-mem@nowledge-community"
+      },
+      "legacyDirectory": "nowledge-mem-codex-prompts",
+      "name": "Codex",
+      "skills": [
+        "working-memory",
+        "search-memory",
+        "save-thread",
+        "distill-memory",
+        "explore-graph",
+        "status"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "command": "nmem t save --from codex",
+        "historicalCommand": "nmem t sync --from codex --all-projects",
+        "method": "hook+cli-native",
+        "note": "Thread resume v1 binds a fresh Codex native session to an exact existing Mem Thread. UserPromptSubmit must be synchronous, enabled, and trusted; Stop capture then appends to the bound Thread.",
+        "runtime": "codex"
+      },
+      "toolNaming": {
+        "convention": "hybrid-cli+mcp",
+        "note": "SessionStart injects the Nowledge Context Bundle. SubagentStart uses an exact Codex role allowlist: selected context-heavy roles receive a bounded snapshot, explorer is a no-op by default, and other roles receive targeted retrieval guidance without a context read. UserPromptSubmit keeps cross-tool/exact-history work routed to Nowledge even when Codex local Memory is enabled. The search-memory skill routes bounded Normal, Deep, and one-hop Progressive graph retrieval, and non-empty Memory results get a focused graph through the inline MCP App or standalone fallback. Prefer MCP tools for retrieval and memory writes; the package bundles the local server while user config can override it. The Stop hook captures real Codex transcripts through nmem, guards duplicate hook sources for the same transcript state, and skips Raft-managed execution traces by structured session originator without affecting normal Codex sessions on the same computer. The save-thread skill remains the explicit fallback."
+      },
+      "transport": "cli+mcp",
+      "type": "plugin",
+      "version": "0.1.0"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the DimAgent package through its Codex-compatible plugin flow and restart DimAgent",
+          "Trust the PreCompact, Stop, and SubagentStop hooks if DimAgent requests trust",
+          "Keep nmem installed and configured with a Mem version that supports source=dimagent",
+          "Treat a hook invocation as successful only when nmem returns status=enqueued",
+          "Keep filesystem watcher capture disabled unless it is explicitly enabled"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-dimagent-plugin",
+      "id": "dimagent",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to connect Nowledge Mem in DimAgent. Verify with nmem status and the Context Bundle or Working Memory check, then complete a short session and confirm nmem t list --source dimagent after a durable capture acknowledgement.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明在 DimAgent 中连接 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证，然后完成一次短会话，并在 durable capture 确认后用 nmem t list --source dimagent 检查。"
+        },
+        "configRequired": "Install nowledge-mem-dimagent-plugin through DimAgent's Codex-compatible plugin flow, restart DimAgent, and trust the lifecycle hooks when prompted. This package does not claim an unverified DimAgent marketplace command.",
+        "detectionHint": "Running inside DimAgent or a DimAgent Codex-compatible plugin host",
+        "docsUrl": "https://github.com/nowledge-co/community/tree/main/nowledge-mem-dimagent-plugin#readme"
+      },
+      "name": "DimAgent",
+      "skills": [
+        "working-memory",
+        "search-memory",
+        "distill-memory",
+        "explore-graph",
+        "status"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "command": "nmem t capture --from dimagent --session-id <id>",
+        "method": "hook+cli-native",
+        "note": "PreCompact, Stop, and SubagentStop request durable capture only after nmem accepts the enqueue. SubagentStop uses the child agent_id; filesystem watcher capture stays disabled by default.",
+        "runtime": "dimagent"
+      },
+      "toolNaming": {
+        "convention": "codex-compatible-plugin+mcp+cli",
+        "note": "The package reuses shared Nowledge Mem skills and local MCP defaults. Hooks never export transcript content or create threads directly; nmem owns source-specific parsing and durable queueing."
+      },
+      "transport": "mcp+hook",
+      "type": "plugin",
+      "version": "0.1.0"
+    },
+    {
+      "aliases": [
+        "slock"
+      ],
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Nowledge Mem connector for the AI tool Raft launches, such as Codex or Claude Code",
+          "Create one Mem AI Identity for each named Raft worker",
+          "Set NMEM_AGENT_ID=<agent-slug> in that Raft worker's runtime environment",
+          "Use skills or MCP for memory inside Raft; do not treat the managed child rollout as the Raft conversation"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "none"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "orchestrator",
+      "directory": null,
+      "id": "raft",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the Raft path to configure this worker. Connect the AI tool Raft launches first, then set NMEM_AGENT_ID=<agent-slug>; add NMEM_SPACE only if this whole worker should override its default space. Use Mem skills or MCP inside Raft. Do not save the managed Codex rollout as the Raft conversation. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 Raft 路径配置这个 worker。先连接 Raft 启动的 AI 工具，再设置 NMEM_AGENT_ID=<agent-slug>；只有当整个 worker 需要覆盖默认 Space 时，才添加 NMEM_SPACE。在 Raft 内使用 Mem skills 或 MCP，不要把托管 Codex rollout 当作 Raft 对话保存。用 nmem status 和 Context Bundle 或 Working Memory 检查验证，然后总结你改了什么。"
+        },
+        "command": "Connect the AI tool Raft launches, then set NMEM_AGENT_ID=<agent-slug> in each Raft agent runtime config.",
+        "detectionHint": "Running inside a Raft-managed child agent (originator: raft-daemon; legacy alias: slock-daemon)",
+        "docsUrl": "/docs/integrations/raft"
+      },
+      "name": "Raft",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "host-native-pending",
+        "note": "Raft mediates the human conversation through its own inbox and message transport. Its managed Codex rollout is an execution trace, so the Codex connector skips that rollout instead of creating a Thread full of control notices. Nowledge Mem skills and MCP work inside the worker today; lossless conversation sync requires a Raft-native conversation connector."
+      },
+      "toolNaming": {
+        "convention": "mediated-host",
+        "note": "Memory tool calls inside the worker retain child-runtime provenance and use NMEM_AGENT_ID for the portable worker identity. A future native conversation connector must save the human-visible Thread with source_app=raft and keep codex/claude-code/pi only as runtime metadata."
+      },
+      "transport": "mediated-host",
+      "type": "orchestrator",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Nowledge Mem connector for the AI tool Lody launches",
+          "Leave NMEM_AGENT_ID unset for generic runtime presets",
+          "Set NMEM_AGENT_ID=<agent-slug> only for a role-specific Lody Agent Config"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "none"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "orchestrator",
+      "directory": null,
+      "id": "lody",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the Lody path. Connect the AI tool Lody launches first. Set NMEM_AGENT_ID=<agent-slug> only if this Lody Agent Config represents a stable role. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 Lody 路径配置。先连接 Lody 启动的 AI 工具。只有当这个 Lody Agent Config 代表稳定角色时，才设置 NMEM_AGENT_ID=<agent-slug>。用 nmem status 和 Context Bundle 或 Working Memory 检查验证，然后总结你改了什么。"
+        },
+        "command": "Connect the AI tool Lody launches first. Set NMEM_AGENT_ID=<agent-slug> only if this Lody Agent Config represents a stable role.",
+        "detectionHint": "Running inside a Lody-launched child agent",
+        "docsUrl": "/docs/integrations/lody"
+      },
+      "name": "Lody",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "child-runtime",
+        "note": "Lody launches Claude Code, Codex, or another AI tool through Agent Config. Thread capture and MCP behavior come from that launched tool's connector. Set a Mem AI Identity only when an Agent Config represents a stable role."
+      },
+      "toolNaming": {
+        "convention": "child-runtime",
+        "note": "Keep source_app as the launched AI tool. Use NMEM_AGENT_ID only for a role-specific Lody Agent Config; otherwise rely on the launched tool connector without identity override."
+      },
+      "transport": "child-runtime",
+      "type": "orchestrator",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Nowledge Mem connector for the AI tool Multica launches",
+          "If the Multica agent runs Claude Code, save the Nowledge Mem MCP config in the agent's MCP settings",
+          "Set NMEM_AGENT_ID=<agent-slug> in the Multica agent custom environment",
+          "Avoid broad secrets in agent custom environment variables"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "none"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "orchestrator",
+      "directory": null,
+      "id": "multica",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the Multica path. Connect the AI tool Multica launches first. If the Multica agent runs Claude Code, save the Nowledge Mem MCP config in the agent's MCP settings so Multica forwards it with --mcp-config. Then set NMEM_AGENT_ID=<agent-slug> in the Multica agent custom environment. Supported sessions inside that AI tool can sync through its Nowledge Mem connector. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 Multica 路径配置。先连接 Multica 启动的 AI 工具。如果这个 Multica Agent 使用 Claude Code，把 Nowledge Mem MCP 配置保存到该 Agent 的 MCP 设置里，让 Multica 通过 --mcp-config 传给 Claude Code。然后在 Multica Agent custom env 中设置 NMEM_AGENT_ID=<agent-slug>。这个 AI 工具里的受支持会话会通过它自己的 Nowledge Mem 连接同步。用 nmem status 和 Context Bundle 或 Working Memory 检查验证，然后总结你改了什么。"
+        },
+        "command": "Connect the AI tool Multica launches. For Claude Code agents, save the Mem MCP config in the Multica agent MCP settings. Then set NMEM_AGENT_ID=<agent-slug> in the Multica agent custom environment.",
+        "detectionHint": "Running inside a Multica-daemon-launched child agent",
+        "docsUrl": "/docs/integrations/multica"
+      },
+      "name": "Multica",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "child-runtime",
+        "note": "Multica launches the AI coding tool locally. Thread capture and MCP behavior come from that launched tool's connector. For Claude Code agents, save the Mem MCP config on the Multica agent so Multica forwards it with --mcp-config."
+      },
+      "toolNaming": {
+        "convention": "child-runtime",
+        "note": "Keep source_app as the launched AI tool; use NMEM_AGENT_ID to select the worker AI Identity."
+      },
+      "transport": "child-runtime",
+      "type": "orchestrator",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Nowledge Mem connector for the AI tool Cumora launches",
+          "If Cumora does not expose per-agent env, add a persona instruction that passes the teammate's agent_id on Context Bundle, Working Memory, memory, and thread calls",
+          "Use per-agent NMEM_AGENT_ID only if Cumora exposes per-agent environment variables or the daemon belongs to exactly one teammate",
+          "Leave NMEM_AGENT_ID unset for a shared computer-level daemon"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "none"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "orchestrator",
+      "directory": null,
+      "id": "cumora",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the Cumora path. Connect the AI tool Cumora launches first. Supported sessions inside that AI tool can sync through its Nowledge Mem connector. If Cumora does not expose per-agent env, add a persona instruction for each teammate to pass its agent_id on read_context_bundle, read_working_memory, memory_search, thread_search, and memory_add. Do not set daemon-wide NMEM_AGENT_ID unless the daemon belongs to exactly one agent. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 Cumora 路径配置。先连接 Cumora 启动的 AI 工具。这个 AI 工具里的受支持会话会通过它自己的 Nowledge Mem 连接同步。如果 Cumora 没有暴露每 Agent env，就给每个 teammate 的 persona 加一段说明：在 read_context_bundle、read_working_memory、memory_search、thread_search 和 memory_add 中传入自己的 agent_id。除非 daemon 只属于一个 Agent，否则不要设置 daemon-wide NMEM_AGENT_ID。用 nmem status 和 Context Bundle 或 Working Memory 检查验证，然后总结你改了什么。"
+        },
+        "command": "Connect Nowledge Mem through the AI tool Cumora runs on this computer, such as Codex, Claude Code, or Pi. Supported sessions inside that AI tool can sync through its Nowledge Mem connector. If Cumora does not expose per-agent environment variables, add a persona instruction for each teammate to pass its agent_id on Context Bundle, Working Memory, memory, and thread calls. Set NMEM_AGENT_ID only if Cumora exposes per-agent environment variables or the daemon belongs to exactly one teammate.",
+        "detectionHint": "Running inside a Cumora-launched child agent or daemon",
+        "docsUrl": "/docs/integrations/cumora"
+      },
+      "name": "Cumora",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "child-runtime",
+        "note": "Cumora should connect Mem through the AI tool it launches. Supported sessions inside that tool can sync through that tool's connector. If a shared daemon serves several teammates, use a persona instruction that passes the teammate's agent_id on Context Bundle, memory, and thread calls instead of setting one daemon-wide NMEM_AGENT_ID."
+      },
+      "toolNaming": {
+        "convention": "child-runtime",
+        "note": "Keep source_app as the launched AI tool. Use NMEM_AGENT_ID only at a per-agent boundary; otherwise use persona-level agent_id on MCP calls or shared Mem context without identity override."
+      },
+      "transport": "child-runtime",
+      "type": "orchestrator",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Nowledge Mem connector for each AI tool Paseo launches, such as Codex, Claude Code, OpenCode, Pi, or OMP, when you want automatic capture during use",
+          "Run nmem t sync --from paseo --all-projects --apply when you want to import supported child-session history from Paseo's agent registry; reruns reuse the child thread id and deduplicate",
+          "If a Paseo agent represents a durable role, pass NMEM_AGENT_ID=<agent-slug> into that launched child runtime",
+          "Leave NMEM_AGENT_ID unset for one-off Paseo agents or generic provider presets",
+          "Keep source_app as the launched AI tool so thread provenance and capture stay correct"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "import-only"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "orchestrator",
+      "directory": null,
+      "id": "paseo",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the Paseo path. Connect the AI tool Paseo launches first, such as Codex, Claude Code, OpenCode, Pi, or OMP; automatic new-thread capture depends on that child connector. Set NMEM_AGENT_ID=<agent-slug> only when this Paseo agent represents a durable role. If I want older Paseo-managed sessions, run nmem t sync --from paseo --all-projects --apply and confirm imported threads keep the child source and thread id, such as codex, pi, or omp. Verify with nmem status and the Context Bundle or Working Memory check inside the launched tool, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 Paseo 路径配置。先连接 Paseo 启动的 AI 工具，例如 Codex、Claude Code、OpenCode、Pi 或 OMP；工作中新会话的自动同步依赖这个子工具连接。只有当这个 Paseo Agent 代表稳定角色时，才设置 NMEM_AGENT_ID=<agent-slug>。如果我想导入 Paseo 管理的旧会话，运行 nmem t sync --from paseo --all-projects --apply，并确认导入的线程仍保留 codex、pi 或 omp 等子工具来源和 thread id。在被启动的工具里用 nmem status 和 Context Bundle 或 Working Memory 检查验证，然后总结你改了什么。"
+        },
+        "command": "Connect the AI tool Paseo launches first. Set NMEM_AGENT_ID=<agent-slug> only when that Paseo agent is a stable role.",
+        "detectionHint": "Running inside an AI tool launched by Paseo, or the user asks about Paseo agents",
+        "docsUrl": "/docs/integrations/paseo"
+      },
+      "name": "Paseo",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "historicalCommand": "nmem t sync --from paseo --all-projects --apply",
+        "method": "registry-guided-child-runtime",
+        "note": "Paseo stores agent registry records, not full transcript bodies. Automatic new-thread capture comes from the connector installed in the launched child tool. The nmem sync command reads Paseo records, resolves supported child sessions, and imports the underlying Codex, Claude Code, OpenCode, Pi, or OMP transcript while preserving the child source_app and the same child thread id.",
+        "runtime": "paseo"
+      },
+      "toolNaming": {
+        "convention": "child-runtime",
+        "note": "Keep source_app as the launched AI tool (codex, claude-code, opencode, pi, etc.). Use NMEM_AGENT_ID only for durable Paseo agent roles; do not label all child sessions as paseo. Paseo sync is an import/backfill path; live capture belongs to the child connector."
+      },
+      "transport": "child-runtime",
+      "type": "orchestrator",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Nowledge Mem plugin via OpenHands SDK Plugin.load() or copy to .openhands/plugins/nowledge-mem",
+          "Set NMEM_AGENT_ID=<agent-slug> on specialist worker nodes (e.g. planner, coder, reviewer) to maintain worker identity",
+          "Set NMEM_SPACE to isolate runs into named knowledge spaces",
+          "Keep Nowledge Mem running locally or set NMEM_API_URL and NMEM_API_KEY for remote instances"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "automatic",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "orchestrator",
+      "directory": "nowledge-mem-openhands-plugin",
+      "id": "openhands",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the OpenHands path. Load the nowledge-mem-openhands-plugin via OpenHands SDK Plugin.load() or copy to .openhands/plugins/nowledge-mem. Configure NMEM_AGENT_ID for specialist canvas nodes and NMEM_SPACE for space routing. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 OpenHands 路径配置。通过 OpenHands SDK Plugin.load() 或复制到 .openhands/plugins/nowledge-mem 加载 nowledge-mem-openhands-plugin。为画布专家节点配置 NMEM_AGENT_ID，为空间路由配置 NMEM_SPACE。用 nmem status 和 Context Bundle 或 Working Memory 检查验证，然后总结改动。"
+        },
+        "command": "Load via OpenHands SDK Plugin.load('path/to/nowledge-mem-openhands-plugin') or copy to .openhands/plugins/nowledge-mem",
+        "detectionHint": "Running inside OpenHands or OpenHands SDK; .openhands/ exists, or OPENHANDS_TOOL_NAME is set",
+        "docsUrl": "/docs/integrations/openhands"
+      },
+      "name": "OpenHands",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-handoff",
+        "save-thread",
+        "status",
+        "check-integration"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "command": "python3 <plugin-dir>/hooks/nmem-stop.py <<<\"{\\\"session_id\\\": \\\"<conversation-id>\\\"}\"",
+        "method": "hook-capture",
+        "note": "OpenHands runs lifecycle hooks (UserPromptSubmit, PostToolUse, Stop). The Stop hook captures session events and syncs to Nowledge Mem. In multi-agent workflows, NMEM_AGENT_ID scopes worker identity, NMEM_SPACE scopes memory space, and NMEM_DISABLE_AUTO_CAPTURE=1 in OpenHands suppresses top-level session capture when using Child-Authoritative Mode.",
+        "runtime": "openhands"
+      },
+      "toolNaming": {
+        "convention": "mcp",
+        "note": "OpenHands loads Nowledge Mem MCP tools directly via .mcp.json. Lifecycle hooks provide automatic Context Bundle injection on prompt submission and thread capture on stop.",
+        "prefix": "",
+        "tools": [
+          "read_context_bundle",
+          "read_working_memory",
+          "memory_search",
+          "thread_search",
+          "memory_add",
+          "memory_update",
+          "explore_graph",
+          "graph_stats"
+        ]
+      },
+      "transport": "plugin+mcp+cli",
+      "type": "plugin",
+      "version": "0.1.0"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Copy the local Cursor plugin and reload Cursor",
+          "Keep nmem available for session-start bootstrap, automatic Cursor Agent transcript capture, and handoffs",
+          "If Mem is remote, configure both Cursor MCP and the local nmem client"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-cursor-plugin",
+      "id": "cursor",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Cursor. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Cursor 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "bash -lc 'tmp=\"$(mktemp -d)\" && git clone --depth 1 https://github.com/nowledge-co/community.git \"$tmp/community\" && mkdir -p \"$HOME/.cursor/plugins/local\" && rm -rf \"$HOME/.cursor/plugins/local/nowledge-mem-cursor\" && cp -R \"$tmp/community/nowledge-mem-cursor-plugin\" \"$HOME/.cursor/plugins/local/nowledge-mem-cursor\"'",
+        "detectionHint": "Running inside Cursor IDE",
+        "docsUrl": "/docs/integrations/cursor",
+        "updateCommand": "bash -lc 'tmp=\"$(mktemp -d)\" && git clone --depth 1 https://github.com/nowledge-co/community.git \"$tmp/community\" && mkdir -p \"$HOME/.cursor/plugins/local\" && rm -rf \"$HOME/.cursor/plugins/local/nowledge-mem-cursor\" && cp -R \"$tmp/community/nowledge-mem-cursor-plugin\" \"$HOME/.cursor/plugins/local/nowledge-mem-cursor\"'"
+      },
+      "name": "Cursor",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-thread",
+        "save-handoff"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "command": "nmem t save --from cursor",
+        "historicalCommand": "nmem t sync --from cursor --all-projects",
+        "method": "hook+cli-native",
+        "note": "The local stop hook imports the exact current Cursor Agent transcript with nmem. save-thread is the manual fallback, save-handoff remains summary-only, and historical sync can backfill ~/.cursor/projects."
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "MCP tools are defined by the backend (memory_search, memory_add, etc.); session-start preloads Context Bundle or Working Memory; the stop hook and save-thread skill use nmem for real transcript capture; save-handoff remains summary-only",
+        "prefix": "memory_"
+      },
+      "transport": "mcp+hook",
+      "type": "plugin",
+      "version": "0.2.1"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the native Droid plugin",
+          "Keep nmem available on this machine",
+          "Start a fresh Droid session after install"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "handoff-only"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-droid-plugin",
+      "id": "droid",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Droid. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Droid 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "droid plugin marketplace add https://github.com/nowledge-co/community && droid plugin install nowledge-mem@nowledge-community",
+        "detectionHint": "Running inside Droid (Factory)",
+        "docsUrl": "/docs/integrations/droid",
+        "updateCommand": "droid plugin marketplace update nowledge-community && droid plugin update nowledge-mem@nowledge-community"
+      },
+      "name": "Droid",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-handoff"
+      ],
+      "slashCommands": [
+        "/nowledge-read-working-memory",
+        "/nowledge-search-memory",
+        "/nowledge-distill-memory",
+        "/nowledge-save-handoff",
+        "/nowledge-status"
+      ],
+      "threadSave": {
+        "method": "none",
+        "note": "Droid lacks a native transcript importer; save-handoff used instead"
+      },
+      "toolNaming": {
+        "convention": "cli-direct",
+        "note": "Shell hooks and declarative skills invoke nmem CLI"
+      },
+      "transport": "cli",
+      "type": "plugin",
+      "version": "0.1.1"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the native OpenClaw plugin",
+          "Use OpenClaw 2026.5.3 or later for current ClawHub packages",
+          "Use plugin 0.8.34 or later for OpenClaw 2.0 Incognito privacy, timestamp compatibility, readable thread titles, tool-contract diagnostics, and checkpointed thread capture",
+          "Grant plugins.entries.openclaw-nowledge-mem.hooks.allowConversationAccess for the agent_end capture safety net",
+          "When tools.profile is restrictive, add openclaw-nowledge-mem to tools.alsoAllow or the existing tools.allow list",
+          "Keep nmem available on this machine",
+          "Restart OpenClaw after install or config changes"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "contextEngine": true,
+        "corpusSupplement": true,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-openclaw-plugin",
+      "id": "openclaw",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for OpenClaw. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 OpenClaw 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "openclaw plugins install clawhub:nowledge-mem",
+        "detectionHint": "Running as OpenClaw agent; ~/.openclaw/ exists",
+        "docsUrl": "/docs/integrations/openclaw",
+        "updateCommand": "openclaw plugins install clawhub:nowledge-mem --force"
+      },
+      "name": "OpenClaw",
+      "skills": [
+        "memory-guide"
+      ],
+      "slashCommands": [
+        "/remember",
+        "/recall",
+        "/forget"
+      ],
+      "threadSave": {
+        "method": "plugin-capture",
+        "note": "Plugin captures interactive sessions through Context Engine afterTurn and, when plugins.entries.openclaw-nowledge-mem.hooks.allowConversationAccess=true, agent_end as a safety net. Persists threads via Nowledge Mem HTTP API with incremental tail sync. Isolated cron, subagent, and OpenClaw 2.0 Incognito session keys are excluded from automatic capture. Memory tools still use nmem CLI."
+      },
+      "toolNaming": {
+        "convention": "nowledge_mem_prefix",
+        "note": "10 tools: memory_search and memory_get use OpenClaw memory-slot convention; others use nowledge_mem_* prefix",
+        "prefix": "nowledge_mem_",
+        "tools": [
+          "memory_search",
+          "memory_get",
+          "nowledge_mem_save",
+          "nowledge_mem_context",
+          "nowledge_mem_connections",
+          "nowledge_mem_timeline",
+          "nowledge_mem_forget",
+          "nowledge_mem_thread_search",
+          "nowledge_mem_thread_fetch",
+          "nowledge_mem_status"
+        ]
+      },
+      "transport": "cli",
+      "type": "plugin",
+      "version": "0.8.34"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Alma marketplace plugin",
+          "Enable the bundled nowledge-mem Skill if you use Alma's Skills surface",
+          "Leave autoCapture enabled unless you intentionally want manual thread handling"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "automatic",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-alma-plugin",
+      "id": "alma",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Alma. If you use Alma Skills, enable the bundled nowledge-mem Skill or copy it to ~/.config/alma/skills/nowledge-mem. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Alma 安装或更新 Nowledge Mem。如果你使用 Alma Skills，请启用随插件附带的 nowledge-mem Skill，或复制到 ~/.config/alma/skills/nowledge-mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "In Alma: Settings > Plugins > Marketplace, search 'Nowledge Mem', click Install",
+        "detectionHint": "Running inside Alma; ~/.config/alma/ exists",
+        "docsUrl": "/docs/integrations/alma",
+        "updateCommand": "In Alma: Settings > Plugins > Marketplace, find Nowledge Mem, click Update"
+      },
+      "name": "Alma",
+      "skills": [
+        "nowledge-mem"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "plugin-capture",
+        "note": "Plugin captures threads live via idle timer, thread switch, and quit hooks; sends via the Nowledge Mem HTTP API"
+      },
+      "toolNaming": {
+        "convention": "nowledge_mem_prefix",
+        "prefix": "nowledge_mem_",
+        "tools": [
+          "nowledge_mem_query",
+          "nowledge_mem_search",
+          "nowledge_mem_store",
+          "nowledge_mem_show",
+          "nowledge_mem_update",
+          "nowledge_mem_delete",
+          "nowledge_mem_context_bundle",
+          "nowledge_mem_working_memory",
+          "nowledge_mem_status",
+          "nowledge_mem_thread_search",
+          "nowledge_mem_thread_show",
+          "nowledge_mem_thread_create",
+          "nowledge_mem_thread_delete"
+        ]
+      },
+      "transport": "http",
+      "type": "plugin",
+      "version": "0.7.6"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Bub plugin",
+          "Keep nmem available in the Bub runtime",
+          "Use one real ambient lane only if the whole Bub process belongs to it"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-bub-plugin",
+      "id": "bub",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Bub. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Bub 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "python3 -m pip install nowledge-mem-bub || python -m pip install nowledge-mem-bub || py -3 -m pip install nowledge-mem-bub",
+        "detectionHint": "Running inside Bub",
+        "docsUrl": "/docs/integrations/bub",
+        "updateCommand": "python3 -m pip install --upgrade nowledge-mem-bub || python -m pip install --upgrade nowledge-mem-bub || py -3 -m pip install --upgrade nowledge-mem-bub"
+      },
+      "name": "Bub",
+      "skills": [
+        "nowledge-mem"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "plugin-capture",
+        "note": "Plugin captures Bub conversations via save_state hook; sends via nmem CLI"
+      },
+      "toolNaming": {
+        "convention": "platform-namespace",
+        "note": "Bub dot-namespace convention: mem.search, mem.save, etc.",
+        "prefix": "mem.",
+        "tools": [
+          "mem.search",
+          "mem.save",
+          "mem.context",
+          "mem.connections",
+          "mem.timeline",
+          "mem.forget",
+          "mem.threads",
+          "mem.thread",
+          "mem.status"
+        ]
+      },
+      "transport": "cli",
+      "type": "plugin",
+      "version": "0.7.3"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Pi package",
+          "Keep nmem available on this machine",
+          "Restart Pi after install or update so the extension loads startup Context Bundle injection and thread sync",
+          "Run nmem t sync --from pi --apply only when you want to import older Pi sessions",
+          "Use save-thread only when you want an extra curated handoff summary"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "startup-context-injection",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-pi-package",
+      "id": "pi",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Pi. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Pi 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "pi install npm:nowledge-mem-pi",
+        "detectionHint": "Running as Pi agent; ~/.pi/ exists",
+        "docsUrl": "/docs/integrations/pi",
+        "updateCommand": "pi update"
+      },
+      "name": "Pi",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "status"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "historicalCommand": "nmem t sync --from pi",
+        "method": "plugin-capture",
+        "note": "The Pi extension injects startup Context Bundle or Working Memory and syncs completed session branches. Thread resume v1 binds a fresh Pi session to an exact existing Mem Thread and blocks startup if verified context is unavailable. nmem t sync --from pi resolves the same binding for history imports."
+      },
+      "toolNaming": {
+        "convention": "cli-direct",
+        "note": "The extension injects startup Context Bundle or Working Memory and handles automatic thread capture. Skills teach Pi when to search, save, and inspect prior threads through nmem."
+      },
+      "transport": "plugin+cli",
+      "type": "plugin",
+      "version": "0.8.9"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the dedicated Step Code package rather than the Pi package",
+          "Keep nmem configured on the machine running Step Code",
+          "Restart Step Code after install or update",
+          "Run nmem t sync --from step-code --apply only when you want to import older Step Code sessions",
+          "Use save-thread only when you want an extra curated handoff summary"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "startup-context-injection",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-step-code",
+      "id": "step-code",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Step Code. Verify with nmem status and the Context Bundle or Working Memory check, start a fresh Step Code session, and confirm a completed exchange appears in nmem t list --source step-code.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Step Code 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证连接，启动一个新的 Step Code 会话，并确认完成一轮对话后能在 nmem t list --source step-code 中看到对应 Thread。"
+        },
+        "command": "step install npm:nowledge-mem-step-code",
+        "detectionHint": "Running inside Step Code; STEP_CLIENT=stepcode or ~/.stepcode/ exists",
+        "docsUrl": "/docs/integrations/step-code",
+        "updateCommand": "step update npm:nowledge-mem-step-code"
+      },
+      "name": "Step Code",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-thread",
+        "status"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "historicalCommand": "nmem t sync --from step-code",
+        "method": "plugin-capture",
+        "note": "The native Step Code package injects Context Bundle or Working Memory before the first turn and captures the active JSONL branch at agent_settled, after automatic retries, compaction, and queued continuations. nmem t sync --from step-code backfills native ~/.stepcode/agent/sessions history with stable Step Code source identity."
+      },
+      "toolNaming": {
+        "convention": "cli-direct",
+        "note": "The extension handles startup context and automatic settled-turn capture. Skills teach Step Code when to search, save, inspect prior threads, and create an explicit handoff."
+      },
+      "transport": "plugin+cli",
+      "type": "plugin",
+      "version": "0.1.0"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the native Hermes provider or configure the MCP fallback",
+          "Point the local nmem client at Mem when using remote mode",
+          "Use the native provider and let Hermes end or reset the session cleanly so the session-boundary hook can flush the transcript",
+          "Run nmem t sync --from hermes --apply when you want to import older Hermes sessions from state.db"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "automatic",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": false,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-hermes",
+      "id": "hermes",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Hermes Agent. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Hermes Agent 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "bash <(curl -sL https://raw.githubusercontent.com/nowledge-co/community/main/nowledge-mem-hermes/setup.sh)",
+        "detectionHint": "Running as Hermes agent; ~/.hermes/ exists",
+        "docsUrl": "/docs/integrations/hermes",
+        "updateCommand": "bash <(curl -sL https://raw.githubusercontent.com/nowledge-co/community/main/nowledge-mem-hermes/setup.sh)",
+        "windowsCommand": "irm https://raw.githubusercontent.com/nowledge-co/community/main/nowledge-mem-hermes/setup.ps1 | iex",
+        "windowsUpdateCommand": "irm https://raw.githubusercontent.com/nowledge-co/community/main/nowledge-mem-hermes/setup.ps1 | iex"
+      },
+      "name": "Hermes Agent",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "historicalCommand": "nmem t sync --from hermes",
+        "method": "cli-native",
+        "note": "The native provider captures cleaned Hermes transcripts through the memory-provider lifecycle, with a post-LLM hook fallback for Hermes builds that route user plugins through the general hook loader. The first save imports the thread; later saves in the same live session append only the delta through the Mem API. Use nmem t sync --from hermes --apply to backfill older sessions from ~/.hermes/state.db, including remote Mem setups."
+      },
+      "toolNaming": {
+        "convention": "provider-native",
+        "note": "Plugin mode: nmem_ prefix (nmem_search, nmem_save, etc.). MCP mode: mcp_nowledge_mem_ prefix.",
+        "tools": [
+          "nmem_search",
+          "nmem_save",
+          "nmem_update",
+          "nmem_delete",
+          "nmem_thread_search",
+          "nmem_thread_messages"
+        ]
+      },
+      "transport": "cli",
+      "type": "plugin",
+      "version": "0.5.24"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Configure Nowledge Mem MCP in Hermes Studio or Ekko Agent so the agent can read and write cross-tool context",
+          "Keep nmem configured on the machine where Hermes Studio stores HERMES_WEB_UI_HOME/.ekko/ekko.db",
+          "Run nmem t sync --from ekko to preview local Ekko sessions before importing",
+          "Run nmem t sync --from ekko --apply only after the preview shows the expected sessions",
+          "Use --session-dir when Hermes Studio uses a custom or development Ekko database path"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "import-only"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "chat",
+      "id": "ekko",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions for Ekko Agent. Verify with nmem status and the Context Bundle or Working Memory check, then preview transcript import with nmem t sync --from ekko before using --apply.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中 Ekko Agent 说明操作。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，再运行 nmem t sync --from ekko 预览本地会话，确认后再加 --apply 导入。"
+        },
+        "command": "nmem config mcp show --host ekko",
+        "configRequired": "Ekko's MCP connection is configured inside Hermes Studio/Ekko. The transcript importer is delivered by the nmem CLI; there is no separate Nowledge Mem Ekko plugin package today.",
+        "detectionHint": "Running inside Hermes Studio's Ekko Agent, HERMES_WEB_UI_HOME is set, or an Ekko database exists at $HERMES_WEB_UI_HOME/.ekko/ekko.db",
+        "docsUrl": "/docs/integrations/ekko",
+        "updateCommand": "python3 -m pip install --user --upgrade nmem-cli"
+      },
+      "name": "Ekko Agent",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-thread",
+        "status"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "command": "nmem t sync --from ekko --session-id <session-id> --apply",
+        "historicalCommand": "nmem t sync --from ekko",
+        "method": "cli-native",
+        "note": "Ekko Agent, the runtime built into Hermes Studio, can use Nowledge Mem through MCP for Context Bundle, Working Memory, memory search/save, Library, and graph tools. Transcript capture is a local CLI importer: nmem reads Hermes Studio's current Ekko SQLite memory store at $HERMES_WEB_UI_HOME/.ekko/ekko.db (or the database passed with --session-dir), normalizes user/assistant messages, and imports them as source=ekko with stable ekko-<session_id> thread IDs. The importer is for history/recovery and manual sync today; automatic post-run capture should be triggered by Hermes Studio/Ekko after a completed run.",
+        "runtime": "ekko"
+      },
+      "toolNaming": {
+        "convention": "mcp+cli-import",
+        "note": "MCP gives Ekko memory/context tools. nmem t sync --from ekko owns transcript import from the local SQLite store."
+      },
+      "transport": "mcp+cli",
+      "type": "builtin-host",
+      "version": "0.10.54"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install from the community repository into the Amp Personal Plugins project for an account-wide installation, or run nowledge-mem-amp-plugin/scripts/install.sh for one machine",
+          "Restart Amp so the plugin registers its tools, agent.end capture hook, and commands",
+          "Keep nmem available for memory operations, provenance-stamped saves, and handoff flows",
+          "Run nmem config client set url/api-key once when Mem is remote"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-amp-plugin",
+      "id": "amp",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Amp. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Amp 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "bash nowledge-mem-amp-plugin/scripts/install.sh",
+        "configRequired": "For an account-wide install, ask Amp in a thread to install https://github.com/nowledge-co/community/tree/main/nowledge-mem-amp-plugin into your Personal Plugins project, commit and push that project, and reload plugins. Personal plugins apply everywhere you use Amp. The install script remains the direct option for one machine and writes to the resolved Amp config directory.",
+        "detectionHint": "Running as Amp agent; ~/.config/amp/ or .amp/ exists",
+        "docsUrl": "/docs/integrations/amp",
+        "updateCommand": "bash nowledge-mem-amp-plugin/scripts/install.sh"
+      },
+      "name": "Amp",
+      "skills": [
+        "nowledge-mem"
+      ],
+      "slashCommands": [
+        {
+          "description": "Check Nowledge Mem server connectivity and configuration.",
+          "name": "nowledge-mem:status"
+        },
+        {
+          "description": "Capture the current Amp session as a Nowledge Mem thread.",
+          "name": "nowledge-mem:save-thread"
+        },
+        {
+          "description": "Search the Nowledge Mem knowledge graph.",
+          "name": "nowledge-mem:search"
+        }
+      ],
+      "threadSave": {
+        "method": "sdk-extract+agent-end",
+        "note": "Plugin listens for the Amp agent.end event, posts the event's completed turn messages to Nowledge Mem's thread API over HTTP, and keeps save_thread as an explicit idempotent full-transcript fallback"
+      },
+      "toolNaming": {
+        "convention": "canonical",
+        "note": "Plugin registers tools with nowledge_mem_ prefix via @ampcode/plugin",
+        "prefix": "nowledge_mem_",
+        "tools": [
+          "nowledge_mem_context_bundle",
+          "nowledge_mem_working_memory",
+          "nowledge_mem_search",
+          "nowledge_mem_save",
+          "nowledge_mem_update",
+          "nowledge_mem_thread_search",
+          "nowledge_mem_save_thread",
+          "nowledge_mem_save_handoff",
+          "nowledge_mem_graph_expand",
+          "nowledge_mem_status"
+        ]
+      },
+      "transport": "cli+http",
+      "type": "plugin",
+      "version": "0.1.4"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Use OpenCode 2.x; plugin 0.4.0+ targets the v2 plugin API (OpenCode 1.x users pin opencode-nowledge-mem@0.3.10)",
+          "Install the native OpenCode plugin globally using the command for your OpenCode major",
+          "Restart OpenCode so the plugin registers its event subscription and session hooks",
+          "Keep nmem available for memory operations, provenance-stamped saves, and handoff flows",
+          "Run nmem t sync --from opencode --all-projects --apply only when you want to import older OpenCode sessions",
+          "Run nmem config client set url/api-key once when Mem is remote"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-opencode-plugin",
+      "id": "opencode",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md, check opencode --version, and follow the matching instructions to install or update Nowledge Mem globally for OpenCode. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 OpenCode 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "opencode plugin add opencode-nowledge-mem",
+        "configRequired": "Check opencode --version before installing globally. OpenCode 1.x: opencode plugin opencode-nowledge-mem@0.3.10 --global; reinstall with the same pin and --force. OpenCode 2.x: the install/update commands above manage global packages by default. Never install plugin 0.4.0+ on OpenCode 1.x.",
+        "detectionHint": "Running as OpenCode agent; check opencode --version before choosing the global installation command",
+        "docsUrl": "/docs/integrations/opencode",
+        "requiresHostVersionSelection": true,
+        "updateCommand": "opencode plugin update opencode-nowledge-mem"
+      },
+      "name": "OpenCode",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "historicalCommand": "nmem t sync --from opencode --all-projects",
+        "method": "sdk-extract+event-idle",
+        "note": "Plugin subscribes to OpenCode session idle events and pre-compaction, reads session messages through ctx.session.context, and posts to Nowledge Mem thread API over HTTP; save_thread remains an explicit idempotent fallback"
+      },
+      "toolNaming": {
+        "convention": "canonical",
+        "note": "Plugin registers tools with nowledge_mem_ prefix via @opencode/plugin (OpenCode v2)",
+        "prefix": "nowledge_mem_",
+        "tools": [
+          "nowledge_mem_context_bundle",
+          "nowledge_mem_working_memory",
+          "nowledge_mem_search",
+          "nowledge_mem_save",
+          "nowledge_mem_update",
+          "nowledge_mem_thread_search",
+          "nowledge_mem_save_thread",
+          "nowledge_mem_save_handoff",
+          "nowledge_mem_status"
+        ]
+      },
+      "transport": "cli+http",
+      "type": "plugin",
+      "version": "0.4.0"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Nowledge Mem Kimi Code package",
+          "Use nmem 0.9.19 or newer on the same machine as Kimi Code; if nmem rejects Kimi Code commands, upgrade the CLI from the same source before retrying",
+          "Reload Kimi Code after install so plugin skills, hooks, and slash commands activate",
+          "Use nmem config mcp show --host kimi-code to add the MCP server for local, remote, or authenticated Mem",
+          "Keep nmem configured on this machine for local or remote Mem",
+          "Run nmem t sync --from kimi-code --apply when you want to import older Kimi Code sessions"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-kimi-code-plugin",
+      "id": "kimi-code",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Kimi Code. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Kimi Code 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "/plugins install https://github.com/nowledge-co/community/tree/main",
+        "configRequired": "Run the install command inside Kimi Code, then run /reload (or start a new session). Keep the explicit /tree/main ref: Kimi otherwise prefers the community repository's latest GitHub Release, and a published release can predate the root Kimi manifest. The root kimi.plugin.json shim points Kimi Code to nowledge-mem-kimi-code-plugin; Kimi downloads the repository zip and does not clone submodules. Modern Kimi Code reads Nowledge Mem lifecycle hooks and slash commands directly from kimi.plugin.json. For remote Mem, use nmem config mcp show --host kimi-code and paste the generated nowledge-mem server into $KIMI_CODE_HOME/mcp.json or ~/.kimi-code/mcp.json. scripts/install_hooks.py is only a fallback for older Kimi Code builds that do not load plugin manifest hooks.",
+        "detectionHint": "Running inside Kimi Code; ~/.kimi-code/ exists or KIMI_CODE_HOME is set",
+        "docsUrl": "/docs/integrations/kimi-code",
+        "updateCommand": "/plugins install https://github.com/nowledge-co/community/tree/main"
+      },
+      "name": "Kimi Code",
+      "skills": [
+        "nowledge-mem"
+      ],
+      "slashCommands": [
+        "nowledge-mem:status",
+        "nowledge-mem:sync-now",
+        "nowledge-mem:import-history"
+      ],
+      "threadSave": {
+        "command": "nmem t sync --from kimi-code --session-id <session-id> --apply",
+        "historicalCommand": "nmem t sync --from kimi-code",
+        "method": "hook+cli-native",
+        "note": "The Kimi Code package ships Kimi-native plugin metadata, a session-start skill, native manifest hooks, and slash commands. Modern Kimi Code loads plugin hooks from kimi.plugin.json for Stop, SessionEnd, PreCompact, SubagentStop, and Interrupt; each hook calls nmem t sync --from kimi-code --session-id <session-id> --apply. MCP is configured as a user-owned Kimi Code server block generated by nmem config mcp show --host kimi-code, so local and remote Mem share the same URL/API-key source of truth. scripts/install_hooks.py remains only as a host-level fallback for older Kimi Code builds. Older sessions still backfill with nmem t sync --from kimi-code --apply.",
+        "runtime": "kimi-code"
+      },
+      "toolNaming": {
+        "convention": "kimi-plugin+mcp+cli",
+        "note": "Kimi namespaces plugin MCP servers as plugin-nowledge-mem:nowledge-mem. Host-level MCP config can still define nowledge-mem for remote/custom endpoints. Lifecycle hooks invoke nmem CLI for real transcript capture."
+      },
+      "transport": "skills+hook+mcp-config",
+      "type": "plugin",
+      "version": "0.2.4"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Nowledge Mem Kimi Work connector into Kimi Work's embedded runtime",
+          "Use nmem 0.9.23 or newer on the same machine as Kimi Work",
+          "Use the bundled local MCP server, or use nmem config mcp show --host kimi-work for remote Mem or authenticated localhost",
+          "Keep nmem configured on this machine for local or remote Mem",
+          "Run nmem t sync --from kimi-work --apply when you want to import Kimi Work sessions"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "import-only"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-kimi-work-connector",
+      "id": "kimi-work",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Kimi Work. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Kimi Work 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "git clone --depth 1 https://github.com/nowledge-co/community.git ~/.cache/nowledge-community; python3 ~/.cache/nowledge-community/nowledge-mem-kimi-work-connector/scripts/install_kimi_work_plugin.py",
+        "configRequired": "Kimi Work runs an embedded Kimi Code runtime that is separate from ~/.kimi-code. The installer writes to KIMI_WORK_HOME when set, otherwise to the macOS Kimi Work runtime path. For remote Mem, use nmem config mcp show --host kimi-work and paste the generated server into the embedded runtime's mcp.json.",
+        "detectionHint": "Kimi Work desktop is installed; KIMI_WORK_HOME is set or ~/Library/Application Support/kimi-desktop/daimon-share/daimon/runtime/kimi-code/home exists",
+        "docsUrl": "/docs/integrations/kimi-work",
+        "updateCommand": "git -C ~/.cache/nowledge-community pull --ff-only || git clone --depth 1 https://github.com/nowledge-co/community.git ~/.cache/nowledge-community; python3 ~/.cache/nowledge-community/nowledge-mem-kimi-work-connector/scripts/install_kimi_work_plugin.py"
+      },
+      "name": "Kimi Work",
+      "skills": [
+        "nowledge-mem"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "historicalCommand": "nmem t sync --from kimi-work",
+        "method": "cli-native",
+        "note": "Kimi Work uses a private embedded Kimi Code runtime and does not expose Kimi Code's /plugins install flow or lifecycle hooks. The connector installs a session-start skill and local MCP declaration into that embedded runtime. Conversation import is explicit: run nmem t sync --from kimi-work --apply on the machine where Kimi Work stores its sessions. The adapter reuses the Kimi wire-jsonl parser while preserving source=kimi-work and stable kimi-work thread IDs.",
+        "runtime": "kimi-work"
+      },
+      "toolNaming": {
+        "convention": "kimi-plugin+mcp+cli",
+        "note": "Kimi Work loads the same Kimi plugin manifest format from its embedded runtime. Plugin MCP is local by default; host-level mcp.json can override remote/custom Mem. There are no lifecycle hooks, so real transcript import belongs to nmem t sync."
+      },
+      "transport": "mcp+skills",
+      "type": "connector",
+      "version": "0.1.0"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "In ZCode, add https://github.com/nowledge-co/zcode-plugin as a Plugin marketplace source",
+          "Install and enable nowledge-mem-zcode, then reload the Agent runtime",
+          "Keep nmem configured on the same machine for local or remote Mem",
+          "After install, run one short ZCode session and confirm nmem t list --source zcode shows the imported thread"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "automatic",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": null,
+      "externalRepo": "https://github.com/nowledge-co/zcode-plugin",
+      "id": "zcode",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update the Nowledge Mem ZCode plugin from https://github.com/nowledge-co/zcode-plugin. Verify with nmem status, a Context Bundle or Working Memory check, and one short ZCode session that should appear under nmem t list --source zcode. If Stop did not capture the session, report that clearly and save a handoff summary instead.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明从 https://github.com/nowledge-co/zcode-plugin 安装或更新 Nowledge Mem ZCode 插件。用 nmem status、Context Bundle 或 Working Memory 检查，以及一次应出现在 nmem t list --source zcode 的短 ZCode 会话验证。如果 Stop 没有捕获会话，请明确说明并改为保存交接摘要。"
+        },
+        "command": "ZCode Settings -> Plugins -> Create -> Add marketplace -> https://github.com/nowledge-co/zcode-plugin -> install nowledge-mem-zcode -> reload Agent runtime",
+        "detectionHint": "Running inside ZCode; ~/.zcode/ exists",
+        "docsUrl": "/docs/integrations/zcode",
+        "updateCommand": "ZCode Settings -> Plugins -> Marketplace sources -> Refresh https://github.com/nowledge-co/zcode-plugin; then Manage installed -> Check for updates -> nowledge-mem-zcode -> reload Agent runtime"
+      },
+      "name": "ZCode",
+      "skills": [
+        "check-integration",
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-handoff",
+        "status"
+      ],
+      "slashCommands": [
+        "nowledge-mem-status",
+        "nowledge-mem-sync-now",
+        "nowledge-mem-save-handoff"
+      ],
+      "threadSave": {
+        "command": "nmem t sync --from zcode --session-dir <transcript_path> --session-id <session-id> --all-projects --apply",
+        "method": "hook+cli-native",
+        "note": "The standalone ZCode plugin copies ZCode's temporary hook transcript_path during Stop and imports it through nmem. Verify after install because older ZCode builds had public reports of Stop hooks not firing; use the sync-now command or a handoff summary as fallback."
+      },
+      "toolNaming": {
+        "convention": "zcode-plugin+mcp+cli",
+        "note": "ZCode namespaces plugin MCP servers. The plugin provides MCP tools, Skills, commands, and hooks; nmem owns the ZCode hook transcript import."
+      },
+      "transport": "plugin+mcp+skills+commands+hooks",
+      "type": "plugin",
+      "version": "0.2.1"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the community DSH bundle with dsh plugin --profile web add github:nowledge-co/nowledge-mem-deepseek-harness",
+          "Keep nmem on PATH in the DSH process environment",
+          "Use nmem config mcp show --host deepseek-harness for remote Mem or authenticated localhost details",
+          "Restart DeepSeek Harness after install or update",
+          "Verify one short DSH session appears under nmem t list --source deepseek-harness"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "automatic",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-deepseek-harness-plugin",
+      "externalRepo": "https://github.com/nowledge-co/nowledge-mem-deepseek-harness",
+      "id": "deepseek-harness",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for DeepSeek Harness. Use the community DSH bundle, verify with nmem status and the Context Bundle or Working Memory check, then run one short DSH session and confirm nmem t list --source deepseek-harness shows the captured thread.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 DeepSeek Harness 安装或更新 Nowledge Mem。使用社区 DSH bundle，用 nmem status 和 Context Bundle 或 Working Memory 检查验证，然后运行一次短 DSH 会话并确认 nmem t list --source deepseek-harness 能看到捕获线程。"
+        },
+        "command": "dsh plugin --profile web add github:nowledge-co/nowledge-mem-deepseek-harness",
+        "configRequired": "Install the Nowledge Mem community bundle from nowledge-co/nowledge-mem-deepseek-harness into the DSH profile, keep nmem on PATH, and set NMEM_MCP_URL / NMEM_API_KEY when connecting to Nowledge Cloud or another remote Mem. The standalone repository carries the dsh-plugin topic for DeepSeek Harness ecosystem discovery.",
+        "detectionHint": "Running inside DeepSeek Harness; dsh command exists, DSH_HOME is set, or ~/.dsh/profiles exists",
+        "docsUrl": "/docs/integrations/deepseek-harness",
+        "updateCommand": "dsh plugin --profile web update nowledge-mem-deepseek-harness"
+      },
+      "name": "DeepSeek Harness",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-handoff",
+        "status"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "command": "nmem t import --file <dsh-thread.json> --source deepseek-harness --id deepseek-harness-<session-id>",
+        "method": "cordis-session-event+cli-import",
+        "note": "The community DSH bundle listens to DSH session/event turn-end events, serializes user/assistant/tool-result surface messages, skips its own context injections, and imports through nmem with NMEM_IMPORT_ORIGIN=deepseek-harness. Its standalone repository is tagged dsh-plugin for DeepSeek Harness ecosystem discovery.",
+        "runtime": "deepseek-harness"
+      },
+      "toolNaming": {
+        "convention": "dsh-bundle+mcp+cli",
+        "note": "DSH's MCP bridge namespaces Mem tools under nowledge_mem. The native bundle uses agent/pre-step for Context Bundle and recall injections, and session/event for real DSH thread import. MCP resources/prompts are not exposed by the current DSH MCP client.",
+        "tools": [
+          "mcp__nowledge_mem__memory_search",
+          "mcp__nowledge_mem__memory_add",
+          "mcp__nowledge_mem__thread_search",
+          "mcp__nowledge_mem__thread_fetch_messages"
+        ]
+      },
+      "transport": "dsh-bundle+mcp+cli",
+      "type": "plugin",
+      "version": "0.1.5"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Add Nowledge Mem as an MCP server or import it from an existing compatible config",
+          "Add Nowledge Mem guidance to MiMo Code's project or global instruction surface",
+          "Keep nmem configured on this machine",
+          "Run nmem t sync --from mimo-code --apply when you want to import MiMo Code sessions"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "import-only"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": null,
+      "id": "mimo-code",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for MiMo Code. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 MiMo Code 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "nmem config mcp show --host mimo-code",
+        "detectionHint": "Running inside MiMo Code; .mimocode/ or ~/.config/mimocode/ exists",
+        "docsUrl": "/docs/integrations/mimo-code",
+        "updateCommand": "nmem config mcp show --host mimo-code"
+      },
+      "name": "MiMo Code",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-handoff",
+        "status"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "historicalCommand": "nmem t sync --from mimo-code",
+        "method": "cli-native",
+        "note": "MiMo Code is OpenCode-derived and stores sessions in mimocode.db. nmem can import those local transcripts for local or remote Mem with nmem t sync --from mimo-code --apply. Nowledge Mem does not yet publish a MiMo lifecycle hook package; do not reuse the OpenCode package blindly because package names, config roots, and session APIs differ."
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "Use Nowledge Mem MCP tools plus project guidance until a native MiMo Code plugin is published."
+      },
+      "transport": "mcp+skills",
+      "type": "connector",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the OMP plugin",
+          "Keep nmem configured on this machine",
+          "Restart OMP after install or update so the extension loads startup Context Bundle injection and thread sync",
+          "Run nmem t sync --from omp --apply only when you want to import older OMP sessions",
+          "Use save-thread only when you want an extra curated handoff summary"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "startup-context-injection",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-omp-plugin",
+      "id": "omp",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for OMP. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 OMP 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "omp plugin install nowledge-mem-omp",
+        "detectionHint": "Running inside OMP; ~/.omp/ exists",
+        "docsUrl": "/docs/integrations/omp",
+        "updateCommand": "omp plugin install nowledge-mem-omp"
+      },
+      "name": "OMP",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-thread",
+        "status"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "historicalCommand": "nmem t sync --from omp",
+        "method": "plugin-capture",
+        "note": "The OMP plugin injects startup Context Bundle or Working Memory, syncs completed OMP session branches as Mem threads with source_app=omp, and nmem t sync --from omp can backfill older OMP session files. The Pi package remains separate and should not be installed as the OMP connector."
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "Use the OMP plugin for startup context and thread capture. MCP can still be added through user-owned OMP config for direct structured tool calls or remote/custom endpoint overrides."
+      },
+      "transport": "plugin+cli",
+      "type": "plugin",
+      "version": "0.1.1"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Add Nowledge Mem as a Craft Agent MCP source with nmem config mcp show --host craft-agent",
+          "Add the Nowledge Mem guide or skill to the Craft workspace so the agent knows when to read, search, and save",
+          "Keep nmem configured on the machine where Craft Agent stores ~/.craft-agent/workspaces",
+          "Run nmem t sync --from craft-agent --all-projects --apply when you want to import Craft Agent sessions",
+          "Use direct Craft automations only as an advanced trigger; transcript fidelity comes from the local JSONL importer"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "import-only"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-craft-agent-connector",
+      "id": "craft-agent",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Craft Agent. Generate the Craft source config with nmem config mcp show --host craft-agent, add it to the active Craft workspace, verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Craft Agent 安装或更新 Nowledge Mem。用 nmem config mcp show --host craft-agent 生成 Craft source 配置，加入当前 Craft workspace；再用 nmem status 和 Context Bundle 或 Working Memory 检查验证，并总结你改了什么。"
+        },
+        "command": "nmem config mcp show --host craft-agent",
+        "detectionHint": "Running inside Craft Agent; ~/.craft-agent/ exists or CRAFT_CONFIG_DIR is set",
+        "docsUrl": "/docs/integrations/craft-agent",
+        "updateCommand": "nmem config mcp show --host craft-agent"
+      },
+      "name": "Craft Agent",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-thread",
+        "status"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "command": "nmem t save --from craft-agent",
+        "historicalCommand": "nmem t sync --from craft-agent --all-projects",
+        "method": "cli-native",
+        "note": "Craft Agent stores structured session JSONL under each Craft workspace. The connector uses Craft's MCP source abstraction for memory tools and nmem t save/sync for real local transcript import. Craft automations can be used as an advanced webhook trigger later, but v1 keeps transcript import in the CLI where the files live.",
+        "runtime": "craft-agent"
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "Craft Agent exposes Nowledge Mem through a workspace MCP source named nowledge-mem. Craft may display MCP tools with a source-derived prefix; nmem owns real transcript import."
+      },
+      "transport": "mcp+cli",
+      "type": "connector",
+      "version": "0.1.0"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the CodeBuddy plugin from the Nowledge community marketplace",
+          "Keep nmem configured on the machine where CodeBuddy stores $CODEBUDDY_CONFIG_DIR/projects or ~/.codebuddy/projects",
+          "Restart or reload CodeBuddy after install or update so hooks and MCP config are active",
+          "Use nmem config mcp show --host codebuddy for remote Mem or authenticated localhost",
+          "Run nmem t sync --from codebuddy --apply only when you want to import older CodeBuddy sessions"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-codebuddy-plugin",
+      "id": "codebuddy",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for CodeBuddy. Add the nowledge-community marketplace, install nowledge-mem@nowledge-community, verify with nmem status and the Context Bundle or Working Memory check, then run a short session and confirm nmem t list --source codebuddy shows the imported thread.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 CodeBuddy 安装或更新 Nowledge Mem。添加 nowledge-community marketplace，安装 nowledge-mem@nowledge-community；用 nmem status 和 Context Bundle 或 Working Memory 检查验证，再跑一个短会话并确认 nmem t list --source codebuddy 能看到导入的线程。"
+        },
+        "command": "codebuddy plugin marketplace add nowledge-co/community && codebuddy plugin install nowledge-mem@nowledge-community",
+        "configRequired": "The community repo exposes .codebuddy-plugin/marketplace.json. The plugin ships .codebuddy-plugin/plugin.json, skills, slash commands, hooks/hooks.json, and a bundled local .mcp.json. For remote Mem, generate a user-owned MCP override with nmem config mcp show --host codebuddy and paste it into ~/.codebuddy/.mcp.json, $CODEBUDDY_CONFIG_DIR/.mcp.json, or project .mcp.json.",
+        "detectionHint": "Running inside CodeBuddy Code; ~/.codebuddy/ exists, CODEBUDDY_CONFIG_DIR is set, or codebuddy is on PATH",
+        "docsUrl": "/docs/integrations/codebuddy",
+        "updateCommand": "codebuddy plugin marketplace update nowledge-community && codebuddy plugin update nowledge-mem@nowledge-community"
+      },
+      "name": "CodeBuddy",
+      "skills": [
+        "nowledge-mem"
+      ],
+      "slashCommands": [
+        "/nowledge-mem:status",
+        "/nowledge-mem:sync-now",
+        "/nowledge-mem:import-history"
+      ],
+      "threadSave": {
+        "command": "nmem t sync --from codebuddy --session-id <session-id> --session-dir <transcript_path> --all-projects --apply",
+        "historicalCommand": "nmem t sync --from codebuddy",
+        "method": "cli-native",
+        "note": "CodeBuddy Code v1.16+ exposes native plugin hooks with session_id and transcript_path. The Nowledge Mem plugin uses Stop, SessionEnd, PreCompact, and SubagentStop hooks to run nmem on the same machine as CodeBuddy's ~/.codebuddy/projects transcripts. MCP handles memory tools; nmem owns real transcript import.",
+        "runtime": "codebuddy"
+      },
+      "toolNaming": {
+        "convention": "codebuddy-plugin+mcp+cli",
+        "note": "CodeBuddy loads skills, commands, hooks, and MCP from the plugin package. MCP is for retrieval and structured saves; thread sync stays in nmem using CodeBuddy's transcript_path."
+      },
+      "transport": "plugin+mcp+cli",
+      "type": "plugin",
+      "version": "0.1.1"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Nowledge Mem plugin from the Nowledge community marketplace inside WorkBuddy",
+          "Keep nmem configured on the machine where WorkBuddy stores $WORKBUDDY_CONFIG_DIR/projects or ~/.workbuddy/projects",
+          "Restart or reload WorkBuddy after install or update so hooks and MCP config are active",
+          "Use nmem config mcp show --host workbuddy for remote Mem or authenticated localhost",
+          "Run nmem t sync --from workbuddy --apply only when you want to import older WorkBuddy sessions"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "office",
+      "directory": "nowledge-mem-workbuddy-plugin",
+      "id": "workbuddy",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for WorkBuddy. Add the raw https://raw.githubusercontent.com/nowledge-co/community/main/.workbuddy-plugin/marketplace.json URL as nowledge-community, not the repository root; install nowledge-mem@nowledge-community, verify with nmem status and the Context Bundle or Working Memory check, then run a short session and confirm nmem t list --source workbuddy shows the imported thread.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 WorkBuddy 安装或更新 Nowledge Mem。把 https://raw.githubusercontent.com/nowledge-co/community/main/.workbuddy-plugin/marketplace.json 原始地址添加为 nowledge-community，不要添加仓库根目录；安装 nowledge-mem@nowledge-community，用 nmem status 和 Context Bundle 或 Working Memory 检查验证，再跑一个短会话并确认 nmem t list --source workbuddy 能看到导入的线程。"
+        },
+        "command": "In WorkBuddy, run /plugin marketplace add https://raw.githubusercontent.com/nowledge-co/community/main/.workbuddy-plugin/marketplace.json --name nowledge-community, then /plugin install nowledge-mem@nowledge-community",
+        "configRequired": "Add the raw .workbuddy-plugin/marketplace.json URL, not the repository root: current WorkBuddy resolves .codebuddy-plugin before .workbuddy-plugin when both exist. The WorkBuddy marketplace sparse-checks out only nowledge-mem-workbuddy-plugin. Existing users who added nowledge-co/community at the repository root must remove and re-add the marketplace once, then reinstall. The dedicated connector ships a WorkBuddy manifest and MCP identity, skills, slash commands, lifecycle hooks, and a WorkBuddy-managed Node runner. For remote Mem, generate a user-owned MCP override with nmem config mcp show --host workbuddy and paste it into ~/.workbuddy/.mcp.json, $WORKBUDDY_CONFIG_DIR/.mcp.json, or project .mcp.json.",
+        "detectionHint": "Running inside WorkBuddy; ~/.workbuddy/ exists, WORKBUDDY_CONFIG_DIR is set, or WorkBuddy exposes the CodeBuddy-compatible plugin runtime",
+        "docsUrl": "/docs/integrations/workbuddy",
+        "updateCommand": "In WorkBuddy, run /plugin marketplace remove nowledge-community, then /plugin marketplace add https://raw.githubusercontent.com/nowledge-co/community/main/.workbuddy-plugin/marketplace.json --name nowledge-community, then /plugin install nowledge-mem@nowledge-community"
+      },
+      "name": "WorkBuddy",
+      "skills": [
+        "nowledge-mem"
+      ],
+      "slashCommands": [
+        "/nowledge-mem:status",
+        "/nowledge-mem:sync-now",
+        "/nowledge-mem:import-history"
+      ],
+      "threadSave": {
+        "command": "nmem t sync --from workbuddy --session-id <session-id> --session-dir <transcript_path> --all-projects --apply",
+        "historicalCommand": "nmem t sync --from workbuddy",
+        "method": "cli-native",
+        "note": "WorkBuddy's plugin runtime provides session_id, transcript_path, and agent_transcript_path to lifecycle hooks. The dedicated Nowledge Mem connector runs nmem on the same machine as WorkBuddy's ~/.workbuddy/projects transcripts. MCP handles memory tools; nmem owns real transcript import.",
+        "runtime": "workbuddy"
+      },
+      "toolNaming": {
+        "convention": "workbuddy-plugin+mcp+cli",
+        "note": "WorkBuddy loads the dedicated package from .workbuddy-plugin. SessionStart injects current context, UserPromptSubmit routes prior-work questions, and lifecycle hooks sync local transcripts through nmem. MCP remains the structured retrieval and save surface."
+      },
+      "transport": "plugin+mcp+cli",
+      "type": "plugin",
+      "version": "0.2.0"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Choose the Proma workspace first, then add Nowledge Mem MCP server to that workspace's mcp.json (key: servers) with enabled=true",
+          "Copy hook scripts to ~/.proma/scripts/",
+          "Add SessionStart, UserPromptSubmit, and Stop hooks to ~/.proma/sdk-config/.claude/settings.json",
+          "Copy the standard Nowledge Mem skill folders to the selected workspace's skills/ directory",
+          "Let the SessionStart hook maintain the marked Nowledge Mem block in the selected workspace CLAUDE.md",
+          "Restart Proma after configuration changes"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-proma-plugin",
+      "id": "proma",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Proma. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Proma 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "Manual setup — see plugin README for step-by-step instructions",
+        "detectionHint": "~/.proma/agent-workspaces/default/mcp.json contains nowledge-mem server",
+        "docsUrl": "/docs/integrations/proma",
+        "updateCommand": "Replace ~/.proma/scripts/save-to-nmem.py, ~/.proma/scripts/read-working-memory.py, Proma skill folders, and merge the latest hooks/hooks.json into ~/.proma/sdk-config/.claude/settings.json"
+      },
+      "name": "Proma",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-thread",
+        "status"
+      ],
+      "slashCommands": [
+        "/nmem-save",
+        "/nmem-search",
+        "/nmem-status"
+      ],
+      "threadSave": {
+        "historicalCommand": "nmem t sync --from proma --apply",
+        "method": "plugin-capture",
+        "note": "UserPromptSubmit and Stop hooks run save-to-nmem.py, which parses Proma Agent SDK JSONL from ~/.proma/sdk-config/projects/**/ and appends messages to nmem via REST API as source=proma. Regular Proma Chat conversations are imported by the Mem app/CLI from ~/.proma/conversations/*.jsonl. SessionStart writes Context Bundle into the selected workspace CLAUDE.md; Stop asyncRewake can push fresh Working Memory."
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "MCP tools auto-prefixed by Proma Agent SDK; Proma also has built-in mcp__mem__ tools for session-level memory",
+        "prefix": "mcp__nowledge-mem__"
+      },
+      "transport": "mcp",
+      "type": "plugin",
+      "version": "0.1.5"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install nowledge-mem-langgraph in the Agent Server or application environment",
+          "Set one stable NMEM_LANGGRAPH_APP_ID per deployed application and keep it unchanged across releases",
+          "Pass invocation-specific agent_id and space_id under runtime context.nowledge; keep authorization in NMEM_API_KEY",
+          "Load Mem tools with await NowledgeClient().tools() and attach NowledgeMiddleware to LangChain create_agent",
+          "Keep the LangGraph checkpointer as the execution-state owner; do not replace it with Nowledge Mem",
+          "For raw StateGraph applications, call the explicit Context Bundle and Thread sync helpers at the real model and completion boundaries"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "automatic",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "framework",
+      "directory": "nowledge-mem-langgraph",
+      "externalRepo": "https://github.com/langchain-ai/langgraph",
+      "id": "langgraph",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the LangGraph instructions. Install nowledge-mem-langgraph, choose a stable NMEM_LANGGRAPH_APP_ID, attach NowledgeMiddleware and the Mem MCP tools, pass trusted Agent and Space identity under context.nowledge, then verify with nmem status and the Context Bundle or Working Memory check plus one idempotent top-level Thread import.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 LangGraph 说明操作。安装 nowledge-mem-langgraph，设置稳定的 NMEM_LANGGRAPH_APP_ID，接入 NowledgeMiddleware 和 Mem MCP tools，在 context.nowledge 下传入受信任的 Agent 与 Space identity，然后用 nmem status 和 Context Bundle 或 Working Memory 检查验证，并确认一次顶层 Thread 幂等导入。"
+        },
+        "command": "python -m pip install nowledge-mem-langgraph",
+        "configRequired": "Set NMEM_API_URL and NMEM_API_KEY for remote Mem, choose a stable NMEM_LANGGRAPH_APP_ID, then add NowledgeMiddleware and the async MCP tools to the agent graph. Pass trusted per-invocation Agent and Space selectors under context.nowledge.",
+        "detectionHint": "A Python project imports langgraph or langchain.agents.create_agent, has langgraph.json, or deploys a LangGraph Agent Server.",
+        "docsUrl": "/docs/integrations/langgraph",
+        "updateCommand": "python -m pip install --upgrade nowledge-mem-langgraph"
+      },
+      "name": "LangGraph",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "middleware-import",
+        "note": "The Python middleware imports completed top-level LangGraph conversations through POST /threads/import. LangGraph thread_id plus a stable application_id defines the Mem Thread; assistant_id remains deployment provenance. Nested subgraph checkpoint namespaces are skipped to prevent duplicate parent/subagent Threads.",
+        "runtime": "langgraph"
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "langchain-mcp-adapters exposes Nowledge's bounded external-agent tool set. An invocation interceptor overwrites model-supplied identity and Space arguments with trusted runtime context and matching headers."
+      },
+      "transport": "python+mcp+rest",
+      "type": "connector",
+      "version": "0.1.0"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Add Nowledge Mem as a Mirasim MCP server for the built-in Mirasim agent",
+          "Install the shared Nowledge Mem skills in Mirasim if you want reusable memory guidance",
+          "Run Mirasim's MCP health check before relying on the tools",
+          "For Mirasim panes that launch Claude Code or Codex, install the dedicated Claude Code or Codex connector as well",
+          "Do not claim Mirasim-native transcript sync until Mirasim exposes a stable history/export schema or lifecycle trigger"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "none"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "orchestrator",
+      "directory": null,
+      "externalRepo": "https://mirasim.ai",
+      "id": "mirasim",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the Mirasim instructions. Add Nowledge Mem as a Mirasim MCP server with nmem config mcp show --host mirasim, optionally install the shared skills, run Mirasim's MCP health check, then verify with nmem status and a Context Bundle or Working Memory check. If this pane is Claude Code or Codex launched by Mirasim, also install that tool's dedicated connector for transcript capture.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 Mirasim 说明操作。用 nmem config mcp show --host mirasim 把 Nowledge Mem 加为 Mirasim MCP server；需要时再安装共享 skills；运行 Mirasim 的 MCP health check，然后用 nmem status 和 Context Bundle 或 Working Memory 检查验证。如果这个窗格是 Mirasim 启动的 Claude Code 或 Codex，还要安装对应工具的专属连接来捕获 transcript。"
+        },
+        "command": "nmem config mcp show --host mirasim",
+        "configRequired": "In Mirasim, add a custom MCP server named nowledge-mem using the URL and headers printed by nmem config mcp show --host mirasim, then run Mirasim's MCP health check.",
+        "detectionHint": "Running inside Mirasim, ~/.mirasim exists, or the user asks about Mirasim skills, MCP servers, panes, recordings, or ui-cli.",
+        "docsUrl": "/docs/integrations/mirasim",
+        "updateCommand": "python3 -m pip install --user --upgrade nmem-cli"
+      },
+      "name": "Mirasim",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-thread",
+        "status"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "host-native-pending",
+        "note": "Mirasim publicly documents local sessions, ui-cli sessions/history, and raw recordings under ~/.mirasim/recordings, but the stable transcript JSON schema and post-turn hook contract are not public yet. Use Nowledge Mem MCP and skills inside Mirasim today; Claude Code and Codex sessions launched by Mirasim should still use their own dedicated Nowledge Mem connectors for transcript capture.",
+        "runtime": "mirasim"
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "Mirasim consumes Nowledge Mem through MCP. Mirasim-native transcript sync is not enabled until its history/export schema or lifecycle hook contract is stable."
+      },
+      "transport": "mcp+skills",
+      "type": "orchestrator",
+      "version": "0.10.55"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Add Nowledge Mem as a Cindy MCP server with nmem config mcp show --host cindy",
+          "Add the shared Nowledge Mem skills or guide to Cindy so the agent knows when to read, search, save, and create handoffs",
+          "Install the dedicated Nowledge connector for each harness Cindy launches when you want exact transcript capture, such as Codex, Claude Code, Pi, or OMP",
+          "Keep source_app as the runtime that actually produced the transcript; use NMEM_AGENT_ID=cindy only for a durable Cindy role/persona",
+          "Do not claim Cindy-native automatic thread sync until Cindy exposes a stable message export, lifecycle hook, or verified Ghost package path"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "none"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "orchestrator",
+      "directory": "nowledge-mem-cindy-connector",
+      "externalRepo": "https://github.com/makecindy/cindy",
+      "id": "cindy",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the Cindy path. Add Nowledge Mem as a Cindy MCP server with nmem config mcp show --host cindy, add the shared Mem skills or guide, then verify with nmem status and a Context Bundle or Working Memory check. If Cindy launched Codex, Claude Code, Pi, or OMP, also install that child runtime's dedicated Nowledge connector for exact transcript capture. Keep source_app as the child runtime, not cindy.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 Cindy 路径配置。用 nmem config mcp show --host cindy 把 Nowledge Mem 加为 Cindy MCP server；再添加共享 Mem skills 或 guide；然后用 nmem status 和 Context Bundle 或 Working Memory 检查验证。如果 Cindy 启动的是 Codex、Claude Code、Pi 或 OMP，还要安装对应子运行时的 Nowledge 专属连接来捕获真实 transcript。source_app 保持为子运行时，不要写成 cindy。"
+        },
+        "command": "nmem config mcp show --host cindy",
+        "configRequired": "In Cindy, add a custom MCP server named nowledge-mem using the URL and headers printed by nmem config mcp show --host cindy. Add the shared Mem skills or copy nowledge-mem-cindy-connector/guide.md into Cindy instructions. For Cindy-launched Claude Code, Codex, Pi, or OMP sessions, install that child tool's dedicated Nowledge connector for transcript capture.",
+        "detectionHint": "Running inside Cindy, ~/.cindy exists, the Cindy desktop app is installed, or the user asks about Cindy harnesses, Ghost plugins, MCP, skills, memory, or makecindy/cindy.",
+        "docsUrl": "/docs/integrations/cindy",
+        "updateCommand": "python3 -m pip install --user --upgrade nmem-cli"
+      },
+      "name": "Cindy",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-thread",
+        "status"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "child-runtime",
+        "note": "Cindy is a local agent host that can run Claude Code, Codex, Pi, and other harnesses while keeping workspace, memory, skills, and tools continuous. Cindy's public client has MCP and a Ghost plugin runtime, but no stable third-party transcript export or hook contract for Cindy-native thread import yet. Use Nowledge Mem MCP and shared skills inside Cindy today; exact transcript capture belongs to the dedicated connector for the runtime Cindy launches.",
+        "runtime": "cindy"
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "Cindy consumes Nowledge Mem through MCP for memory/context tools. Cindy-launched harnesses keep their own source slugs for transcript capture. A future Cindy Ghost package can improve install UX once verified, but MCP alone is not a transcript importer."
+      },
+      "transport": "mcp+skills",
+      "type": "connector",
+      "version": "0.1.0"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Use a native Nowledge connector instead when your host has one",
+          "Install the Agent Plugins package only for compatible clients without a dedicated connector",
+          "Keep Nowledge Mem Desktop or a configured nmem CLI available",
+          "Use private client MCP settings for Cloud, Access Anywhere, self-hosted, or any endpoint that needs a secret"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "handoff-only"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "surface",
+      "directory": "nowledge-mem-agent-plugin",
+      "id": "agent-plugins",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem. If this AI tool has a dedicated Nowledge connector, install that first. Otherwise, if it supports Agent Plugins, install https://github.com/nowledge-co/community/tree/main/nowledge-mem-agent-plugin. Verify with nmem status and the Context Bundle or Working Memory check, restart the host if needed, and confirm a Mem MCP tool is reachable.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明安装或更新 Nowledge Mem。如果这个 AI 工具有专属 Nowledge 连接，请优先安装专属连接。否则，如果它支持 Agent Plugins，请安装 https://github.com/nowledge-co/community/tree/main/nowledge-mem-agent-plugin。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，必要时重启宿主，并确认 Mem MCP 工具可用。"
+        },
+        "command": "Install from source in an Agent Plugins-compatible client: https://github.com/nowledge-co/community/tree/main/nowledge-mem-agent-plugin",
+        "detectionHint": "Any client that supports Agent Plugins 1.0 packages",
+        "docsUrl": "/docs/integrations/agent-plugins"
+      },
+      "name": "Universal Agent Plugin",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-handoff",
+        "save-thread",
+        "check-integration",
+        "status",
+        "explore-graph"
+      ],
+      "slashCommands": [],
+      "standard": {
+        "compatibleWhen": "The host supports Agent Plugins and no dedicated Nowledge connector exists",
+        "manifest": "plugin.json",
+        "mcp": "mcp.json",
+        "name": "Agent Plugins",
+        "packagePath": "nowledge-mem-agent-plugin",
+        "schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+        "version": "1.0.0"
+      },
+      "threadSave": {
+        "method": "handoff-only",
+        "note": "Agent Plugins 1.0 standardizes skills and MCP, not lifecycle hooks or transcript access. Use a native connector for automatic full-thread capture."
+      },
+      "toolNaming": {
+        "convention": "agent-plugins",
+        "note": "Agent Plugins clients may namespace skills and MCP tools differently; the package exposes standard skills plus the nowledge-mem MCP server",
+        "prefix": "nowledge-mem:"
+      },
+      "transport": "agent-plugin+mcp",
+      "type": "plugin",
+      "version": "0.1.1"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the shared skills package",
+          "Keep nmem available on this machine",
+          "Use a native connector instead when your host has one",
+          "For Gemini CLI or Antigravity 2.0, confirm global skills are under ~/.gemini/config/skills"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "handoff-only"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "surface",
+      "directory": "nowledge-mem-npx-skills",
+      "id": "npx-skills",
+      "install": {
+        "command": "npx skills add nowledge-co/community/nowledge-mem-npx-skills",
+        "detectionHint": "Any agent that supports npx skills",
+        "docsUrl": "/docs/integrations#fastest-reusable-setup-for-many-coding-agents"
+      },
+      "name": "npx Skills",
+      "skills": [
+        "read-working-memory",
+        "search-memory",
+        "distill-memory",
+        "save-handoff",
+        "save-thread",
+        "check-integration",
+        "status",
+        "explore-graph"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "handoff-only",
+        "note": "Generic skill environments cannot guarantee real transcript import; save-handoff creates a structured summary"
+      },
+      "toolNaming": {
+        "convention": "cli-direct",
+        "note": "Skills teach agents to invoke nmem CLI directly"
+      },
+      "transport": "cli",
+      "type": "skills",
+      "version": "0.6.1"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Enable the bundled Nowledge Mem plugin in Cradle",
+          "Keep the default local endpoint or configure the Mem API URL and optional MCP URL",
+          "Use NMEM_API_KEY for a protected or remote Mem server; Cradle does not persist the key in plugin config",
+          "Treat memory reads and thread writes as agent-guided operations until Cradle adds plugin lifecycle hooks"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "explicit-save"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "orchestrator",
+      "directory": null,
+      "externalRepo": "https://github.com/wibus-wee/cradle-app",
+      "id": "cradle",
+      "install": {
+        "command": "Open Cradle's Plugin Marketplace and enable the bundled Nowledge Mem plugin.",
+        "detectionHint": "Cradle is installed and its bundled nowledge-mem integration plugin is available",
+        "docsUrl": "/docs/integrations/cradle",
+        "officialDocsUrl": "https://github.com/wibus-wee/cradle-app/tree/main/plugins/nowledge-mem"
+      },
+      "name": "Cradle",
+      "skills": [
+        "nowledge-mem"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "explicit-save",
+        "note": "Cradle's bundled @cradleapp/nowledge-mem plugin can explicitly search, read, create, and append Mem threads. Cradle does not yet expose the lifecycle hooks needed for automatic pre-turn recall, session capture, or pre-compaction capture."
+      },
+      "toolNaming": {
+        "convention": "host-native",
+        "note": "Cradle exposes guided operations through /api/plugins/nowledge-mem and can optionally register the Mem streamable HTTP MCP server."
+      },
+      "transport": "http-api+mcp",
+      "type": "plugin",
+      "version": "0.0.1"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Enable Memory in Arkloop and select Nowledge as the provider",
+          "Use Detect local instance or enter the Mem Base URL, API Key, and request timeout",
+          "Enable automatic organization when you want Arkloop to triage and distill completed turns",
+          "Keep Arkloop and a local Mem server on the same machine, or use a reachable protected remote endpoint"
+        ],
+        "bootstrap": "automatic",
+        "distill": "automatic",
+        "recall": "automatic",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "chat",
+      "directory": null,
+      "externalRepo": "https://github.com/qqqqqf-q/Arkloop",
+      "id": "arkloop",
+      "install": {
+        "command": "In Arkloop, open Settings > Memory, enable Memory, and select Nowledge as the provider.",
+        "detectionHint": "Arkloop is installed and Settings > Memory includes the Nowledge provider",
+        "docsUrl": "/docs/integrations/arkloop",
+        "officialDocsUrl": "https://arkloop.io/zh/docs/features/memory"
+      },
+      "name": "Arkloop",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "host-native",
+        "note": "When Nowledge is selected as Arkloop's Memory provider, Arkloop creates a source=arkloop thread and appends new turns with stable external links and idempotency keys. It can triage and distill the saved conversation when automatic organization is enabled."
+      },
+      "toolNaming": {
+        "convention": "host-native",
+        "note": "Arkloop owns the Memory provider UI and calls Mem's Working Memory, rich search, thread, distillation, connections, timeline, and status APIs directly."
+      },
+      "transport": "http-api",
+      "type": "connector",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Run Mem on Optic's machine or provide a reachable Mem endpoint in Optic's Extension settings",
+          "Use Optic's built-in Nowledge integration for thread continuity",
+          "Add the standard Mem MCP server separately when you also want Working Memory, recall, or durable memory tools",
+          "Do not install @opticlm/nmem as an end-user plugin; it is Optic's internal integration SDK"
+        ],
+        "bootstrap": "manual",
+        "distill": "manual",
+        "recall": "manual",
+        "threads": "explicit-save"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": false,
+        "graphExploration": false,
+        "search": false,
+        "status": false,
+        "workingMemory": false
+      },
+      "category": "chat",
+      "directory": null,
+      "externalRepo": "https://github.com/OpticLM/nmem",
+      "id": "opticlm",
+      "install": {
+        "command": "Open Optic's Extension settings and enable its built-in Nowledge Mem integration; no community plugin is required.",
+        "detectionHint": "Optic is installed and its Extension settings expose Nowledge Mem",
+        "docsUrl": "/docs/integrations/opticlm",
+        "officialDocsUrl": "https://github.com/OpticLM/nmem"
+      },
+      "name": "OpticLM",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "host-native",
+        "note": "OpticLM maintains @opticlm/nmem for its Extension functionality. The public SDK supports Mem spaces plus direct thread create, append, tail reconciliation, and delete operations. Optic owns when those operations run; the public SDK does not expose Working Memory or memory-search behavior."
+      },
+      "toolNaming": {
+        "convention": "host-native",
+        "note": "Optic's integration calls Mem's HTTP API through @opticlm/nmem. Add Mem MCP separately for agent-facing retrieval and memory tools."
+      },
+      "transport": "http-api",
+      "type": "connector",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Raycast extension",
+          "Use one optional fixed lane only if this launcher always belongs to it",
+          "Treat Raycast as a quick lookup surface, not an autonomous agent runtime"
+        ],
+        "bootstrap": "manual",
+        "distill": "manual",
+        "recall": "manual",
+        "threads": "none"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": false,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "surface",
+      "directory": "nowledge-mem-raycast",
+      "id": "raycast",
+      "install": {
+        "command": "Install from Raycast Store: search 'Nowledge Mem'",
+        "docsUrl": "/docs/integrations/raycast"
+      },
+      "name": "Raycast",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "none"
+      },
+      "toolNaming": {
+        "convention": "http-api",
+        "note": "UI extension calls Nowledge Mem HTTP API directly (appropriate for launcher extensions)"
+      },
+      "transport": "http-api",
+      "type": "extension",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the Claude Desktop extension",
+          "Add the provided system prompt guidance if you want proactive memory use",
+          "Do not expect transcript-backed session capture from this path"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "none"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "chat",
+      "directory": null,
+      "externalRepo": "https://github.com/nowledge-co/claude-dxt",
+      "id": "claude-desktop",
+      "install": {
+        "command": "Download from nowled.ge/claude-dxt, double-click .mcpb file",
+        "docsUrl": "/docs/integrations/claude-desktop"
+      },
+      "name": "Claude Desktop",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "none"
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "MCP tools defined by backend"
+      },
+      "transport": "mcp",
+      "type": "extension",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install the browser extension",
+          "Connect it to Mem from the side panel",
+          "Use the extension for the current web conversation, not as a generic agent runtime"
+        ],
+        "bootstrap": "manual",
+        "distill": "guided",
+        "recall": "manual",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": false,
+        "status": false,
+        "workingMemory": false
+      },
+      "category": "surface",
+      "directory": null,
+      "externalPath": "nowledge-mem-exchange/nowledge-mem-exchange-extension",
+      "id": "browser-extension",
+      "install": {
+        "command": "Install from Chrome Web Store: search 'Nowledge Memory Exchange'",
+        "docsUrl": "/docs/integrations/browser-extension"
+      },
+      "name": "Browser Extension",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "plugin-capture",
+        "note": "Extension captures browser AI conversations via DOM extraction and sends via HTTP API"
+      },
+      "toolNaming": {
+        "convention": "http-api",
+        "note": "Extension calls Nowledge Mem HTTP API directly (appropriate for browser extensions)"
+      },
+      "transport": "http-api",
+      "type": "extension",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Run nmem t sync --from antigravity on the computer that stores the sessions",
+          "Review the preview before adding --apply",
+          "Use this extractor only when an older session has no official transcript.jsonl"
+        ],
+        "bootstrap": "manual",
+        "distill": "manual",
+        "recall": "manual",
+        "threads": "import-only"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": false,
+        "graphExploration": false,
+        "search": false,
+        "status": false,
+        "workingMemory": false
+      },
+      "category": "surface",
+      "directory": null,
+      "externalRepo": "https://github.com/jijiamoer/antigravity-trajectory-extractor",
+      "id": "antigravity-extractor",
+      "install": {
+        "command": "git clone https://github.com/jijiamoer/antigravity-trajectory-extractor.git",
+        "docsUrl": "https://mem.nowledge.co/docs/import-existing-conversations"
+      },
+      "name": "Antigravity Trajectory Extractor",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "cli-native",
+        "note": "nmem reads current Antigravity CLI/2.0 hook transcripts directly; decoded trajectory JSON from this extractor is the fallback for older cache-only sessions"
+      },
+      "toolNaming": {
+        "convention": "n/a",
+        "note": "Standalone extraction CLI, no agent-facing tools"
+      },
+      "transport": "cli",
+      "type": "extractor",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Run the extractor separately",
+          "Import the extracted files into Mem",
+          "Treat this as a migration path, not a live integration"
+        ],
+        "bootstrap": "manual",
+        "distill": "manual",
+        "recall": "manual",
+        "threads": "import-only"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": false,
+        "graphExploration": false,
+        "search": false,
+        "status": false,
+        "workingMemory": false
+      },
+      "category": "surface",
+      "directory": null,
+      "externalRepo": "https://github.com/jijiamoer/windsurf-trajectory-extractor",
+      "id": "windsurf-extractor",
+      "install": {
+        "command": "git clone https://github.com/jijiamoer/windsurf-trajectory-extractor.git",
+        "docsUrl": "https://github.com/jijiamoer/windsurf-trajectory-extractor#readme"
+      },
+      "name": "Windsurf Trajectory Extractor",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "manual-export",
+        "note": "CLI tool decodes Windsurf Cascade protobuf history; outputs JSONL files for manual import into Nowledge Mem"
+      },
+      "toolNaming": {
+        "convention": "n/a",
+        "note": "Standalone extraction CLI, no agent-facing tools"
+      },
+      "transport": "cli",
+      "type": "extractor",
+      "version": null
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Enable Devin's native plugin closed beta and install nowledge-co/community#nowledge-mem-devin-plugin",
+          "Keep nmem available on the machine that owns Devin CLI/Desktop history",
+          "Use nmem config mcp show --host devin for remote or authenticated Mem",
+          "For Devin Cloud, use a dedicated service user with only ViewOrgSessions and keep its credential outside the plugin"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "automatic-capture"
+      },
+      "capabilities": {
+        "autoCapture": true,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-devin-plugin",
+      "id": "devin",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and install or update Nowledge Mem for Devin with devin plugins install nowledge-co/community#nowledge-mem-devin-plugin. Verify with nmem status and the Context Bundle or Working Memory check, open a short session, and confirm nmem t list --source devin shows a real Thread.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，使用 devin plugins install nowledge-co/community#nowledge-mem-devin-plugin 为 Devin 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证，运行一个短会话，并确认 nmem t list --source devin 能看到真实 Thread。"
+        },
+        "command": "devin plugins install nowledge-co/community#nowledge-mem-devin-plugin",
+        "configRequired": "Devin native plugins are currently a closed beta. The bundled MCP entry is loopback-only and credential-free. Account administrators can require this git-subdir package through Devin's managed plugin manifest. Cloud session API credentials must belong to a least-privilege service user and must never be committed or shared through the plugin.",
+        "detectionHint": "Running in Devin CLI/Desktop/Cloud; Devin plugin support is enabled, or a local Devin sessions.db exists",
+        "docsUrl": "/docs/integrations/devin",
+        "updateCommand": "devin plugins update nowledge-mem"
+      },
+      "name": "Devin",
+      "skills": [
+        "check-integration",
+        "status",
+        "read-working-memory",
+        "save-thread",
+        "distill-memory",
+        "save-handoff",
+        "search-memory"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "command": "nmem t sync --from devin --session-id <session-id> --apply",
+        "historicalCommand": "nmem t sync --from devin",
+        "method": "hook+cli-native+api-v3",
+        "note": "Local CLI/Desktop capture reads Devin's selected message chain from sessions.db. Hooks trigger idempotent sync after turns and compaction. Enterprise Cloud sync uses Devin's read-only v3 session API; child sessions remain distinct Threads.",
+        "runtime": "devin"
+      },
+      "toolNaming": {
+        "convention": "devin-plugin+mcp+cli",
+        "note": "Devin loads namespaced skills from the dedicated plugin; MCP is the structured memory surface and nmem imports Devin-owned transcripts."
+      },
+      "transport": "plugin+mcp+cli+api",
+      "type": "plugin",
+      "version": "0.1.1"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Install Nowledge Mem from the MiniMax Plugin Marketplace",
+          "For MiniMax Code, keep the Nowledge Mem app running on the same computer",
+          "Treat MiniMax Agent Cloud access as unavailable until MiniMax confirms the managed App provider contract",
+          "Do not expect automatic full-conversation capture from the current marketplace contract"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "handoff-only"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-minimax-plugin",
+      "id": "minimax",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the MiniMax instructions. Install or update Nowledge Mem from the MiniMax Plugin Marketplace. On MiniMax Code, open the Nowledge Mem app and perform a Context Bundle or Working Memory check. Treat MiniMax Agent Cloud access as unavailable while cloudProviderStatus is pending MiniMax confirmation, and never ask me to paste a key into chat.",
+          "promptZh": "先阅读 https://mem.nowledge.co/SKILL.md，并按其中的 MiniMax 指引操作。从 MiniMax 插件市场安装或更新 Nowledge Mem；在 MiniMax Code 中打开 Nowledge Mem App，并执行 Context Bundle 或 Working Memory 检查。cloudProviderStatus 仍待 MiniMax 确认时，不要宣称 MiniMax Agent 已支持云端连接，也不要让我把密钥粘贴到聊天中。"
+        },
+        "cloudCommand": "Unavailable while cloudProviderStatus is pending MiniMax confirmation",
+        "cloudProviderStatus": "pending-minimax-confirmation",
+        "command": "MiniMax Code: Plugins > search 'Nowledge Mem' > Install",
+        "configRequired": "Desktop uses credential-free loopback MCP. Cloud is unavailable until MiniMax confirms and enables the managed Nowledge Mem App provider; never paste or commit a Nowledge Cloud key.",
+        "detectionHint": "Running in MiniMax Code or MiniMax Agent; ~/.minimax exists on desktop",
+        "docsUrl": "/docs/integrations/minimax",
+        "updateCommand": "Update Nowledge Mem from MiniMax's plugin manager"
+      },
+      "name": "MiniMax Code & Agent",
+      "skills": [
+        "nowledge-mem"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "handoff-only",
+        "note": "MiniMax's public marketplace package exposes Skill, MCP, and App capabilities but no verified transcript or lifecycle hook. The plugin searches existing Threads and can save an explicit resumable summary without claiming lossless MiniMax conversation capture."
+      },
+      "toolNaming": {
+        "convention": "minimax-plugin+mcp",
+        "note": "MiniMax loads one dedicated behavioral Skill and local MCP. A managed Cloud App may add the same Nowledge tool contract only after MiniMax confirms the provider integration."
+      },
+      "transport": "plugin+skill+mcp",
+      "type": "plugin",
+      "version": "0.1.3"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "Add the Nowledge Mem MCP server",
+          "Add the provided system prompt or AGENTS.md guidance",
+          "Use nmem config mcp show --host <host> for remote Mem credentials",
+          "Prefer a native connector when one exists for your host"
+        ],
+        "bootstrap": "guided",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "none"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": false,
+        "distill": true,
+        "graphExploration": false,
+        "search": true,
+        "status": false,
+        "workingMemory": true
+      },
+      "category": "surface",
+      "directory": null,
+      "id": "mcp-direct",
+      "install": {
+        "command": "Point your MCP client at http://127.0.0.1:14242/mcp",
+        "docsUrl": "/docs/integrations#model-context-protocol-mcp"
+      },
+      "name": "MCP",
+      "skills": [],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "none",
+        "note": "Depends on client capabilities"
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "MCP tools defined by backend"
+      },
+      "transport": "mcp",
+      "type": "connector",
+      "version": null
+    }
+  ],
+  "version": "1.2.5"
+}

@@ -1,0 +1,15 @@
+{
+  "repository": "https://github.com/nowledge-co/community.git",
+  "ref": "main",
+  "commit": "b1f35b5c888c31a2487d879cfc9674547efe8b02",
+  "packages": {
+    "local": {"path": "nowledge-mem-codex-plugin", "version": "0.1.37"},
+    "cloud": {"path": "nowledge-mem-openai-plugin", "version": "0.1.0"}
+  },
+  "tracked_paths": [
+    "nowledge-mem-codex-plugin",
+    "nowledge-mem-openai-plugin",
+    "shared/behavioral-guidance.md",
+    "integrations.json"
+  ]
+}

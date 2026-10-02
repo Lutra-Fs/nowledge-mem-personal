@@ -1,0 +1,16 @@
+{
+  "interface": {
+    "displayName": "Nowledge Mem Personal"
+  },
+  "name": "nowledge-personal",
+  "plugins": [
+    {
+      "category": "Productivity",
+      "name": "nowledge-mem-personal-local",
+      "source": {
+        "path": "./packages/local",
+        "source": "local"
+      }
+    }
+  ]
+}
