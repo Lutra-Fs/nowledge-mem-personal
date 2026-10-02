@@ -1,12 +1,25 @@
 # Personal adapter changes
 
-## [0.1.0]
+## [0.1.1]
 
 Add the portable maintenance skill and personal package metadata. Keep the upstream MCP key and hook layout.
 
 # Changelog
 
 ## [Unreleased]
+
+## [0.1.38] - 2026-10-01
+
+### Tests
+
+- Add resource lifecycle regression coverage for repeated hook file access,
+  successful and failed CLI calls, and subprocess timeouts.
+- Verify detached workers cannot inherit host pipes.
+
+### Notes
+
+- Hook runtime behavior is unchanged. This release adds regression protection;
+  it does not claim to fix a confirmed file descriptor leak.
 
 ## [0.1.37] - 2026-09-22
 

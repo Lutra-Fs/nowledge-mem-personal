@@ -5,7 +5,7 @@
   },
   "files": {
     "cloud/.app.json": "db52b3c96865533f5e39b10d5bef22e5807f9ccc9f4db2cc7d27073b216bb3c9",
-    "cloud/.codex-plugin/plugin.json": "0389e408a2b2a21d9ac9d940f8fbb82ba15590c4203cd180281adcfa31dd7814",
+    "cloud/.codex-plugin/plugin.json": "fd50713e44dad3df0d310586876d7271191df36be62e93d2c1f5fefbe6c35687",
     "cloud/NOTICE.md": "d2ed854f072eff12e5a454881e27f5bb6308285ab0f11c7fe3823c9749b4314a",
     "cloud/PERSONAL-LICENSE": "f5e215854a0b8e38d181ab5d87d92bada8040c212fdc84cc939941a71b9d1563",
     "cloud/README.md": "6834568cfd2c787e0e932322c4e7f785a345b353586a6731df986fc2f2da35bf",
@@ -16,16 +16,16 @@
     "cloud/skills/nmem-maintenance/references/governance.md": "282a6571bf6d8608ee771095987c902e2d95bb99d60468bb50b72096c7bce4e7",
     "cloud/skills/nmem-maintenance/references/provenance-review.md": "8277d0b9f7ce1b12d910e2921419391a46b7f229bf9d1cf9cb74c518ffd59b23",
     "cloud/skills/nowledge-mem/SKILL.md": "830872388da490f7320ae81fc6c9eb4372fcbfdf97656ea3488822e72e28f7aa",
-    "cloud/upstream-provenance.json": "60585a63fa4d7368ba03b517df3a6b0c903743c3db6fda14c123b21a0d4a75be",
-    "integrations.json": "c8317ea86ad0446c51df7bb357e18cb513cef1582b406046ee41129a1aaa1e76",
-    "local/.codex-plugin/plugin.json": "3fcf2d5f5c5f1ed6c5ae640bc89feeb966839b680c144161658d84e9be6a0ccc",
+    "cloud/upstream-provenance.json": "58b91f95234dfa0264880bf77d51e3e2f1e485073187f7774fa8db6c60f6813a",
+    "integrations.json": "774bd797dfef2a9f61961a374e7dc7b583d2b2616ddd134eb1b56fe8076f2623",
+    "local/.codex-plugin/plugin.json": "13aae3d8aadf4e2e17c577bbe655d96e9f00d00958c2ab83c3cefbb5ddc7b98d",
     "local/.mcp.json": "3c1b0ae300e1130c93c46ebc39a29a9a5866081cf7211ccfe0c8c0cbb9c24eb8",
     "local/AGENTS.md": "af192af8b51f80ee45813ef2099675c20acce329d1512557c81f7330327b3ed4",
-    "local/CHANGELOG.md": "c127daaadf4d303b463561605438ab61e9d9022888253414e94f5c90091ce48d",
+    "local/CHANGELOG.md": "8b204d7126c0335ff2a0cdb86d7bf36397f9c2956e77b51419afd14ecc78789e",
     "local/NOTICE.md": "d2ed854f072eff12e5a454881e27f5bb6308285ab0f11c7fe3823c9749b4314a",
     "local/PERSONAL-LICENSE": "f5e215854a0b8e38d181ab5d87d92bada8040c212fdc84cc939941a71b9d1563",
     "local/README.md": "1f412f73dede4c5e2040141c4e1dd893a8634e46cbb3367905a69f963b62e830",
-    "local/UPSTREAM-MANIFEST.json": "8549051a57f38968742e9129b7f0e101f0490ff10dd6188999b8749d80754564",
+    "local/UPSTREAM-MANIFEST.json": "6e4a4a801f30bff69b87cdf69cb3d131d56ce8f60253758621fd14a6672f44fc",
     "local/codex.config.example.toml": "3becb03b7bc7d2295e2d073b7373ea5430e72d35ac19483cc6a9410c24c06e40",
     "local/hooks/hooks.json": "9c9066575388fe47addebdbadbb911f2682639c9309a81ccf7f30db7e50a09f6",
     "local/hooks/nmem-context.py": "ed5cc01416404dc286239058ad4de26e57e6a7b2b282aded4d18e0a180cb6e97",
@@ -49,7 +49,7 @@
     "local/skills/search-memory/SKILL.md": "a4742637ea1275a9b702c3c77500d165294d9c4044ed2f3e54a94505f54fec9f",
     "local/skills/status/SKILL.md": "7e2874ae158dc9436f93c4dbdb67a82cc8c1a05819aa9252e7c629ccb881b0b3",
     "local/skills/working-memory/SKILL.md": "8495ebfd3b9e7eaf5f5194236b7a887ba2910c9554ff2cedf62ad863eebc77d2",
-    "local/upstream-provenance.json": "e6aa0c30f7006fb9f182d6f25eee962fd5a067f5cbfd7c0cf1119c02e9ea35cb"
+    "local/upstream-provenance.json": "3ae2c7d13f4c805a3c1afbfddf37db089564f87936991f32a5f09febb9dc961a"
   },
   "personal": {
     "cloud_name": "nowledge-mem-personal-cloud",
@@ -57,23 +57,23 @@
     "display_name": "Nowledge Mem Personal",
     "local_name": "nowledge-mem-personal-local",
     "marketplace": "nowledge-personal",
-    "version": "0.1.0"
+    "version": "0.1.1"
   },
   "schema_version": 1,
   "upstream": {
     "cloud": {
-      "adapter_version": "0.1.0",
-      "commit": "b1f35b5c888c31a2487d879cfc9674547efe8b02",
+      "adapter_version": "0.1.1",
+      "commit": "4d07c9462b329aae654246699b8183df8d8e2a50",
       "path": "nowledge-mem-openai-plugin",
       "repository": "https://github.com/nowledge-co/community.git",
       "version": "0.1.0"
     },
     "local": {
-      "adapter_version": "0.1.0",
-      "commit": "b1f35b5c888c31a2487d879cfc9674547efe8b02",
+      "adapter_version": "0.1.1",
+      "commit": "4d07c9462b329aae654246699b8183df8d8e2a50",
       "path": "nowledge-mem-codex-plugin",
       "repository": "https://github.com/nowledge-co/community.git",
-      "version": "0.1.37"
+      "version": "0.1.38"
     }
   }
 }
