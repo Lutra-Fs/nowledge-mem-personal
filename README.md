@@ -126,7 +126,8 @@ flowchart LR
   B --> V{Validation passes?}
   V -->|Yes| P[Update one review pull request]
   V -->|No| I[Report a review issue]
-  P --> H[Owner-authorized Codex review or human review]
+  P --> R[Native Codex GitHub review]
+  R --> H[Owner-authorized Codex decision or human review]
   H --> M[Merge the reviewed commit when checks pass]
 ```
 
@@ -139,11 +140,20 @@ python3 scripts/monitor_upstream.py --dry-run
 Only the monitor job receives repository write permissions. It uses the repository `GITHUB_TOKEN`.
 Build jobs need no Mem token, live App ID, or server access.
 GitHub may require approval for CI runs on a bot-created pull request. The monitor also validates the candidate directly.
-An owner can authorize a separate Codex heartbeat to review and merge eligible update requests.
-That reviewer reads the actual upstream diff and checks validation for the current PR head.
+Native Codex GitHub review is configured for **Review all PRs** and **On every push** in this repository.
+It covers the monitor's bot-authored requests and reviews new commits in the cloud.
+That review does not require the local Codex host or an OpenAI API key in GitHub.
+See [OpenAI's GitHub review guide](https://learn.chatgpt.com/docs/third-party/github).
+
+Native review and the merge decision are separate steps.
+An owner-authorized local Codex heartbeat handles the final decision for eligible update requests.
+It uses native findings, reads the actual upstream changes, and verifies CI for the current PR head.
+It must not treat a missing review, an empty comment list, a reaction, or a skipped check as approval.
+When native review cannot establish a completed review of the current commit, Codex must obtain
+enough direct review evidence before deciding, or preserve the request for attention.
 It merges with a SHA guard only when no unresolved findings remain.
-The heartbeat uses the local Codex host; keep that host available for scheduled reviews.
-Future review runs do not change installed plugins, account connections, hooks, or Mem data.
+The local heartbeat still needs its host available for the merge decision.
+Future decision runs do not change installed plugins, account connections, hooks, or Mem data.
 Public scheduled workflows stop after 60 days without repository activity. Re-enable the workflow if that occurs.
 See [GitHub schedule behavior](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule).
 
