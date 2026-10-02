@@ -66,7 +66,7 @@ def original_metadata(archive_path: Path) -> tuple[dict, dict, str]:
         if not isinstance(app, dict) or set(app) != {"id"}:
             raise ValueError("The backup App reference must contain only its registered ID.")
         app_id = app["id"]
-        if not isinstance(app_id, str) or not package_builder.APP_ID_RE.fullmatch(app_id):
+        if not isinstance(app_id, str) or not package_validator.APP_ID_RE.fullmatch(app_id):
             raise ValueError("The backup App reference is not a registered App ID.")
         return manifest, mapping, app_id
 
