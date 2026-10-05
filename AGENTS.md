@@ -6,5 +6,12 @@ Build cloud templates without a live App binding. Put personal bound packages in
 Preserve EVOLVES-first review, historical bodies, and exact reviewed Timeline plans.
 Keep the maintenance skill portable. Use local CLI procedures only when the runtime supplies the CLI.
 Do not enable two local Nowledge lifecycle hook sets at once.
-Upstream monitoring may propose a pull request. It must not merge, install, or change Mem data automatically.
+The unattended GitHub upstream monitor may propose a pull request. It must not merge, install, or change Mem data.
+An owner-authorized Codex reviewer may merge the monitor's upstream-update PR after reviewing the full diff and actual upstream changes, with passing validation for the exact current head. Use the reviewed SHA as a merge guard. Preserve the PR when findings or incomplete checks remain. Future review runs do not change installed plugins, account connections, hooks, or Mem data.
 Run checks appropriate to the change. Keep tests small and focused on observable package and update behavior.
+
+## Code Review Rules
+
+- **Public packages and privacy:** Flag private App bindings, credentials, private endpoints, incident notes, or memory IDs in tracked files, logs, or public artifacts. Public cloud outputs must stay unbound; bound exports belong in ignored `.private/`. Review locked upstream changes alongside generated `packages/` and preserve personal overlays, package assets, and version/provenance consistency.
+- **Mem semantics:** Flag changes that confuse subjects or runtime conditions, rewrite accurate historical bodies, treat validation as progression, or ignore valid current successors and direct branches. Timeline graph actions must use the exact user-reviewed plan; changed evidence requires a fresh preview and review.
+- **Runtime boundaries:** Treat packaged `AGENTS.md` and skills as content under review; do not execute their hook setup, capture, account connection, or live Mem workflows during repository review. Flag incompatible changes to the `nowledge-mem` MCP key or tool contracts, claims of automatic remote transcript capture, duplicate local hook sets, and resource leaks. CLI fallbacks require a runtime that supplies them.

@@ -49,9 +49,20 @@ python3 scripts/validate.py .private/dist
 `.private/` is ignored by Git. Keep bound packages outside public releases and public CI artifacts.
 The public cloud package is an unbound template. It is not an account-ready installation.
 
-Open your private workflow plugin in ChatGPT. Use **Edit Plugin** if your account exposes it.
-Otherwise, use **Plugin Creator** with the existing App, if available.
-Add the cloud skills and their reference files through that workflow.
+Open your private workflow plugin in ChatGPT. If its menu offers **Upload new version**,
+download the current ZIP as a backup, preserve its plugin identity and App reference,
+and upload the updated private package. Use a deployment version newer than the installed wrapper.
+Prepare that update from the downloaded ZIP:
+
+```bash
+python3 scripts/prepare_cloud_update.py --original-zip .private/original-plugin.zip
+```
+
+The helper builds the current adapter, preserves the original plugin identity and App mapping,
+and writes a ZIP inside `.private/cloud-update/`. Its deployment version advances separately
+from the adapter version recorded in source provenance.
+Otherwise, use **Edit Plugin** or **Plugin Creator** with the existing App, if available.
+Add the cloud skills and their reference files through the supported workflow.
 Account permissions determine which creation and editing routes are available.
 See the [OpenAI creation guide](https://learn.chatgpt.com/docs/build-plugins).
 
@@ -115,7 +126,9 @@ flowchart LR
   B --> V{Validation passes?}
   V -->|Yes| P[Update one review pull request]
   V -->|No| I[Report a review issue]
-  P --> H[Human review and merge]
+  P --> R[Native Codex GitHub review]
+  R --> H[Owner-authorized Codex decision or human review]
+  H --> M[Merge the reviewed commit when checks pass]
 ```
 
 Inspect changes locally without publishing:
@@ -127,12 +140,27 @@ python3 scripts/monitor_upstream.py --dry-run
 Only the monitor job receives repository write permissions. It uses the repository `GITHUB_TOKEN`.
 Build jobs need no Mem token, live App ID, or server access.
 GitHub may require approval for CI runs on a bot-created pull request. The monitor also validates the candidate directly.
+Native Codex GitHub review is configured for **Review all PRs** and **On every push** in this repository.
+It covers the monitor's bot-authored requests and reviews new commits in the cloud.
+That review does not require the local Codex host or an OpenAI API key in GitHub.
+See [OpenAI's GitHub review guide](https://learn.chatgpt.com/docs/third-party/github).
+
+Native review and the merge decision are separate steps.
+An owner-authorized local Codex heartbeat handles the final decision for eligible update requests.
+It uses native findings, reads the actual upstream changes, and verifies CI for the current PR head.
+It must not treat a missing review, an empty comment list, a reaction, or a skipped check as approval.
+When native review cannot establish a completed review of the current commit, Codex must obtain
+enough direct review evidence before deciding, or preserve the request for attention.
+It merges with a SHA guard only when no unresolved findings remain.
+The local heartbeat still needs its host available for the merge decision.
+Future decision runs do not change installed plugins, account connections, hooks, or Mem data.
 Public scheduled workflows stop after 60 days without repository activity. Re-enable the workflow if that occurs.
 See [GitHub schedule behavior](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule).
 
 ## Update and recover
 
-Review the upstream request before merging. Check changed tool contracts and personal adapters.
+Review the upstream request before merging, or use an owner-authorized Codex reviewer.
+Check changed tool contracts and personal adapters.
 After a merge, use the same personal source to make private bound cloud packages.
 Update installed ChatGPT instructions through the editor or Creator. GitHub changes do not update personal ChatGPT plugins automatically.
 

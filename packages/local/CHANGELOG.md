@@ -1,6 +1,6 @@
 # Personal adapter changes
 
-## [0.1.1]
+## [0.1.2]
 
 Add the portable maintenance skill and personal package metadata. Keep the upstream MCP key and hook layout.
 
