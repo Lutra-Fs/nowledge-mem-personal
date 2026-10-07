@@ -1070,10 +1070,10 @@
           "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Droid. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
           "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Droid 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
         },
-        "command": "droid plugin marketplace add https://github.com/nowledge-co/community && droid plugin install nowledge-mem@nowledge-community",
+        "command": "droid plugin marketplace add https://github.com/nowledge-co/community && droid plugin install nowledge-mem@community",
         "detectionHint": "Running inside Droid (Factory)",
         "docsUrl": "/docs/integrations/droid",
-        "updateCommand": "droid plugin marketplace update nowledge-community && droid plugin update nowledge-mem@nowledge-community"
+        "updateCommand": "droid plugin marketplace update community && droid plugin update nowledge-mem@community"
       },
       "name": "Droid",
       "skills": [
@@ -1664,7 +1664,7 @@
       "threadSave": {
         "historicalCommand": "nmem t sync --from opencode --all-projects",
         "method": "sdk-extract+event-idle",
-        "note": "Plugin subscribes to OpenCode session idle events and pre-compaction, reads session messages through ctx.session.context, and posts to Nowledge Mem thread API over HTTP; save_thread remains an explicit idempotent fallback"
+        "note": "Plugin subscribes to OpenCode session.execution.succeeded, legacy idle events, and pre-compaction, reads session messages through ctx.session.context, and posts to Nowledge Mem thread API over HTTP; save_thread remains an explicit idempotent fallback"
       },
       "toolNaming": {
         "convention": "canonical",
