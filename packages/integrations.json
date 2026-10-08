@@ -1136,10 +1136,10 @@
           "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for OpenClaw. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
           "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 OpenClaw 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
         },
-        "command": "openclaw plugins install clawhub:nowledge-mem",
+        "command": "openclaw plugins install clawhub:@nowledge/openclaw-nowledge-mem",
         "detectionHint": "Running as OpenClaw agent; ~/.openclaw/ exists",
         "docsUrl": "/docs/integrations/openclaw",
-        "updateCommand": "openclaw plugins install clawhub:nowledge-mem --force"
+        "updateCommand": "openclaw plugins install clawhub:@nowledge/openclaw-nowledge-mem --force"
       },
       "name": "OpenClaw",
       "skills": [
@@ -1173,7 +1173,7 @@
       },
       "transport": "cli",
       "type": "plugin",
-      "version": "0.8.34"
+      "version": "0.8.35"
     },
     {
       "autonomy": {
@@ -1302,7 +1302,7 @@
       },
       "transport": "cli",
       "type": "plugin",
-      "version": "0.7.3"
+      "version": "0.7.4"
     },
     {
       "autonomy": {
@@ -1359,7 +1359,7 @@
       },
       "transport": "plugin+cli",
       "type": "plugin",
-      "version": "0.8.9"
+      "version": "0.8.10"
     },
     {
       "autonomy": {
@@ -1417,7 +1417,7 @@
       },
       "transport": "plugin+cli",
       "type": "plugin",
-      "version": "0.1.0"
+      "version": "0.1.1"
     },
     {
       "autonomy": {
@@ -1684,7 +1684,7 @@
       },
       "transport": "cli+http",
       "type": "plugin",
-      "version": "0.4.0"
+      "version": "0.4.2"
     },
     {
       "autonomy": {
@@ -2047,7 +2047,7 @@
       },
       "transport": "plugin+cli",
       "type": "plugin",
-      "version": "0.1.1"
+      "version": "0.1.2"
     },
     {
       "autonomy": {
@@ -2348,7 +2348,7 @@
       },
       "transport": "python+mcp+rest",
       "type": "connector",
-      "version": "0.1.0"
+      "version": "0.1.1"
     },
     {
       "autonomy": {
