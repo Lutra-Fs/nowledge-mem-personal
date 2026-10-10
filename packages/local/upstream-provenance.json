@@ -1,6 +1,6 @@
 {
-  "adapter_version": "0.1.1",
-  "commit": "4d07c9462b329aae654246699b8183df8d8e2a50",
+  "adapter_version": "0.1.2",
+  "commit": "12b96ab88c13b6a7da4b907eacfb054553aa0ef8",
   "path": "nowledge-mem-codex-plugin",
   "repository": "https://github.com/nowledge-co/community.git",
   "version": "0.1.38"
