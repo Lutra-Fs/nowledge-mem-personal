@@ -119,11 +119,11 @@
       },
       "toolNaming": {
         "convention": "cli-direct",
-        "note": "SessionStart injects the full Nowledge Context Bundle. SubagentStart uses the exact NMEM_SUBAGENT_CONTEXT_TYPES allowlist for bounded context, skips Explore by default, and gives other unlisted types retrieval routing without a context read. Declarative skills and slash commands invoke nmem CLI directly."
+        "note": "SessionStart injects Context Bundle / Working Memory with a shared timeout budget and a user-visible read receipt. UserPromptSubmit requires one targeted nmem memory or thread search before concluding continuation, review, regression, release, connector, or prior-decision work. Read fallbacks preserve the configured Space. SubagentStart retains its exact allowlist and bounded context. The plugin remains CLI-first and does not register an MCP server."
       },
       "transport": "cli",
       "type": "plugin",
-      "version": "0.7.24"
+      "version": "0.7.25"
     },
     {
       "autonomy": {
@@ -186,7 +186,7 @@
       },
       "transport": "cli",
       "type": "plugin",
-      "version": "0.7.24"
+      "version": "0.7.25"
     },
     {
       "autonomy": {
@@ -1359,7 +1359,7 @@
       },
       "transport": "plugin+cli",
       "type": "plugin",
-      "version": "0.8.10"
+      "version": "0.8.11"
     },
     {
       "autonomy": {
@@ -1617,7 +1617,7 @@
       },
       "transport": "cli+http",
       "type": "plugin",
-      "version": "0.1.4"
+      "version": "0.1.5"
     },
     {
       "autonomy": {
@@ -1668,7 +1668,7 @@
       },
       "toolNaming": {
         "convention": "canonical",
-        "note": "Plugin registers tools with nowledge_mem_ prefix via @opencode/plugin (OpenCode v2)",
+        "note": "Plugin registers tools with nowledge_mem_ prefix via @opencode/plugin (OpenCode v2). Recognized schema-v1 Context Bundle tool output keeps one structured JSON representation while preserving configured instructions, rules, scope, and semantic hash; unknown or partial bundles remain unchanged.",
         "prefix": "nowledge_mem_",
         "tools": [
           "nowledge_mem_context_bundle",
@@ -1684,7 +1684,7 @@
       },
       "transport": "cli+http",
       "type": "plugin",
-      "version": "0.4.2"
+      "version": "0.4.3"
     },
     {
       "autonomy": {

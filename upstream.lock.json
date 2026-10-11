@@ -1,7 +1,7 @@
 {
   "repository": "https://github.com/nowledge-co/community.git",
   "ref": "main",
-  "commit": "12b96ab88c13b6a7da4b907eacfb054553aa0ef8",
+  "commit": "d928759874f4df2b2c29c647ecfda9fdba75ef02",
   "packages": {
     "local": {
       "path": "nowledge-mem-codex-plugin",
