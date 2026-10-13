@@ -1,11 +1,11 @@
 {
   "repository": "https://github.com/nowledge-co/community.git",
   "ref": "main",
-  "commit": "c5fb72fddc0a1fb2c9b90f08c1845512acb335b9",
+  "commit": "52422f98754be61afb94c8d00bb74f11cad9c90d",
   "packages": {
     "local": {
       "path": "nowledge-mem-codex-plugin",
-      "version": "0.1.39"
+      "version": "0.1.40"
     },
     "cloud": {
       "path": "nowledge-mem-openai-plugin",

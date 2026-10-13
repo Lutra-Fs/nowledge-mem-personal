@@ -16,26 +16,27 @@
     "cloud/skills/nmem-maintenance/references/governance.md": "282a6571bf6d8608ee771095987c902e2d95bb99d60468bb50b72096c7bce4e7",
     "cloud/skills/nmem-maintenance/references/provenance-review.md": "8277d0b9f7ce1b12d910e2921419391a46b7f229bf9d1cf9cb74c518ffd59b23",
     "cloud/skills/nowledge-mem/SKILL.md": "830872388da490f7320ae81fc6c9eb4372fcbfdf97656ea3488822e72e28f7aa",
-    "cloud/upstream-provenance.json": "a4e966d07cbf07d70d2e3fbcce28a862672468c9e40c65da9049244475a2923b",
-    "integrations.json": "e22bcb8abe1149c5ab5e87e17fe9b9b12147c207622fb629d46189e0d1f46273",
+    "cloud/upstream-provenance.json": "80292ada9fe5597a1c02055f04b66302676a7359fdd95150881f9b8862e7ad96",
+    "integrations.json": "408215e32defe97bc9ae68fd96fc124576de1dc2698a6dc66a216da8a2df0fca",
     "local/.codex-plugin/plugin.json": "f142f70f23b066c8a58e9d275d98da21a3bcf6e3c675189501cd3d5ceb6ea25d",
     "local/.mcp.json": "3c1b0ae300e1130c93c46ebc39a29a9a5866081cf7211ccfe0c8c0cbb9c24eb8",
-    "local/AGENTS.md": "c0a31ab21246a3e0927961b674ae7108f79e26d52e075966e27e7456d4c212a6",
-    "local/CHANGELOG.md": "c997a3d262601e16675279c6f301394bd218fdc572e1227240b4e31f356004b3",
+    "local/AGENTS.md": "c853dd06ff75429c14ceb684568200a453f359611fabeea2dd0635700f53e64a",
+    "local/CHANGELOG.md": "0c8c3fbd3918e68b29f01ecc037b05ac82a00fdb91ceef7354db08edefe5fd0a",
     "local/NOTICE.md": "d2ed854f072eff12e5a454881e27f5bb6308285ab0f11c7fe3823c9749b4314a",
     "local/PERSONAL-LICENSE": "f5e215854a0b8e38d181ab5d87d92bada8040c212fdc84cc939941a71b9d1563",
     "local/README.md": "1f412f73dede4c5e2040141c4e1dd893a8634e46cbb3367905a69f963b62e830",
-    "local/UPSTREAM-MANIFEST.json": "8ea7c6bce5724bdd876df84a7b06db3230ef0663cbb4613f3c6cec4b4f5737cf",
+    "local/UPSTREAM-MANIFEST.json": "ef6721439e9c3199d30eaac1f16293128096af46b5d4933fefa29392d1fda5d3",
     "local/codex.config.example.toml": "3becb03b7bc7d2295e2d073b7373ea5430e72d35ac19483cc6a9410c24c06e40",
     "local/hooks/hooks.json": "9c9066575388fe47addebdbadbb911f2682639c9309a81ccf7f30db7e50a09f6",
-    "local/hooks/nmem-context.py": "8175e604d07ddda6894b7420e8db3c924620060fb95341948af2e0bba12d605f",
+    "local/hooks/nmem-context.py": "ac15e4aa2bcce55e541a20c9746b2dfd22b30f233b69042a4ef231bb7f5d3aae",
     "local/hooks/nmem-stop-launch.py": "93dd50f138ad1d634fb8cd245da75090d50a6566f80dbbe4063c28970eb8bef7",
-    "local/hooks/nmem-stop-save.py": "2153899b18c72de85bb12039f7869c586015db409580be4ddcd2192eac645ae6",
-    "local/hooks/nmem_runtime.py": "cb8169c64973b9ad533b7411dddbb325f9b29cc1356686adfcbff2046bfc10e3",
+    "local/hooks/nmem-stop-save.py": "54da3af272676d7d89bdf8b06e672e5b772f96753db23ed6761fb62383786556",
+    "local/hooks/nmem_runtime.py": "9cc8fbbac5a3cc169c3b977abdc642ed3b452b80bced14528f0e2cfbe29341ad",
+    "local/hooks/nmem_stop_maintenance.py": "4bc520119e39cd5035d3e2ca07e757022452215db4fc002d2e9d51a1aa70aa54",
     "local/hooks/resume-protocol.json": "50208d78350a7a160dec59a82df1499b6ca7da33e54c5eb11c97e342118e68bb",
     "local/hooks/skill_outcome.py": "0ad0ece0ca2e33143b1de69b73b169a29bfabb6ec3e01f12b2c58638192304a3",
-    "local/scripts/install_hooks.py": "74f734458c943941513a47e41a79a021d9a641e2a86a748ea8fb8f04965b2ce9",
-    "local/scripts/validate-plugin.mjs": "49fff994d4c8ed5a31f94a8124deda113bf3454454687c3830a34d9e385aa2b5",
+    "local/scripts/install_hooks.py": "70beffa2bb11dd03fb9b5ed0b9d8525cc76db9975623aa8899233c750def79c4",
+    "local/scripts/validate-plugin.mjs": "194b81bf350e822fcbad7fd4daa3180ac5a5dbca734f3126c848b364b930c10b",
     "local/skills/distill-memory/SKILL.md": "cca27217489828280cc8cfd70e8052b956cff71dd8f2c5d79b21d1d7fa78bc58",
     "local/skills/explore-graph/SKILL.md": "2b86db9339b24f556dd33cb770f6ae4ee108e9c51a5e8c901ccd9a20aa85c9a1",
     "local/skills/nmem-maintenance/SKILL.md": "e9acdd0d0b03f5b876867ea2329e1e1384b36272a6e1068edceb5640d41fd5b0",
@@ -49,7 +50,7 @@
     "local/skills/search-memory/SKILL.md": "aaff69d49fdbbe8795b1ccb9135fa9c397420410f8742f8398a01978f8b08387",
     "local/skills/status/SKILL.md": "7e2874ae158dc9436f93c4dbdb67a82cc8c1a05819aa9252e7c629ccb881b0b3",
     "local/skills/working-memory/SKILL.md": "7faca415cc747bd32fbd070626bcdfa8723d60eca54c90e755c113260cb4f840",
-    "local/upstream-provenance.json": "de098ac4ce903f6f541048dfe76202e54d4a55bb6f4e1e6fb80d3ed25afd25bb"
+    "local/upstream-provenance.json": "03ca8355fa8fb708351e2f2b7e84707dab83f5ef74b6421aced8a8128b48d176"
   },
   "personal": {
     "cloud_name": "nowledge-mem-personal-cloud",
@@ -63,17 +64,17 @@
   "upstream": {
     "cloud": {
       "adapter_version": "0.1.2",
-      "commit": "c5fb72fddc0a1fb2c9b90f08c1845512acb335b9",
+      "commit": "52422f98754be61afb94c8d00bb74f11cad9c90d",
       "path": "nowledge-mem-openai-plugin",
       "repository": "https://github.com/nowledge-co/community.git",
       "version": "0.1.0"
     },
     "local": {
       "adapter_version": "0.1.2",
-      "commit": "c5fb72fddc0a1fb2c9b90f08c1845512acb335b9",
+      "commit": "52422f98754be61afb94c8d00bb74f11cad9c90d",
       "path": "nowledge-mem-codex-plugin",
       "repository": "https://github.com/nowledge-co/community.git",
-      "version": "0.1.39"
+      "version": "0.1.40"
     }
   }
 }
