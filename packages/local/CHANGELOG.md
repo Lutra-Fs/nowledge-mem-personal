@@ -1,12 +1,68 @@
 # Personal adapter changes
 
-## [0.1.1]
+## [0.1.2]
 
 Add the portable maintenance skill and personal package metadata. Keep the upstream MCP key and hook layout.
 
 # Changelog
 
-## [Unreleased]
+## [0.1.41] - Unreleased
+
+### Changed
+
+- Save optional identity/profile work as pending at normal Stop. Each eligible
+  start can show unfinished work again; confirmation and owner operations take
+  place in an ordinary model turn.
+- Preserve the original operation through uncertain creation or profile-update
+  results. A reminder alone never creates an identity or completes maintenance.
+
+### Fixed
+
+- Show a minimal pending-status request and Python 3 guidance at startup so
+  agents can inspect the original item without guessing the request format.
+- Resolve uncertain existing-profile selections by explicit confirmation of the
+  current live context revision, without repeating selection or claiming the
+  original write completed; retain original intent and known binding fences.
+- Keep multiline instruction text and embedded hook/MCP examples untouched
+  when enabling hooks or managing the MCP configuration.
+- Preserve quoted/commented Codex feature and hook-state tables during setup,
+  and validate generated TOML before replacing the user config. Unsupported
+  rewrites fail without corrupting the original config.
+- Validate Codex TOML before installing hooks when setup runs on older Python,
+  using an available Python 3.11 or newer parser. Invalid configuration stays
+  unchanged, and the local Memory coexistence notice remains available.
+
+### Notes
+
+- These changes are an implementation candidate awaiting installed-host
+  acceptance. They do not change Labs activation or enable Cloud Agent Team.
+
+## [0.1.40] - Unreleased
+
+### Added
+
+- Add opt-in existing-profile maintenance at Codex Stop. With an explicit
+  `NMEM_AGENT_CONTEXT` and `NMEM_AGENT_PROFILE_MAINTENANCE=1`, the hook verifies
+  the live named context, prepares only the approved public profile projection,
+  and asks Codex for one revision-fenced apply-or-no-change decision.
+- Bound Stop input, CLI calls, CLI output, profile fields, and continuation text;
+  recursive, duplicate, unsupported, malformed, timed-out, conflicting, and
+  failed paths end normally without claiming a profile save.
+
+### Fixed
+
+- Keep continuation admission stable across concurrent profile edits during
+  the same Stop while retaining revision-fenced mutation operation IDs.
+- Refuse an unavailable explicit CLI path instead of selecting another install.
+- Preserve exact Space IDs, including empty, whitespace, and Unicode IDs, in
+  live named-context admission at startup and Stop.
+
+## [0.1.39] - 2026-10-11
+
+### Fixed
+
+- Search first, inspect at most one small targeted thread range per question, and report evidence gaps rather than walking offsets.
+- Preserve explicit target ranges, progressive graph exploration and existing session capture.
 
 ## [0.1.38] - 2026-10-01
 

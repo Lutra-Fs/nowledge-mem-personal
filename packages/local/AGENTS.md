@@ -10,6 +10,7 @@ This Codex package is hybrid-aware and hook-assisted.
 
 - Best modern setup: Codex plugin with bundled Nowledge Mem MCP.
 - Automatic capture: the Codex Stop hook queues the real transcript after each turn. The Nowledge Mem Auto-Sync switch controls this lifecycle capture; explicit manual saves remain available while it is off.
+- Optional identity/profile maintenance: with explicit `NMEM_AGENT_CONTEXT` and `NMEM_AGENT_PROFILE_MAINTENANCE=1`, Stop saves a bounded pending reference and ends normally. Each eligible start may remind you again. Confirm a meaningful update, or separately confirm create-only enrollment, in an ordinary turn using the pending helper; see [pending maintenance](docs/pending-maintenance.md). Reuse the original operation after an uncertain result. A reminder and the maintenance flag alone authorize no identity creation.
 - Enable `hooks = true`, then run `scripts/install_hooks.py` once after installing or updating the plugin. Current Codex loads hooks from enabled plugins automatically; the setup script adds the old `plugin_hooks` gate only when the host still requires it. After restart, trust the Nowledge Mem hooks when Codex asks. The setup also keeps the host-level Stop fallback for builds that still need `~/.codex/hooks.json`.
 - Reliable bootstrap: the SessionStart hook injects Context Bundle when available, with Working Memory as fallback. Read it manually only when startup injection was unavailable or the user asks to refresh it.
 - Isolated subagent bootstrap: the SubagentStart hook uses the exact `NMEM_SUBAGENT_CONTEXT_TYPES` role allowlist. Selected roles receive a bounded Context Bundle; `explorer` is a no-op by default; other roles receive retrieval routing only. Treat injected context as a starting point, verify continuation or prior-decision work with one targeted search, and do not distill speculative intermediate findings.
@@ -22,9 +23,21 @@ Codex local Memory and Nowledge Mem are complementary, not interchangeable. Code
 
 ## Startup Context
 
-At session start, load the user's current context.
+At session start, load the user's current context when the identity and scope
+are verified. If identity/profile work is pending, or its local state is
+unavailable, keep the pending hint and inspect the original item first. Do not
+call create-capable Context Bundle or `nmem context` as a fallback before the
+required ordinary-turn confirmation: that bootstrap can implicitly ensure a
+missing ambient identity. Use only approved named-context reads and read-only
+Working Memory in an independently verified exact Space; do not guess Default
+when the Space is unresolved. Follow [pending maintenance](docs/pending-maintenance.md)
+for explicit choice and recovery. This exception preserves ordinary first-use
+communication and the usual bootstrap after verified selection.
 
-Prefer the Nowledge Mem MCP `read_context_bundle` tool when identity, agent lane, space scope, or Rules could matter. It includes owner identity, resolved AI Identity, active scope, active rules, Working Memory, and KFS paths.
+Outside that pending/unavailable exception, prefer the Nowledge Mem MCP
+`read_context_bundle` tool when identity, agent lane, space scope, or Rules could
+matter. It includes owner identity, resolved AI Identity, active scope, active
+rules, Working Memory, and KFS paths.
 
 Otherwise use:
 
@@ -60,7 +73,7 @@ Prefer Nowledge Mem MCP retrieval tools when they are available in this session:
 
 - `memory_search` for durable knowledge
 - `thread_search` for prior conversation lookup
-- `thread_fetch_messages` for progressive thread inspection
+- `thread_fetch_messages` for one targeted, bounded thread read
 
 Otherwise use:
 
@@ -171,3 +184,9 @@ nmem config mcp show --host codex
 
 Paste that into `~/.codex/config.toml`. Direct MCP clients do not read `~/.nowledge-mem/config.json` automatically.
 If `codex mcp list` shows `Not logged in`, update `nmem`, make sure the desktop app or `nmem config client ...` has written the right URL/API key, then rerun `scripts/install_hooks.py` or paste the generated block manually. Do not use `codex mcp login nowledge-mem`; that command is for OAuth MCP servers.
+
+### Bounded thread reads
+
+Search memories or threads first, then choose the specific conversation and message range needed. Call `thread_fetch_messages`, a host thread-fetch tool, or `nmem --json t show` at most once per question, using a small message limit (for example 8) and a content limit of 1200 where supported. A known target range may use a nonzero offset once.
+
+Never loop over offsets to reconstruct a conversation. Do not raise `--content-limit` to compensate for a slow or incomplete read. Small output limits do not guarantee cheap server-side work on every deployed backend. If a read is slow, incomplete, fails or times out, stop, report the evidence gap, and refine the search rather than retrying pages. A later explicit user request for another range is a new bounded read; a routine “continue” is not permission to drain the thread.
