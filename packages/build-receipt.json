@@ -16,8 +16,8 @@
     "cloud/skills/nmem-maintenance/references/governance.md": "282a6571bf6d8608ee771095987c902e2d95bb99d60468bb50b72096c7bce4e7",
     "cloud/skills/nmem-maintenance/references/provenance-review.md": "8277d0b9f7ce1b12d910e2921419391a46b7f229bf9d1cf9cb74c518ffd59b23",
     "cloud/skills/nowledge-mem/SKILL.md": "830872388da490f7320ae81fc6c9eb4372fcbfdf97656ea3488822e72e28f7aa",
-    "cloud/upstream-provenance.json": "9153fdd3fda14852a3ba07cd791315409715752de2cdff90404f1f99c2558ca6",
-    "integrations.json": "4435604126c6923b15d7d5d62838422bdabe75cf3ec920b28687bdd794a4f187",
+    "cloud/upstream-provenance.json": "6183f4b6899bc2e3f12ad5b811554da33595c89ba5c0646ae692b443e997704a",
+    "integrations.json": "edf029e66eb8e5cc79317c88afacc57332f7cb6a0d1d7bb942bb93fc59cd27a7",
     "local/.codex-plugin/plugin.json": "f142f70f23b066c8a58e9d275d98da21a3bcf6e3c675189501cd3d5ceb6ea25d",
     "local/.mcp.json": "3c1b0ae300e1130c93c46ebc39a29a9a5866081cf7211ccfe0c8c0cbb9c24eb8",
     "local/AGENTS.md": "b7320b5b01dbc04ceba27b2b05f93a38638aff326b267963d8974eb13eb02987",
@@ -52,7 +52,7 @@
     "local/skills/search-memory/SKILL.md": "aaff69d49fdbbe8795b1ccb9135fa9c397420410f8742f8398a01978f8b08387",
     "local/skills/status/SKILL.md": "7e2874ae158dc9436f93c4dbdb67a82cc8c1a05819aa9252e7c629ccb881b0b3",
     "local/skills/working-memory/SKILL.md": "07673557f90af3c82e37b792444c4b49cc3a5454ec9d76d47cee35bd3fbd3b6f",
-    "local/upstream-provenance.json": "9116849baf7174f0946ca6daaa975f6cb865c0b3afe215b1d7affb7c3b027c80"
+    "local/upstream-provenance.json": "b8aa86db1e73ad7bcae185c2bee572f8ccd20e8ce1975a2aefa831a84e6a347a"
   },
   "personal": {
     "cloud_name": "nowledge-mem-personal-cloud",
@@ -66,14 +66,14 @@
   "upstream": {
     "cloud": {
       "adapter_version": "0.1.2",
-      "commit": "c177960495fd8e75d2a8ed85dbf800ebb9b7ff9d",
+      "commit": "7d6fe49e263a130d328f91ea0f9560f02570f087",
       "path": "nowledge-mem-openai-plugin",
       "repository": "https://github.com/nowledge-co/community.git",
       "version": "0.1.0"
     },
     "local": {
       "adapter_version": "0.1.2",
-      "commit": "c177960495fd8e75d2a8ed85dbf800ebb9b7ff9d",
+      "commit": "7d6fe49e263a130d328f91ea0f9560f02570f087",
       "path": "nowledge-mem-codex-plugin",
       "repository": "https://github.com/nowledge-co/community.git",
       "version": "0.1.41"
