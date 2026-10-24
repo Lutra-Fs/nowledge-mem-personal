@@ -119,11 +119,11 @@
       },
       "toolNaming": {
         "convention": "cli-direct",
-        "note": "SessionStart injects the full Nowledge Context Bundle. SubagentStart uses the exact NMEM_SUBAGENT_CONTEXT_TYPES allowlist for bounded context, skips Explore by default, and gives other unlisted types retrieval routing without a context read. Declarative skills and slash commands invoke nmem CLI directly."
+        "note": "SessionStart injects Context Bundle / Working Memory with a shared timeout budget and a user-visible read receipt. UserPromptSubmit requires one targeted nmem memory or thread search before concluding continuation, review, regression, release, connector, or prior-decision work. Read fallbacks preserve the configured Space. SubagentStart retains its exact allowlist and bounded context. The plugin remains CLI-first and does not register an MCP server."
       },
       "transport": "cli",
       "type": "plugin",
-      "version": "0.7.24"
+      "version": "0.7.28"
     },
     {
       "autonomy": {
@@ -186,7 +186,7 @@
       },
       "transport": "cli",
       "type": "plugin",
-      "version": "0.7.24"
+      "version": "0.7.28"
     },
     {
       "autonomy": {
@@ -242,12 +242,11 @@
     {
       "autonomy": {
         "bestResultRequires": [
-          "Use the public MCP endpoint ending in /mcp: Cloud endpoint for a Cloud workspace or Access Anywhere for an App workspace",
+          "Choose official installation for a personal or Team workspace on Nowledge Cloud, or the App connection guide for Mem running on your computer",
           "Complete the host's OAuth connector approval when requested",
           "Custom MCP Apps can expose both read and write tools when the ChatGPT plan, workspace policy, and approved OAuth scopes allow them",
-          "Directory publication is separate from private Developer mode setup and remains subject to OpenAI review",
-          "If the account cannot create a custom App, use browser capture until the public plugin is approved",
-          "Treat the universal public plugin as submitted and pending review until OpenAI approves the Plugins Directory listing",
+          "For Mem running on your computer, use a separate custom MCP connection with Access Anywhere or Nowledge Link and App OAuth pairing; this is not the official directory plugin",
+          "Custom MCP availability depends on the ChatGPT account and workspace policy; do not require Developer mode for installing the official directory plugin",
           "Use the browser extension or an official export when you need conversation capture",
           "Keep ChatGPT's connector identity separate from any local ChatGPT export source"
         ],
@@ -270,12 +269,12 @@
       "id": "chatgpt-cloud",
       "install": {
         "agentGuide": {
-          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the ChatGPT Cloud path. If custom Apps are available for this account, create one from ChatGPT Apps settings, add the public Nowledge Mem /mcp endpoint, and complete OAuth. Use the Cloud endpoint for a Cloud workspace or Access Anywhere for an App workspace. Verify a Context Bundle or Working Memory check, a memory search, and one scoped write when the approved scopes and workspace policy allow it. If the create action is unavailable, use browser capture until the submitted public plugin is approved. Never invent a plugin_asdk_app ID or claim MCP captures ChatGPT threads.",
-          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 ChatGPT 云端路径操作。如果这个账号可以使用自定义 App，就从 ChatGPT 的 Apps 设置创建一个，添加公开的 Nowledge Mem /mcp 地址并完成 OAuth；Cloud workspace 使用 Cloud endpoint，App workspace 使用 Access Anywhere。在已授权 scope 和 workspace 策略允许时，完成 Context Bundle 或 Working Memory 检查、一次记忆搜索和一次范围明确的写入。如果没有创建入口，先用浏览器扩展捕获内容，并等待已经提交审核的公开 plugin。不要伪造 plugin_asdk_app ID，也不要声称 MCP 会捕获 ChatGPT 会话。"
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the ChatGPT guide. For a personal or Team workspace on Nowledge Cloud, install the official plugin at https://nowled.ge/openai, sign in to Mem, choose the intended workspace and approve OAuth. For Mem running on the user's computer, follow the App connection guide to set up Access Anywhere or Nowledge Link and a custom MCP connection with OAuth pairing; check that the ChatGPT account allows custom connections. Verify search and one scoped write with exact-ID readback when authorized. For complete-chat capture, use the browser extension or official export.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，并按 ChatGPT 指南操作。个人或 Team 工作区在 Nowledge Cloud 时，从 https://nowled.ge/openai 安装官方插件，登录 Mem，选对工作区并完成 OAuth 授权。Mem 在自己的电脑上时，按 App 连接指南设置 Access Anywhere 或 Nowledge Link，并建立自定义 MCP 连接、完成 OAuth 配对；先确认 ChatGPT 账号允许自定义连接。验证搜索，并在获得授权后验证一次范围明确的写入和按 ID 读取。完整聊天捕获请用浏览器扩展或官方导出。"
         },
         "detectionHint": "ChatGPT Web and desktop are cloud clients and are not locally detectable by the desktop app",
         "docsUrl": "/docs/integrations/chatgpt-web",
-        "publicDirectoryStatus": "submitted-pending-review"
+        "publicDirectoryStatus": "published"
       },
       "name": "ChatGPT Web and Desktop",
       "skills": [
@@ -370,13 +369,14 @@
       "id": "copilot-cli",
       "install": {
         "agentGuide": {
-          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Copilot CLI. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
-          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Copilot CLI 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Copilot CLI. Inspect the complete marketplace listing first, including related sources under aliases. Stop on aliased, pinned, conflicting or unclear provenance. Add only when the canonical name and related sources are unambiguously absent, verify the unpinned canonical source, then install the qualified plugin. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Copilot CLI 安装或更新 Nowledge Mem。先检查完整市场列表，包括别名下的相关来源；发现别名、固定版本、来源冲突或无法确认的条目时停止。只有确认官方名称和相关来源均缺失时才添加，验证来源为未固定版本的官方仓库后安装带来源限定的插件。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
         },
-        "command": "copilot plugin marketplace add nowledge-co/community && copilot plugin install nowledge-mem@nowledge-community",
-        "detectionHint": "Running as GitHub Copilot CLI agent; ~/.copilot/ exists",
+        "command": "copilot plugin install nowledge-mem@nowledge-community",
+        "configRequired": "Before the qualified install command, run copilot plugin marketplace list and inspect every entry. Stop if the community repository appears under another name, is pinned, or any entry prevents ruling out a related source. Add nowledge-co/community only when both the canonical name and related sources are unambiguously absent, then list again and verify the source is exactly GitHub: nowledge-co/community without a ref or pin. Reuse an existing verified canonical registration. Stop for conflicting or unreadable results.",
+        "detectionHint": "Running as GitHub Copilot CLI agent; COPILOT_HOME selects its profile, defaulting to ~/.copilot",
         "docsUrl": "/docs/integrations/copilot-cli",
-        "updateCommand": "copilot plugin marketplace add nowledge-co/community && copilot plugin marketplace update nowledge-community && copilot plugin update nowledge-mem"
+        "updateCommand": "copilot plugin marketplace update nowledge-community && copilot plugin update nowledge-mem@nowledge-community"
       },
       "name": "Copilot CLI",
       "skills": [
@@ -397,7 +397,7 @@
       },
       "transport": "cli",
       "type": "plugin",
-      "version": "0.1.4"
+      "version": "0.1.6"
     },
     {
       "autonomy": {
@@ -546,6 +546,7 @@
           "Restart Codex and trust the new or changed Nowledge Mem hooks when prompted; enabled and trusted are separate Codex security states",
           "If Codex local Memory is also enabled, turn off Allow memory generation from tool-assisted tasks so MCP and web results do not get copied into Codex's separate local memory store",
           "Use the bundled local MCP server, or use nmem config mcp show --host codex to override mcp_servers.nowledge-mem for remote Mem or authenticated localhost",
+          "Optional local mailbox guidance requires explicit NMEM_AGENT_CONTEXT, a compatible CLI/backend and an independently approved context; when NMEM_CLI_PATH is set, both hooks and model-issued CLI calls must use that executable rather than another nmem from PATH; NMEM_AGENT_PROFILE_MAINTENANCE=1 saves pending profile work at Stop and allows repeated reminders on later starts. Read pending status with a verified Python 3 interpreter and JSON containing only action=status and the original item_id. The model must confirm any ordinary-turn update or create-only enrollment; the flag alone never authorizes identity creation, Rules edits, mailbox settlement or host control",
           "Keep nmem available on this machine",
           "Run nmem t sync --from codex --all-projects --apply only when you want to import older Codex sessions",
           "Merge the package AGENTS.md into the project for stronger follow-through"
@@ -598,11 +599,11 @@
       },
       "toolNaming": {
         "convention": "hybrid-cli+mcp",
-        "note": "SessionStart injects the Nowledge Context Bundle. SubagentStart uses an exact Codex role allowlist: selected context-heavy roles receive a bounded snapshot, explorer is a no-op by default, and other roles receive targeted retrieval guidance without a context read. UserPromptSubmit keeps cross-tool/exact-history work routed to Nowledge even when Codex local Memory is enabled. The search-memory skill routes bounded Normal, Deep, and one-hop Progressive graph retrieval, and non-empty Memory results get a focused graph through the inline MCP App or standalone fallback. Prefer MCP tools for retrieval and memory writes; the package bundles the local server while user config can override it. The Stop hook captures real Codex transcripts through nmem, guards duplicate hook sources for the same transcript state, and skips Raft-managed execution traces by structured session originator without affecting normal Codex sessions on the same computer. The save-thread skill remains the explicit fallback."
+        "note": "SessionStart injects the Nowledge Context Bundle when safe; a pending identity confirmation suppresses create-capable context bootstrap. SubagentStart uses an exact Codex role allowlist: selected context-heavy roles receive a bounded snapshot, explorer is a no-op by default, and other roles receive targeted retrieval guidance without a context read. UserPromptSubmit keeps cross-tool/exact-history work routed to Nowledge even when Codex local Memory is enabled. The search-memory skill routes bounded Normal, Deep, and one-hop Progressive graph retrieval, and non-empty Memory results get a focused graph through the inline MCP App or standalone fallback. Prefer MCP tools for retrieval and memory writes; the package bundles the local server while user config can override it. Thread retrieval searches first and reads at most one targeted message slice per question; it never walks offsets to reconstruct a conversation or raises content limits to work around slow reads. The Stop hook captures real Codex transcripts through nmem, guards duplicate hook sources for the same transcript state, and skips Raft-managed execution traces by structured session originator without affecting normal Codex sessions on the same computer. Optional identity/profile work is saved as pending at normal Stop, with bounded read-only reminders on every eligible start. Confirmation and owner operations occur in an ordinary model turn; reminders alone never create or update a profile. The save-thread skill remains the explicit fallback."
       },
       "transport": "cli+mcp",
       "type": "plugin",
-      "version": "0.1.1"
+      "version": "0.1.2"
     },
     {
       "autonomy": {
@@ -660,7 +661,7 @@
       },
       "transport": "mcp+hook",
       "type": "plugin",
-      "version": "0.1.0"
+      "version": "0.1.1"
     },
     {
       "aliases": [
@@ -980,7 +981,7 @@
       },
       "transport": "plugin+mcp+cli",
       "type": "plugin",
-      "version": "0.1.0"
+      "version": "0.1.1"
     },
     {
       "autonomy": {
@@ -1038,7 +1039,7 @@
       },
       "transport": "mcp+hook",
       "type": "plugin",
-      "version": "0.2.1"
+      "version": "0.2.2"
     },
     {
       "autonomy": {
@@ -1069,10 +1070,10 @@
           "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for Droid. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
           "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 Droid 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
         },
-        "command": "droid plugin marketplace add https://github.com/nowledge-co/community && droid plugin install nowledge-mem@nowledge-community",
+        "command": "droid plugin marketplace add https://github.com/nowledge-co/community && droid plugin install nowledge-mem@community",
         "detectionHint": "Running inside Droid (Factory)",
         "docsUrl": "/docs/integrations/droid",
-        "updateCommand": "droid plugin marketplace update nowledge-community && droid plugin update nowledge-mem@nowledge-community"
+        "updateCommand": "droid plugin marketplace update community && droid plugin update nowledge-mem@community"
       },
       "name": "Droid",
       "skills": [
@@ -1098,7 +1099,7 @@
       },
       "transport": "cli",
       "type": "plugin",
-      "version": "0.1.1"
+      "version": "0.1.2"
     },
     {
       "autonomy": {
@@ -1135,10 +1136,10 @@
           "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for OpenClaw. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
           "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 OpenClaw 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
         },
-        "command": "openclaw plugins install clawhub:nowledge-mem",
+        "command": "openclaw plugins install clawhub:@nowledge/openclaw-nowledge-mem",
         "detectionHint": "Running as OpenClaw agent; ~/.openclaw/ exists",
         "docsUrl": "/docs/integrations/openclaw",
-        "updateCommand": "openclaw plugins install clawhub:nowledge-mem --force"
+        "updateCommand": "openclaw plugins install clawhub:@nowledge/openclaw-nowledge-mem --force"
       },
       "name": "OpenClaw",
       "skills": [
@@ -1151,7 +1152,7 @@
       ],
       "threadSave": {
         "method": "plugin-capture",
-        "note": "Plugin captures interactive sessions through Context Engine afterTurn and, when plugins.entries.openclaw-nowledge-mem.hooks.allowConversationAccess=true, agent_end as a safety net. Persists threads via Nowledge Mem HTTP API with incremental tail sync. Isolated cron, subagent, and OpenClaw 2.0 Incognito session keys are excluded from automatic capture. Memory tools still use nmem CLI."
+        "note": "Plugin captures interactive sessions through Context Engine afterTurn and, when plugins.entries.openclaw-nowledge-mem.hooks.allowConversationAccess=true, agent_end as a safety net. Persists threads via Nowledge Mem HTTP API with incremental tail sync. Isolated cron, subagent, and OpenClaw 2.0 Incognito session keys are excluded from automatic capture. Memory tools still use nmem CLI. Sync acknowledgements, prefix hashing, and timeout parsing use the embedded shared TypeScript core; OpenClaw compaction and legacy cursor compatibility remain host-owned."
       },
       "toolNaming": {
         "convention": "nowledge_mem_prefix",
@@ -1172,7 +1173,7 @@
       },
       "transport": "cli",
       "type": "plugin",
-      "version": "0.8.34"
+      "version": "0.8.39"
     },
     {
       "autonomy": {
@@ -1215,7 +1216,7 @@
       "slashCommands": [],
       "threadSave": {
         "method": "plugin-capture",
-        "note": "Plugin captures threads live via idle timer, thread switch, and quit hooks; sends via the Nowledge Mem HTTP API"
+        "note": "Plugin captures threads live via idle timer, thread switch, and quit hooks; shares snapshot selection, acknowledgement validation, hashing, and timeouts through the embedded TypeScript core while retaining legacy cursor compatibility and HTTP delivery"
       },
       "toolNaming": {
         "convention": "nowledge_mem_prefix",
@@ -1238,7 +1239,7 @@
       },
       "transport": "http",
       "type": "plugin",
-      "version": "0.7.6"
+      "version": "0.7.8"
     },
     {
       "autonomy": {
@@ -1301,7 +1302,7 @@
       },
       "transport": "cli",
       "type": "plugin",
-      "version": "0.7.3"
+      "version": "0.7.5"
     },
     {
       "autonomy": {
@@ -1358,7 +1359,7 @@
       },
       "transport": "plugin+cli",
       "type": "plugin",
-      "version": "0.8.9"
+      "version": "0.8.14"
     },
     {
       "autonomy": {
@@ -1416,7 +1417,7 @@
       },
       "transport": "plugin+cli",
       "type": "plugin",
-      "version": "0.1.0"
+      "version": "0.1.2"
     },
     {
       "autonomy": {
@@ -1616,7 +1617,7 @@
       },
       "transport": "cli+http",
       "type": "plugin",
-      "version": "0.1.4"
+      "version": "0.1.7"
     },
     {
       "autonomy": {
@@ -1663,11 +1664,11 @@
       "threadSave": {
         "historicalCommand": "nmem t sync --from opencode --all-projects",
         "method": "sdk-extract+event-idle",
-        "note": "Plugin subscribes to OpenCode session idle events and pre-compaction, reads session messages through ctx.session.context, and posts to Nowledge Mem thread API over HTTP; save_thread remains an explicit idempotent fallback"
+        "note": "Plugin subscribes to OpenCode session.execution.succeeded, legacy idle events, and pre-compaction, reads session messages through ctx.session.context, and posts to Nowledge Mem thread API over HTTP; save_thread remains an explicit idempotent fallback"
       },
       "toolNaming": {
         "convention": "canonical",
-        "note": "Plugin registers tools with nowledge_mem_ prefix via @opencode/plugin (OpenCode v2)",
+        "note": "Plugin registers tools with nowledge_mem_ prefix via @opencode/plugin (OpenCode v2). Recognized schema-v1 Context Bundle tool output keeps one compact JSON representation while preserving configured instructions, rules, scope, and semantic hash; unknown or partial bundles and responses containing unsafe integers, numeric overflow, underflow or decimal precision loss remain unchanged.",
         "prefix": "nowledge_mem_",
         "tools": [
           "nowledge_mem_context_bundle",
@@ -1683,7 +1684,7 @@
       },
       "transport": "cli+http",
       "type": "plugin",
-      "version": "0.4.0"
+      "version": "0.4.6"
     },
     {
       "autonomy": {
@@ -1916,7 +1917,7 @@
       "threadSave": {
         "command": "nmem t import --file <dsh-thread.json> --source deepseek-harness --id deepseek-harness-<session-id>",
         "method": "cordis-session-event+cli-import",
-        "note": "The community DSH bundle listens to DSH session/event turn-end events, serializes user/assistant/tool-result surface messages, skips its own context injections, and imports through nmem with NMEM_IMPORT_ORIGIN=deepseek-harness. Its standalone repository is tagged dsh-plugin for DeepSeek Harness ecosystem discovery.",
+        "note": "The community DSH bundle listens to DSH session/event turn-end events, serializes user/assistant/tool-result surface messages, skips its own context injections, and imports through nmem with NMEM_IMPORT_ORIGIN=deepseek-harness. DSH 0.1.7-rc.1, 0.2.1-alpha.1, and 0.2.1-rc.2 use shell.execute(...).result() and producer-owned plugin:nowledge-mem sources; legacy shell.run() and plugin attribution remain supported. Its standalone repository is tagged dsh-plugin for DeepSeek Harness ecosystem discovery.",
         "runtime": "deepseek-harness"
       },
       "toolNaming": {
@@ -1931,7 +1932,7 @@
       },
       "transport": "dsh-bundle+mcp+cli",
       "type": "plugin",
-      "version": "0.1.5"
+      "version": "0.1.6"
     },
     {
       "autonomy": {
@@ -2046,7 +2047,7 @@
       },
       "transport": "plugin+cli",
       "type": "plugin",
-      "version": "0.1.1"
+      "version": "0.1.3"
     },
     {
       "autonomy": {
@@ -2197,14 +2198,14 @@
       "id": "workbuddy",
       "install": {
         "agentGuide": {
-          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for WorkBuddy. Add the raw https://raw.githubusercontent.com/nowledge-co/community/main/.workbuddy-plugin/marketplace.json URL as nowledge-community, not the repository root; install nowledge-mem@nowledge-community, verify with nmem status and the Context Bundle or Working Memory check, then run a short session and confirm nmem t list --source workbuddy shows the imported thread.",
-          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 WorkBuddy 安装或更新 Nowledge Mem。把 https://raw.githubusercontent.com/nowledge-co/community/main/.workbuddy-plugin/marketplace.json 原始地址添加为 nowledge-community，不要添加仓库根目录；安装 nowledge-mem@nowledge-community，用 nmem status 和 Context Bundle 或 Working Memory 检查验证，再跑一个短会话并确认 nmem t list --source workbuddy 能看到导入的线程。"
+          "prompt": "Read https://mem.nowledge.co/SKILL.md for WorkBuddy setup. In desktop Plugins -> +, add the raw https://raw.githubusercontent.com/nowledge-co/community/main/.workbuddy-plugin/marketplace.json URL, Install and enable Nowledge Mem, reload, and guide the user through explicit MCP Trust. Do not substitute CodeBuddy CLI installation as proof of desktop UI registration. Verify with nmem status and the Context Bundle or Working Memory check, then a memory search inside WorkBuddy; check automatic capture only with full plugin hooks installed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，为 WorkBuddy 配置连接。在桌面端 插件 -> + 添加 https://raw.githubusercontent.com/nowledge-co/community/main/.workbuddy-plugin/marketplace.json，安装并启用 Nowledge Mem，重载后引导用户明确 Trust MCP。不要把 CodeBuddy CLI 安装成功当成桌面 UI 注册成功。在 WorkBuddy 内用 nmem status 和 Context Bundle 或 Working Memory 检查验证，再做一次记忆搜索；只有完整插件 hook 已安装时才检查自动会话采集。"
         },
-        "command": "In WorkBuddy, run /plugin marketplace add https://raw.githubusercontent.com/nowledge-co/community/main/.workbuddy-plugin/marketplace.json --name nowledge-community, then /plugin install nowledge-mem@nowledge-community",
-        "configRequired": "Add the raw .workbuddy-plugin/marketplace.json URL, not the repository root: current WorkBuddy resolves .codebuddy-plugin before .workbuddy-plugin when both exist. The WorkBuddy marketplace sparse-checks out only nowledge-mem-workbuddy-plugin. Existing users who added nowledge-co/community at the repository root must remove and re-add the marketplace once, then reinstall. The dedicated connector ships a WorkBuddy manifest and MCP identity, skills, slash commands, lifecycle hooks, and a WorkBuddy-managed Node runner. For remote Mem, generate a user-owned MCP override with nmem config mcp show --host workbuddy and paste it into ~/.workbuddy/.mcp.json, $WORKBUDDY_CONFIG_DIR/.mcp.json, or project .mcp.json.",
+        "command": "In WorkBuddy desktop, open Plugins -> + and add https://raw.githubusercontent.com/nowledge-co/community/main/.workbuddy-plugin/marketplace.json; find Nowledge Mem in nowledge-community, Install and enable it, then reload WorkBuddy and review the MCP Trust prompt. Use /plugin marketplace add and /plugin install only if that host exposes plugin commands.",
+        "configRequired": "Use the raw .workbuddy-plugin/marketplace.json URL, not the repository root, which can select CodeBuddy instead. Confirm the plugin and skill are enabled and explicitly Trust its MCP connector if prompted; an install command alone is not proof of runtime availability. For remote Mem or authenticated localhost, use nmem config mcp show --host workbuddy and add/update nowledge-mem through WorkBuddy's Connections/MCP settings, preserving URL and headers. Do not assume ~/.workbuddy/.mcp.json populates the desktop UI. Manually copying a skill and registering MCP does not install automatic capture hooks.",
         "detectionHint": "Running inside WorkBuddy; ~/.workbuddy/ exists, WORKBUDDY_CONFIG_DIR is set, or WorkBuddy exposes the CodeBuddy-compatible plugin runtime",
         "docsUrl": "/docs/integrations/workbuddy",
-        "updateCommand": "In WorkBuddy, run /plugin marketplace remove nowledge-community, then /plugin marketplace add https://raw.githubusercontent.com/nowledge-co/community/main/.workbuddy-plugin/marketplace.json --name nowledge-community, then /plugin install nowledge-mem@nowledge-community"
+        "updateCommand": "In WorkBuddy Plugins, open the installed Nowledge Mem card and choose Update, then reload. Do not remove the marketplace for an ordinary update."
       },
       "name": "WorkBuddy",
       "skills": [
@@ -2228,7 +2229,7 @@
       },
       "transport": "plugin+mcp+cli",
       "type": "plugin",
-      "version": "0.2.0"
+      "version": "0.2.1"
     },
     {
       "autonomy": {
@@ -2347,7 +2348,7 @@
       },
       "transport": "python+mcp+rest",
       "type": "connector",
-      "version": "0.1.0"
+      "version": "0.1.1"
     },
     {
       "autonomy": {
@@ -2535,7 +2536,7 @@
       },
       "transport": "agent-plugin+mcp",
       "type": "plugin",
-      "version": "0.1.1"
+      "version": "0.1.3"
     },
     {
       "autonomy": {
@@ -2589,7 +2590,7 @@
       },
       "transport": "cli",
       "type": "skills",
-      "version": "0.6.1"
+      "version": "0.6.4"
     },
     {
       "autonomy": {
@@ -3011,7 +3012,7 @@
       },
       "transport": "plugin+mcp+cli+api",
       "type": "plugin",
-      "version": "0.1.1"
+      "version": "0.1.3"
     },
     {
       "autonomy": {
@@ -3067,6 +3068,58 @@
       "transport": "plugin+skill+mcp",
       "type": "plugin",
       "version": "0.1.3"
+    },
+    {
+      "autonomy": {
+        "bestResultRequires": [
+          "In iCode /agents, save the selected Code profile first; then run the uv/PyYAML installer to merge MCP and hooks and install unclaimed shared skills",
+          "Keep nmem configured on this machine for local or remote Mem; the installer reads ~/.nowledge-mem/config.json or NMEM_API_URL/NMEM_API_KEY",
+          "Restart iCode after install or update; agent profiles and hooks load at startup only",
+          "For remote Mem, configure its HTTPS base URL and matching API key in nmem before installation; rerun the installer after changing the endpoint"
+        ],
+        "bootstrap": "automatic",
+        "distill": "guided",
+        "recall": "guided",
+        "threads": "handoff-only"
+      },
+      "capabilities": {
+        "autoCapture": false,
+        "autoRecall": true,
+        "distill": true,
+        "graphExploration": true,
+        "search": true,
+        "status": true,
+        "workingMemory": true
+      },
+      "category": "coding",
+      "directory": "nowledge-mem-icode-plugin",
+      "id": "icode",
+      "install": {
+        "agentGuide": {
+          "prompt": "Read https://mem.nowledge.co/SKILL.md and follow the instructions to install or update Nowledge Mem for iCode. Verify with nmem status and the Context Bundle or Working Memory check, then summarize what changed.",
+          "promptZh": "读取 https://mem.nowledge.co/SKILL.md，按其中说明为 iCode 安装或更新 Nowledge Mem。用 nmem status 和 Context Bundle 或 Working Memory 检查验证结果，并总结你改了什么。"
+        },
+        "command": "bash -lc 'tmp=\"$(mktemp -d)\" && git clone --depth 1 https://github.com/nowledge-co/community.git \"$tmp/community\" && uv run --no-project --with pyyaml python \"$tmp/community/nowledge-mem-icode-plugin/scripts/install.py\"'",
+        "detectionHint": "Running inside iCode (Chrys); ~/.chrys/ exists or CHRYS_SESSION_ROOT_DIR is set",
+        "docsUrl": "/docs/integrations/icode",
+        "updateCommand": "bash -lc 'tmp=\"$(mktemp -d)\" && git clone --depth 1 https://github.com/nowledge-co/community.git \"$tmp/community\" && uv run --no-project --with pyyaml python \"$tmp/community/nowledge-mem-icode-plugin/scripts/install.py\"'"
+      },
+      "name": "iCode",
+      "skills": [
+        "nowledge-mem"
+      ],
+      "slashCommands": [],
+      "threadSave": {
+        "method": "handoff-only",
+        "note": "iCode persists sessions under ~/.chrys/sessions/<short-id>/ (session.json plus a trajectory event log). No nmem transcript parser is registered for that format yet, so the plugin injects the Context Bundle through iCode's user_prompt_submit system_reminder hook and saves explicit resumable handoffs; it does not claim automatic full-thread capture."
+      },
+      "toolNaming": {
+        "convention": "mcp-backend",
+        "note": "MCP tools are defined by the backend (memory_search, memory_add, and friends) and load through iCode's agent-profile MCP block, optionally with progressive disclosure; session context injection uses iCode's user_prompt_submit hook."
+      },
+      "transport": "mcp-config+hook",
+      "type": "plugin",
+      "version": "0.1.0"
     },
     {
       "autonomy": {
