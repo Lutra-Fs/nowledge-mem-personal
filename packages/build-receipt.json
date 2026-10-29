@@ -16,8 +16,8 @@
     "cloud/skills/nmem-maintenance/references/governance.md": "282a6571bf6d8608ee771095987c902e2d95bb99d60468bb50b72096c7bce4e7",
     "cloud/skills/nmem-maintenance/references/provenance-review.md": "8277d0b9f7ce1b12d910e2921419391a46b7f229bf9d1cf9cb74c518ffd59b23",
     "cloud/skills/nowledge-mem/SKILL.md": "e72ca5fe59e269fe61db976b3a9f5cdf9aa5a9a13657efb7d83046871a9cf825",
-    "cloud/upstream-provenance.json": "04a4ab5b85dab135368a1a5106f99120ea62f019691826ac81176ef383ab48d9",
-    "integrations.json": "86f1d651c882113b8c70fbf6891a02c473cf4fa81585d370ec0b759a07c10a9c",
+    "cloud/upstream-provenance.json": "aa3a1cca864abeacda496bcbb67dd92afa214792a250d7edda0933da748e1ef3",
+    "integrations.json": "97ddc49e6e7b1783d6dce3eb3822189b68f3840f70318222bf8b4f1e75315619",
     "local/.codex-plugin/plugin.json": "f142f70f23b066c8a58e9d275d98da21a3bcf6e3c675189501cd3d5ceb6ea25d",
     "local/.mcp.json": "3c1b0ae300e1130c93c46ebc39a29a9a5866081cf7211ccfe0c8c0cbb9c24eb8",
     "local/AGENTS.md": "06a91a912e140c8566eab08a36c18fb43da32bf5fddc2462e8726a084f490c9d",
@@ -27,6 +27,7 @@
     "local/README.md": "1f412f73dede4c5e2040141c4e1dd893a8634e46cbb3367905a69f963b62e830",
     "local/UPSTREAM-MANIFEST.json": "178f364351656c64851399be430b19404e03cf6c072e52bab11ac0a2e7a6dd44",
     "local/codex.config.example.toml": "3becb03b7bc7d2295e2d073b7373ea5430e72d35ac19483cc6a9410c24c06e40",
+    "local/docs/isolated-session-import.md": "3e29b928a6ff23ab7a8373a4765b6880cc439ec22099b911f8bed88688abfcf3",
     "local/docs/pending-maintenance.md": "43c86cbd3306666b03312e16437167fb9f0ae94588e4cee64618c221fbdd0e8c",
     "local/hooks/hooks.json": "8657156537a7c221811879ce82cfd274e7bc4484e6ddf1edaa58d58644c77078",
     "local/hooks/nmem-context.py": "0b4c5aa6dfb49ec2eae10d00cbc8afb26b9fae4b1b4b306d51024b447234de3e",
@@ -54,7 +55,7 @@
     "local/skills/search-memory/SKILL.md": "aaff69d49fdbbe8795b1ccb9135fa9c397420410f8742f8398a01978f8b08387",
     "local/skills/status/SKILL.md": "7e2874ae158dc9436f93c4dbdb67a82cc8c1a05819aa9252e7c629ccb881b0b3",
     "local/skills/working-memory/SKILL.md": "07673557f90af3c82e37b792444c4b49cc3a5454ec9d76d47cee35bd3fbd3b6f",
-    "local/upstream-provenance.json": "9124b5e842c488964b2910bdb3eebd7d914d408638630ede65d9d4d1f9bbc21e"
+    "local/upstream-provenance.json": "3967063c9b8cde3562340c660d0adfe4073abb3a7802fb93f45c7f51b38e9a41"
   },
   "personal": {
     "cloud_name": "nowledge-mem-personal-cloud",
@@ -68,14 +69,14 @@
   "upstream": {
     "cloud": {
       "adapter_version": "0.1.2",
-      "commit": "af953e7633e1b09e28745be6a5892f021b9fce35",
+      "commit": "29c9f42ec0244632bf6d7405327d65f0e54aa4b1",
       "path": "nowledge-mem-openai-plugin",
       "repository": "https://github.com/nowledge-co/community.git",
       "version": "0.1.1"
     },
     "local": {
       "adapter_version": "0.1.2",
-      "commit": "af953e7633e1b09e28745be6a5892f021b9fce35",
+      "commit": "29c9f42ec0244632bf6d7405327d65f0e54aa4b1",
       "path": "nowledge-mem-codex-plugin",
       "repository": "https://github.com/nowledge-co/community.git",
       "version": "0.1.44"
