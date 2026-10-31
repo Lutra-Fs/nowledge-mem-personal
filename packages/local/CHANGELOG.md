@@ -1,12 +1,118 @@
 # Personal adapter changes
 
-## [0.1.1]
+## [0.1.2]
 
 Add the portable maintenance skill and personal package metadata. Keep the upstream MCP key and hook layout.
 
 # Changelog
 
-## [Unreleased]
+## [0.1.45] - Unreleased
+
+- Stream optional skill-outcome scans with bounded record size, reference state and time instead of retaining the full transcript.
+
+## [0.1.44] - Unreleased
+
+### Added
+
+- Add default-off Nowledge Bridge session startup and resume with an explicitly
+  configured Agent Context and `NMEM_BRIDGE_SESSION_MAILBOX=1`. Revalidate the
+  exact native session binding through a compatible CLI and backend; a new
+  session does not inherit another session's mailbox.
+- Report registration separately from session-addressed receiving readiness.
+  Existing identity-scoped mailbox guidance remains the default.
+
+### Changed
+
+- Show session messaging guidance only after the CLI validates the current
+  backend capability, complete original scope and server-owned automatic
+  receiving and recovery descriptor. Older or unsupported descriptors grant no
+  receiving guidance.
+- Preserve the exact native session correlation for session-scoped discovery at
+  startup, resume and ordinary task boundaries.
+- Explain receipt-only recovery: read the original receipt's message IDs in the
+  same context/session, or replay the unchanged original Claim operation. Do not
+  create a replacement operation or perform a separate acknowledgement step.
+
+### Notes
+
+- Backend readiness and delivery acceptance do not prove model visibility or
+  task completion. Installed-host delivery remains separately unverified.
+
+## [0.1.43] - Unreleased
+
+- Use one read-only CLI pending probe for compatibility and explicitly opted-in native Local/Cloud mailboxes. Keep exact host/session binding, bounded scan completeness, and fail open on unsupported versions without mailbox fallback.
+
+## [0.1.42] - Unreleased
+
+### Added
+
+- At normal Stop, check an explicitly approved compatibility mailbox and remind
+  the Agent once about a new pending state. The bounded check never consumes or
+  acknowledges mail; recursive Stop, stale bindings and unavailable services
+  end normally. Set `NMEM_NO_MAILBOX_NOTICE=1` to disable reminders.
+- Coordinate duplicate reminders through a private bounded cache. Experimental
+  session modes without a qualified read-only probe never fall back to an older
+  identity inbox.
+- Skip Windows CLI executables in WSL before probing; this Stop check requires
+  a CLI native to the host OS.
+
+## [0.1.41] - Unreleased
+
+### Changed
+
+- Save optional identity/profile work as pending at normal Stop. Each eligible
+  start can show unfinished work again; confirmation and owner operations take
+  place in an ordinary model turn.
+- Preserve the original operation through uncertain creation or profile-update
+  results. A reminder alone never creates an identity or completes maintenance.
+
+### Fixed
+
+- Show a minimal pending-status request and Python 3 guidance at startup so
+  agents can inspect the original item without guessing the request format.
+- Resolve uncertain existing-profile selections by explicit confirmation of the
+  current live context revision, without repeating selection or claiming the
+  original write completed; retain original intent and known binding fences.
+- Keep multiline instruction text and embedded hook/MCP examples untouched
+  when enabling hooks or managing the MCP configuration.
+- Preserve quoted/commented Codex feature and hook-state tables during setup,
+  and validate generated TOML before replacing the user config. Unsupported
+  rewrites fail without corrupting the original config.
+- Validate Codex TOML before installing hooks when setup runs on older Python,
+  using an available Python 3.11 or newer parser. Invalid configuration stays
+  unchanged, and the local Memory coexistence notice remains available.
+
+### Notes
+
+- These changes are an implementation candidate awaiting installed-host
+  acceptance. They do not change Labs activation or enable Cloud Agent Team.
+
+## [0.1.40] - Unreleased
+
+### Added
+
+- Add opt-in existing-profile maintenance at Codex Stop. With an explicit
+  `NMEM_AGENT_CONTEXT` and `NMEM_AGENT_PROFILE_MAINTENANCE=1`, the hook verifies
+  the live named context, prepares only the approved public profile projection,
+  and asks Codex for one revision-fenced apply-or-no-change decision.
+- Bound Stop input, CLI calls, CLI output, profile fields, and continuation text;
+  recursive, duplicate, unsupported, malformed, timed-out, conflicting, and
+  failed paths end normally without claiming a profile save.
+
+### Fixed
+
+- Keep continuation admission stable across concurrent profile edits during
+  the same Stop while retaining revision-fenced mutation operation IDs.
+- Refuse an unavailable explicit CLI path instead of selecting another install.
+- Preserve exact Space IDs, including empty, whitespace, and Unicode IDs, in
+  live named-context admission at startup and Stop.
+
+## [0.1.39] - 2026-10-11
+
+### Fixed
+
+- Search first, inspect at most one small targeted thread range per question, and report evidence gaps rather than walking offsets.
+- Preserve explicit target ranges, progressive graph exploration and existing session capture.
 
 ## [0.1.38] - 2026-10-01
 
