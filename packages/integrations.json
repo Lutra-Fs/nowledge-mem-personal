@@ -273,7 +273,7 @@
       },
       "transport": "cli",
       "type": "plugin",
-      "version": "0.7.30"
+      "version": "0.7.31"
     },
     {
       "autonomy": {
@@ -336,7 +336,7 @@
       },
       "transport": "cli",
       "type": "plugin",
-      "version": "0.7.30"
+      "version": "0.7.31"
     },
     {
       "autonomy": {
