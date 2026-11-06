@@ -34,5 +34,5 @@
   "name": "nowledge-mem-cloud",
   "repository": "https://github.com/nowledge-co/community/tree/main/nowledge-mem-openai-plugin",
   "skills": "./skills/",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

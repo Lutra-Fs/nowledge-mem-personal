@@ -1,7 +1,7 @@
 {
-  "adapter_version": "0.1.1",
-  "commit": "4d07c9462b329aae654246699b8183df8d8e2a50",
+  "adapter_version": "0.1.2",
+  "commit": "20d9c1e1476ef410a1c92455f2ff60fc69a88c24",
   "path": "nowledge-mem-openai-plugin",
   "repository": "https://github.com/nowledge-co/community.git",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
